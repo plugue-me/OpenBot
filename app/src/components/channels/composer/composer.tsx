@@ -3,6 +3,7 @@ import {
   type AttachmentsConfig,
   useAttachments,
 } from "@copilotkit/react-core/v2";
+import { productFeatureAvailable } from "@openbot/shared/product-capabilities";
 import {
   IconArrowUp,
   IconPlayerStopFilled,
@@ -427,6 +428,12 @@ export function Composer({
     },
     disabled || voiceCall?.active === true,
   );
+  const filesAvailable =
+    !dictation.capabilities?.standalone ||
+    productFeatureAvailable(dictation.capabilities.features, "files");
+  const routinesAvailable =
+    !dictation.capabilities?.standalone ||
+    productFeatureAvailable(dictation.capabilities.features, "routines");
   /** `autoFocus` has been honoured once, and is not owed again for the life of this composer. */
   const claimedAutoFocus = useRef(false);
   /**
@@ -596,7 +603,9 @@ export function Composer({
     handleDragOver,
     handleDragLeave,
     removeAttachment,
-  } = useAttachments({ config: attachmentsConfig });
+  } = useAttachments({
+    config: filesAvailable ? attachmentsConfig : undefined,
+  });
 
   /**
    * THERE IS A CHANNEL TO UPLOAD TO **AND** THIS CONVERSATION CAN STILL TAKE A MESSAGE.
@@ -1729,7 +1738,9 @@ export function Composer({
                 ) : null}
                 {/* No attachments and nothing else behind a plus, so no plus: a disabled one that
                     explained nothing read as broken. */}
-                {routine ? <RoutineComposerButton {...routine} /> : null}
+                {routine && routinesAvailable ? (
+                  <RoutineComposerButton {...routine} />
+                ) : null}
                 {modelPicker}
               </div>
               <div className="flex shrink-0 items-center gap-1">

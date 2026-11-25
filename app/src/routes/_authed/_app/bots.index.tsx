@@ -27,6 +27,7 @@ import { Separator } from "@/components/ui/separator";
 import {
   deploymentCapabilitiesQueryOptions,
   useOffersMemory,
+  useProductFeature,
 } from "@/lib/deployment/queries";
 
 /** Just longer than the sheet's 200ms exit, so it has finished sliding away before the page changes. */
@@ -98,6 +99,8 @@ function BotsPage() {
  */
 function WhatYourBotsLearn() {
   const memory = useOffersMemory();
+  const skills = useProductFeature("skills");
+  if (!memory && !skills) return null;
   return (
     <PageSection title="What your Bots learn">
       <PageRows>
@@ -120,20 +123,23 @@ function WhatYourBotsLearn() {
             <Separator />
           </>
         ) : null}
-        <Item render={<Link to="/skills" />} size="sm">
-          <ItemMedia variant="icon">
-            <IconBook />
-          </ItemMedia>
-          <ItemContent>
-            <ItemTitle>Skills</ItemTitle>
-            <ItemDescription>
-              Step-by-step instructions you wrote, taught or your Bots learned.
-            </ItemDescription>
-          </ItemContent>
-          <ItemActions>
-            <IconChevronRight className="size-4 shrink-0 text-muted-foreground" />
-          </ItemActions>
-        </Item>
+        {skills && (
+          <Item render={<Link to="/skills" />} size="sm">
+            <ItemMedia variant="icon">
+              <IconBook />
+            </ItemMedia>
+            <ItemContent>
+              <ItemTitle>Skills</ItemTitle>
+              <ItemDescription>
+                Step-by-step instructions you wrote, taught or your Bots
+                learned.
+              </ItemDescription>
+            </ItemContent>
+            <ItemActions>
+              <IconChevronRight className="size-4 shrink-0 text-muted-foreground" />
+            </ItemActions>
+          </Item>
+        )}
       </PageRows>
     </PageSection>
   );

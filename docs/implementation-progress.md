@@ -1,5 +1,16 @@
 # Continuidade da implementação independente
 
+## Etapa Plugueme V1 — capacidades web (25/11/2026)
+
+A especificação integral está em `PLUGUEME-V1-SCOPE.md`. O reaproveitamento e as licenças estão em `implementation-provenance.md`; roadmap, matriz funcional, segurança, implantação e backup possuem documentos próprios `plugueme-*.md`.
+
+Implementada a fronteira de capacidades do produto, compartilhada pelo servidor e pela interface. No standalone, recursos fora de escopo respondem 404 e recursos em desenvolvimento respondem 503 com estado explícito. Navegação, acesso direto às telas, ferramentas do chat e widgets respeitam essas capacidades; o composer oferece texto e não consulta o histórico de voz. Plugins de autenticação desktop/mobile ficam desabilitados. A interface original é preservada. O script `build:web` compila somente servidor e frontend web; source maps do build web desabilitados explicitamente. Isso não significa que dependências e chunks de todos os recursos legados tenham sido removidos dos artefatos.
+
+Validação desta etapa: 32 testes selecionados de produto/navegação/composer/voz passaram (195 assertions); 16 testes standalone/store/runner/config/capacidades passaram (91 assertions); outra seleção de 32 testes de UI passou (159 assertions). Há sobreposição entre seleções, portanto não somar como testes únicos. Build frontend e typechecks de produção passaram. O typecheck global dos testes continua falhando em 223 diagnósticos; não está aprovado. Nenhuma chamada paga de IA foi necessária nesta etapa.
+
+Memória, tarefas, rotinas, MCP, computador e execução headless permanecem em desenvolvimento. Investigar e adaptar os stores e testes MIT existentes antes de escrever substitutos. A instalação proprietária de avaliação permanece separada e não foi extraída. A V1 comercial não está concluída nem aprovada para publicação.
+
+
 Atualizado em 25/11/2026.
 
 ## Estado atual — servidor independente integrado

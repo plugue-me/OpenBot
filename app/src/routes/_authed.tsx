@@ -2,6 +2,7 @@ import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { BotLookProvider } from "../components/agents/bot-look";
 import { TeamFeaturesDialog } from "../components/edition/team-features-dialog";
+import { ProductRouteGate } from "../components/layout/product-route-gate";
 import { CommandMenu } from "../components/navigation/command-menu";
 import { currentUserQueryOptions, needsOnboarding } from "../lib/auth/queries";
 import { CopilotProvider } from "../lib/copilot/provider";
@@ -42,7 +43,9 @@ export const Route = createFileRoute("/_authed")({
         <TeamFeaturesDialog />
         {/* The command palette, from Cmd/Ctrl+K and from the skins' menus. */}
         <CommandMenu />
-        <Outlet />
+        <ProductRouteGate>
+          <Outlet />
+        </ProductRouteGate>
       </SkinBotLook>
     </CopilotProvider>
   ),

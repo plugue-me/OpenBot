@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
+import { useProductFeature } from "@/lib/deployment/queries";
 import { formatHotkey, HOTKEYS } from "@/lib/hotkeys/hotkeys";
 import { SkinPicker } from "@/skins/skin-picker";
 
@@ -31,6 +32,8 @@ export const Route = createFileRoute("/_authed/settings/")({
 
 function RouteComponent() {
   const { dark, setDark } = useTheme();
+  const personalization = useProductFeature("personalization");
+  const native = useProductFeature("desktop");
 
   /*
    * The measurements that used to be written out here now live in `PageShell`, which Skills, Admin
@@ -49,17 +52,19 @@ function RouteComponent() {
        * What OpenBot and every Bot know of the person, first: their name and how they want things done. Both are free
        * text, so both are a summary that opens a dialog.
        */}
-      <PageSection title="About you">
-        <PageRows>
-          <NameRow />
-          <Separator />
-          <StandingInstructionsRow />
-        </PageRows>
-      </PageSection>
+      {personalization && (
+        <PageSection title="About you">
+          <PageRows>
+            <NameRow />
+            <Separator />
+            <StandingInstructionsRow />
+          </PageRows>
+        </PageSection>
+      )}
       {/* Only in OpenBot Desktop, which holds the AI connection and changes it in its own window. */}
-      <AiModelSection />
+      {native && <AiModelSection />}
       {/* Only in OpenBot Desktop, which sends usage data and keeps this choice. */}
-      <UsageDataSection />
+      {native && <UsageDataSection />}
       <PageSection title="Appearance">
         <PageRows>
           <Item size="sm">

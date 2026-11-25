@@ -3,11 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { Fragment, useState } from "react";
 import { AbstractAvatar } from "@/components/agents/abstract-avatar";
-import { LoadingRows } from "@/components/layout/loading-rows";
 import {
   attentionSummary,
   waitingOnYou,
 } from "@/components/bot-profile/attention";
+import { LoadingRows } from "@/components/layout/loading-rows";
 import {
   PageEmpty,
   PageRows,
@@ -32,7 +32,10 @@ import {
   type BotAttention,
   botAttentionQueryOptions,
 } from "@/lib/bot-lifecycle/queries";
-import { deploymentCapabilitiesQueryOptions } from "@/lib/deployment/queries";
+import {
+  deploymentCapabilitiesQueryOptions,
+  useProductFeature,
+} from "@/lib/deployment/queries";
 
 /**
  * Every Bot the person can reach, in the one place they are listed: what needs the person first,
@@ -50,7 +53,11 @@ export function BotRoster() {
     useQuery(deploymentCapabilitiesQueryOptions()).data?.edition === "personal";
   const agents = useQuery(agentListQueryOptions());
   const hidden = useQuery(agentListQueryOptions(true));
-  const attention = useQuery(botAttentionQueryOptions());
+  const attentionAvailable = useProductFeature("tasks");
+  const attention = useQuery({
+    ...botAttentionQueryOptions(),
+    enabled: attentionAvailable,
+  });
   const list = useNeedsYou();
   const byId = new Map((attention.data ?? []).map((bot) => [bot.agentId, bot]));
 

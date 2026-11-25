@@ -7,6 +7,11 @@ import type {
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { channelKeys } from "@/lib/channels/queries";
 import { client } from "@/lib/client";
+import {
+  type DeploymentCapabilities,
+  deploymentCapabilitiesQueryOptions,
+  deploymentKeys,
+} from "@/lib/deployment/queries";
 import { queryClient } from "@/query-client";
 import { closingOf } from "./cut";
 import {
@@ -134,7 +139,15 @@ export function saveVoiceSession(
 }
 
 export function useVoiceArchive(channelId: string) {
-  const saved = useQuery(voiceSessionQueryOptions(channelId), queryClient);
+  const capabilities = useQuery(
+    deploymentCapabilitiesQueryOptions(),
+    queryClient,
+  );
+  const enabled = Boolean(capabilities.data && !capabilities.data.standalone);
+  const saved = useQuery(
+    { ...voiceSessionQueryOptions(channelId), enabled },
+    queryClient,
+  );
   const { data: pending = [] } = useQuery(
     {
       queryKey: keys.pending(channelId),
@@ -169,19 +182,24 @@ export function useVoiceArchive(channelId: string) {
       (a, b) =>
         a.startedAt.localeCompare(b.startedAt) || a.id.localeCompare(b.id),
     ),
-    error: saved.error,
+    error: enabled ? saved.error : null,
     /**
      * The saved calls have not come back yet. A channel waits on this before showing its history,
      * so a call card is never spliced into a conversation already on screen. False after a failed
      * load too: the conversation is readable without its calls, and `error` says what went wrong.
      */
-    pending: saved.isPending,
+    pending: enabled && saved.isPending,
   };
 }
 
 export async function loadVoiceArchive(
   channelId: string,
 ): Promise<VoiceChatEntry[]> {
+  const capabilities = queryClient.getQueryData<DeploymentCapabilities>(
+    deploymentKeys.capabilities(),
+  );
+  // No simulated server response: this product has no voice feature and does not request it.
+  if (capabilities?.standalone) return cachedVoiceArchive(channelId);
   await queryClient.ensureQueryData(voiceSessionQueryOptions(channelId));
   return cachedVoiceArchive(channelId);
 }

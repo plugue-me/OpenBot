@@ -1,3 +1,4 @@
+import { productFeatureForPath } from "@openbot/shared/product-capabilities";
 import {
   IconArrowLeft,
   IconBell,
@@ -160,7 +161,14 @@ export function SettingsSidebar({
         ).length
       : 0;
   const items = settingsSidebarItems(capabilities?.edition ?? "team").filter(
-    (option) => !option.setup || canSetUp,
+    (option) => {
+      if (option.setup && !canSetUp) return false;
+      if (!capabilities?.standalone) return true;
+      const feature = productFeatureForPath(String(option.linkOptions.to));
+      return (
+        !feature || capabilities.features?.[feature]?.state === "available"
+      );
+    },
   );
   return (
     <Sidebar variant="inset" {...props}>

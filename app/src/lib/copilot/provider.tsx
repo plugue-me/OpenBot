@@ -3,6 +3,10 @@ import {
   deviceTimeZone,
   PERSON_TIME_ZONE_PROP,
 } from "@openbot/shared/person-time-zone";
+import {
+  type ProductFeature,
+  productFeatureAvailable,
+} from "@openbot/shared/product-capabilities";
 import { useQuery } from "@tanstack/react-query";
 import { type ReactNode, useMemo } from "react";
 import { deploymentCapabilitiesQueryOptions } from "@/lib/deployment/queries";
@@ -38,6 +42,12 @@ import { SkillTools } from "./skill-tools";
 export function CopilotProvider({ children }: { children: ReactNode }) {
   const { data: capabilities } = useQuery(deploymentCapabilitiesQueryOptions());
   const properties = useMemo(() => runProperties(deviceTimeZone()), []);
+  const offers = (feature: ProductFeature) =>
+    Boolean(
+      capabilities &&
+        (!capabilities.standalone ||
+          productFeatureAvailable(capabilities.features, feature)),
+    );
 
   return (
     <CopilotKitProvider
@@ -69,39 +79,38 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
           role="status"
           className="border-b bg-muted px-4 py-2 text-sm text-muted-foreground"
         >
-          Versão independente em desenvolvimento. Chat e histórico locais
-          disponíveis. Tarefas, rotinas, memória, aprendizado e ferramentas
-          ainda indisponíveis.
+          Plugueme V1 em desenvolvimento. Apenas os recursos disponíveis estão
+          habilitados.
         </div>
       )}
       {/* Computer tools act on the Bot that made the call, which is usually the one on screen. */}
       <ActiveBotProvider>
         {/* Each run is offered its own Bot's tools, never the screen's; see bot-offer.ts. */}
-        <BotOffers />
-        <ComputerTools />
+        {offers("mcp") && <BotOffers />}
+        {offers("computer") && <ComputerTools />}
         {/* The private sign-in request: a card whose form posts to the server, never to the Bot. */}
-        <SignInTool />
+        {offers("computer") && <SignInTool />}
         {/*
           Draws a Bot bringing in another Bot. Registers no tool: `message_bot` runs on the server,
           where the grant and the caps are. A hop that happens off-screen is the thing to avoid.
         */}
-        <HandoffTool />
-        <EscalationTool />
+        {offers("delegation") && <HandoffTool />}
+        {offers("approvals") && <EscalationTool />}
         {/* A Bot offering a check-in on what the two of them just looked at. Runs on the server. */}
-        <CheckInOfferTool />
+        {offers("checkIns") && <CheckInOfferTool />}
         {/* A coding harness Bot's own tools, which it runs itself: commands, diffs and its plan. */}
-        <CodingTools />
+        {offers("computer") && <CodingTools />}
         {/* Gallery tools are registered once; their handlers ask about the Bot that made the call (see botOfCall). */}
-        <GalleryTools />
+        {capabilities?.generativeUi && <GalleryTools />}
         {/* Browser-authored components use the same component grants as the compiled gallery. */}
-        <SandboxedTools />
+        {capabilities?.generativeUi && <SandboxedTools />}
         {/* Offered only on a Bot holding the skill-creator skill; see skill-tools.tsx. */}
-        <SkillTools />
+        {offers("skills") && <SkillTools />}
         {/*
           Making a coworker from a conversation. Registers nothing unless the declared Bot holds the
           `bot-creator` skill, so most runs are not offered these four tools at all.
         */}
-        <BotTools />
+        {offers("skills") && <BotTools />}
         {children}
       </ActiveBotProvider>
     </CopilotKitProvider>

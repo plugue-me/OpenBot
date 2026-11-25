@@ -2,6 +2,7 @@ import { IconDeviceDesktop } from "@tabler/icons-react";
 import { useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useComputerControl } from "@/lib/computers/use-control";
+import { useProductFeature } from "@/lib/deployment/queries";
 
 /** The same ownership action appears in chat, the computer sidebar, and the full-size viewer. */
 export function ComputerControlButton({
@@ -61,9 +62,10 @@ export function ComputerChatControls({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
+  const available = useProductFeature("computer");
   const { control, someoneElse } = useComputerControl(
     computerId ?? "",
-    Boolean(computerId),
+    Boolean(computerId) && available,
   );
   const needsYou = Boolean(
     control &&
@@ -82,6 +84,7 @@ export function ComputerChatControls({
     // Surface each new prompt once; closing the Computer remains a real dismissal.
     if (promptKey) onOpenChange(true);
   }, [promptKey, onOpenChange]);
+  if (!available) return null;
   return (
     <Button
       aria-expanded={open}

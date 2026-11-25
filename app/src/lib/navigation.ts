@@ -1,3 +1,4 @@
+import { productFeatureForPath } from "@openbot/shared/product-capabilities";
 import {
   type Icon,
   IconBolt,
@@ -172,6 +173,13 @@ export function useNavigationItems(): readonly NavigationItem[] {
   const { data: capabilities } = useQuery(deploymentCapabilitiesQueryOptions());
   const items = navigationFor(user?.role, capabilities?.edition ?? "team");
   return capabilities
-    ? items
+    ? items.filter((item) => {
+        if (!capabilities.standalone) return true;
+        if (item.kind === "dialog") return false;
+        const feature = productFeatureForPath(item.to);
+        return (
+          !feature || capabilities.features?.[feature]?.state === "available"
+        );
+      })
     : items.filter((item) => item.kind === "dialog" || !item.memoryOnly);
 }

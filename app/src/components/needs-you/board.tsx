@@ -9,6 +9,7 @@ import { TaskBoardRow } from "@/components/tasks/task-row";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { agentListQueryOptions } from "@/lib/agents/queries";
+import { useProductFeature } from "@/lib/deployment/queries";
 import {
   type ProactiveSetting,
   proactiveSettingsQueryOptions,
@@ -33,6 +34,14 @@ const FINDS_SHOWN = 3;
  * its check-ins watch. Given a Bot (its own page), there is one group of each.
  */
 export function NeedsYouBoard({ agentId }: { agentId?: string }) {
+  const tasks = useProductFeature("tasks");
+  const approvals = useProductFeature("approvals");
+  const checkIns = useProductFeature("checkIns");
+  if (!tasks && !approvals && !checkIns) return null;
+  return <AvailableNeedsYouBoard agentId={agentId} />;
+}
+
+function AvailableNeedsYouBoard({ agentId }: { agentId?: string }) {
   const agents = useQuery(agentListQueryOptions());
   const settings = useQuery(proactiveSettingsQueryOptions());
   const waiting = useWaitingByBot(agentId);

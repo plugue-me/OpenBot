@@ -228,6 +228,7 @@ export default defineConfig({
   server: serving,
   preview: serving,
   build: {
+    sourcemap: false,
     rollupOptions: {
       output: routeBuildRollupOutputOptions,
     },

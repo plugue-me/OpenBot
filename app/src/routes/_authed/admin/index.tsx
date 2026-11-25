@@ -15,6 +15,7 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
+import { useProductPathAvailable } from "@/lib/deployment/queries";
 
 export const Route = createFileRoute("/_authed/admin/")({
   component: RouteComponent,
@@ -25,12 +26,19 @@ export const Route = createFileRoute("/_authed/admin/")({
  * the order the sidebar lists them (`ADMIN_SECTIONS`).
  */
 function RouteComponent() {
+  const available = useProductPathAvailable();
+  const sections = ADMIN_SECTIONS.map((section) => ({
+    ...section,
+    items: section.items.filter((item) =>
+      available(String(item.linkOptions.to)),
+    ),
+  })).filter((section) => section.items.length);
   return (
     <PageShell
       description="Manage settings that apply to everyone and every Bot in this deployment."
       title="Admin"
     >
-      {ADMIN_SECTIONS.map((section) => (
+      {sections.map((section) => (
         <PageSection key={section.title} title={section.title}>
           <PageRows>
             {section.items.map((item, index) => (

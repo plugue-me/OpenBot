@@ -13,6 +13,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { useProductPathAvailable } from "@/lib/deployment/queries";
 
 const appLinkOptions = { to: "/" } satisfies LinkOptions;
 const adminLinkOptions = { to: "/admin" } satisfies LinkOptions;
@@ -25,6 +26,13 @@ const adminLinkOptions = { to: "/admin" } satisfies LinkOptions;
 export function AdminSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
+  const available = useProductPathAvailable();
+  const sections = ADMIN_SECTIONS.map((section) => ({
+    ...section,
+    items: section.items.filter((item) =>
+      available(String(item.linkOptions.to)),
+    ),
+  })).filter((section) => section.items.length);
   return (
     <Sidebar variant="inset" {...props}>
       {/*
@@ -73,7 +81,7 @@ export function AdminSidebar({
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
-        {ADMIN_SECTIONS.map((group) => (
+        {sections.map((group) => (
           <SidebarGroup key={group.title}>
             <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
             <SidebarMenu className="gap-px">

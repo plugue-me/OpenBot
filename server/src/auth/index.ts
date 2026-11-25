@@ -233,14 +233,17 @@ export function createAuth(
    * a deployment that runs the native app (EXPO_PROJECT_ID, as for push). Elsewhere a sign-in can
    * never be sent there.
    */
-  const nativeApp = Boolean(process.env.EXPO_PROJECT_ID?.trim());
+  const webOnly = config.runtime.mode === "standalone";
+  const nativeApp = !webOnly && Boolean(process.env.EXPO_PROJECT_ID?.trim());
   const plugins = [
     ...(nativeApp ? [expo()] : []),
     /*
      * SCIM 2.0 at /api/auth/scim/v2, only when SCIM_BEARER_TOKEN is set. See scim.ts.
      */
     ...(scimPluginOptions ? [scim(scimPluginOptions)] : []),
-    electron({ clientID: "openbot-desktop", codeExpiresIn: 120 }),
+    ...(!webOnly
+      ? [electron({ clientID: "openbot-desktop", codeExpiresIn: 120 })]
+      : []),
     ...(authConfig.okta
       ? [
           genericOAuth({

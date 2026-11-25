@@ -15,6 +15,7 @@ import { Separator } from "@/components/ui/separator";
 import { agentListQueryOptions } from "@/lib/agents/queries";
 import { botAttentionQueryOptions } from "@/lib/bot-lifecycle/queries";
 import { channelListQueryOptions } from "@/lib/channels/queries";
+import { useProductFeature } from "@/lib/deployment/queries";
 import {
   type ProactiveSuggestion,
   proactiveSuggestionsQueryOptions,
@@ -32,7 +33,11 @@ const ITEMS_SHOWN = 3;
  */
 export function useBotName() {
   const bots = useQuery(agentListQueryOptions());
-  const attention = useQuery(botAttentionQueryOptions());
+  const attentionAvailable = useProductFeature("tasks");
+  const attention = useQuery({
+    ...botAttentionQueryOptions(),
+    enabled: attentionAvailable,
+  });
   return (agentId: string) =>
     bots.data?.find((bot) => bot.id === agentId)?.name ??
     attention.data?.find((bot) => bot.agentId === agentId)?.name ??
@@ -52,8 +57,16 @@ export function useBotName() {
  * conversations list the sidebar keeps live over the socket.
  */
 export function useNeedsYou(agentId?: string) {
-  const suggestions = useQuery(proactiveSuggestionsQueryOptions());
-  const taskList = useQuery(taskListQueryOptions());
+  const tasksAvailable = useProductFeature("tasks");
+  const checkInsAvailable = useProductFeature("checkIns");
+  const suggestions = useQuery({
+    ...proactiveSuggestionsQueryOptions(),
+    enabled: checkInsAvailable,
+  });
+  const taskList = useQuery({
+    ...taskListQueryOptions(),
+    enabled: tasksAvailable,
+  });
   const channels = useInfiniteQuery(channelListQueryOptions());
   const busy = (channelId: string) =>
     channels.data?.find((channel) => channel.id === channelId)?.busy === true;
@@ -65,12 +78,16 @@ export function useNeedsYou(agentId?: string) {
     Date.now(),
   );
   return {
-    pending: suggestions.isPending || taskList.isPending,
-    error: suggestions.error ?? taskList.error,
+    pending:
+      (checkInsAvailable && suggestions.isPending) ||
+      (tasksAvailable && taskList.isPending),
+    error:
+      (checkInsAvailable ? suggestions.error : null) ??
+      (tasksAvailable ? taskList.error : null),
     /** Each source's own failure, so a board can say which part may be missing and retry only it. */
     failures: {
-      tasks: readFailure(taskList),
-      checkIns: readFailure(suggestions),
+      tasks: tasksAvailable ? readFailure(taskList) : null,
+      checkIns: checkInsAvailable ? readFailure(suggestions) : null,
     },
     tasks: listed.filter(({ status }) => status !== "resolved"),
     done: listed.filter(({ status }) => status === "resolved"),

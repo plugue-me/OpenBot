@@ -1,4 +1,10 @@
 import {
+  type ProductFeature,
+  type ProductFeatures,
+  productFeatureAvailable,
+  productFeatureForPath,
+} from "@openbot/shared/product-capabilities";
+import {
   type QueryClient,
   queryOptions,
   useQuery,
@@ -14,6 +20,7 @@ import { client } from "@/lib/client";
  */
 export type DeploymentCapabilities = {
   standalone?: boolean;
+  features?: ProductFeatures;
   /**
    * Whether a Bot may answer with an interface it wrote itself.
    *
@@ -76,6 +83,7 @@ export function deploymentCapabilitiesQueryOptions() {
         })
       ).json()) as {
         mode?: string;
+        features?: ProductFeatures;
         generativeUi?: boolean;
         selfHostBanner?: boolean;
         localEvaluation?: boolean;
@@ -86,6 +94,7 @@ export function deploymentCapabilitiesQueryOptions() {
 
       return {
         ...(body.mode === "standalone" ? { standalone: true } : {}),
+        ...(body.features ? { features: body.features } : {}),
         generativeUi: body.generativeUi === true,
         selfHostBanner: body.selfHostBanner === true,
         localEvaluation: body.localEvaluation === true,
@@ -95,6 +104,24 @@ export function deploymentCapabilitiesQueryOptions() {
       };
     },
   });
+}
+
+export function useProductFeature(feature: ProductFeature): boolean {
+  const { data } = useQuery(deploymentCapabilitiesQueryOptions());
+  return Boolean(
+    data &&
+      (!data.standalone || productFeatureAvailable(data.features, feature)),
+  );
+}
+
+export function useProductPathAvailable() {
+  const { data } = useQuery(deploymentCapabilitiesQueryOptions());
+  return (path: string): boolean => {
+    if (!data) return false;
+    if (!data.standalone) return true;
+    const feature = productFeatureForPath(path);
+    return !feature || productFeatureAvailable(data.features, feature);
+  };
 }
 
 /**
@@ -111,8 +138,12 @@ export function deploymentCapabilitiesQueryOptions() {
  * An edition that could not be read is the team edition, as everywhere else.
  */
 export function offersMemory(
-  capabilities: Pick<DeploymentCapabilities, "edition"> | undefined,
+  capabilities:
+    | Pick<DeploymentCapabilities, "edition" | "standalone" | "features">
+    | undefined,
 ): boolean {
+  if (capabilities?.standalone)
+    return productFeatureAvailable(capabilities.features, "memory");
   return capabilities?.edition !== "personal";
 }
 

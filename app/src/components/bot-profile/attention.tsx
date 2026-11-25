@@ -5,6 +5,7 @@ import {
   botAttentionQueryOptions,
   lastPingQueryOptions,
 } from "@/lib/bot-lifecycle/queries";
+import { useProductFeature } from "@/lib/deployment/queries";
 // Whether this browser, or OpenBot Desktop, lets OpenBot interrupt: the same answer the offer to
 // turn notifications on reads, so the two cannot disagree.
 import { notificationsAllowed } from "@/lib/notifications/permission";
@@ -244,8 +245,16 @@ function usePingNotifications(
  * 16px circle that a second digit widens, small enough to leave an 18px icon readable under it.
  */
 export function BotsNavBadge({ onIcon = false }: { onIcon?: boolean } = {}) {
-  const attention = useQuery(botAttentionQueryOptions());
-  const lastPing = useQuery(lastPingQueryOptions());
+  const attentionAvailable = useProductFeature("tasks");
+  const checkInsAvailable = useProductFeature("checkIns");
+  const attention = useQuery({
+    ...botAttentionQueryOptions(),
+    enabled: attentionAvailable,
+  });
+  const lastPing = useQuery({
+    ...lastPingQueryOptions(),
+    enabled: checkInsAvailable,
+  });
   useAttentionNotifications(attention.data);
   usePingNotifications(lastPing.data, attention.data);
   const bots = attention.data ?? [];

@@ -1,5 +1,12 @@
 # Arquitetura standalone
 
+## Camada de produto Plugueme V1
+
+`shared/product-capabilities.ts` define estados de recursos e o mapeamento compartilhado de rotas. No modo standalone, `server/src/app.ts` expõe capacidades e aplica bloqueios antes dos handlers; a interface consulta os mesmos estados para navegação, rotas e ferramentas. Capacidades não concedem autorização e não substituem guards de usuário, origem e propriedade. O runtime SSE e o armazenamento PostgreSQL existentes continuam responsáveis pelo chat.
+
+Os plugins de autenticação nativa são excluídos da composição standalone. A composição legada permanece separada. A redução física de dependências e a imagem final web ainda exigem auditoria de distribuição.
+
+
 Estado em 25/11/2026: persistência/executor integrados num entrypoint independente; conversa real e reload verificados. A composição original com Intelligence permanece separada.
 
 `standalone-entry.ts` prepara o processo sem credenciais remotas/licença e desliga telemetria. `standalone/bootstrap.ts` constrói o runtime SSE MIT com nosso `LocalAgentRunner`, guarda identidade/grants pelo resolver original, reutiliza os stores de agentes/canais e o Vault criptográfico, e monta endpoints assíncronos de histórico no PostgreSQL. `loadConfig` recebe explicitamente as capacidades do modo independente; o caminho original continua exigindo sua configuração original.

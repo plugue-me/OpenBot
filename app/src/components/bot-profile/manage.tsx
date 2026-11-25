@@ -44,6 +44,7 @@ import {
 import {
   deploymentCapabilitiesQueryOptions,
   useOffersMemory,
+  useProductFeature,
 } from "@/lib/deployment/queries";
 import { queryClient } from "@/query-client";
 
@@ -196,6 +197,7 @@ export function ManageSection({
   const memory = useOffersMemory();
   const personal = usePersonal();
   // Said only where somebody else has a list of their own.
+  const resetAvailable = useProductFeature("reset");
   const onlyYours = personal ? "" : " Only your list changes.";
   const error = setPinned.error ?? setHidden.error ?? duplicate.error;
   // An administrator put it in this person's list; it stays pinned and cannot be hidden.
@@ -284,27 +286,33 @@ export function ManageSection({
             </ItemDescription>
           </ItemContent>
         </Item>
-        <Separator />
-        <Item
-          render={<button onClick={() => setResetOpen(true)} type="button" />}
-          size="sm"
-        >
-          <ItemMedia variant="icon">
-            <IconRefresh />
-          </ItemMedia>
-          <ItemContent>
-            <ItemTitle>Reset</ItemTitle>
-            <ItemDescription>
-              {/* Where memory isn't offered a Bot remembers nothing to delete (see `offersMemory`). */}
-              {memory
-                ? "Delete your conversations with it, what it remembers for you, and its scheduled work. You'll see the list first."
-                : "Delete your conversations with it and its scheduled work. You'll see the list first."}
-            </ItemDescription>
-          </ItemContent>
-          <ItemActions>
-            <IconChevronRight className="size-4 text-muted-foreground" />
-          </ItemActions>
-        </Item>
+        {resetAvailable && (
+          <>
+            <Separator />
+            <Item
+              render={
+                <button onClick={() => setResetOpen(true)} type="button" />
+              }
+              size="sm"
+            >
+              <ItemMedia variant="icon">
+                <IconRefresh />
+              </ItemMedia>
+              <ItemContent>
+                <ItemTitle>Reset</ItemTitle>
+                <ItemDescription>
+                  {/* Where memory isn't offered a Bot remembers nothing to delete (see `offersMemory`). */}
+                  {memory
+                    ? "Delete your conversations with it, what it remembers for you, and its scheduled work. You'll see the list first."
+                    : "Delete your conversations with it and its scheduled work. You'll see the list first."}
+                </ItemDescription>
+              </ItemContent>
+              <ItemActions>
+                <IconChevronRight className="size-4 text-muted-foreground" />
+              </ItemActions>
+            </Item>
+          </>
+        )}
         {agent.canManage ? (
           <>
             <Separator />
@@ -333,7 +341,13 @@ export function ManageSection({
           </>
         ) : null}
       </PageRows>
-      <ResetDialog agent={agent} onOpenChange={setResetOpen} open={resetOpen} />
+      {resetAvailable && (
+        <ResetDialog
+          agent={agent}
+          onOpenChange={setResetOpen}
+          open={resetOpen}
+        />
+      )}
       <Dialog onOpenChange={setDeleteOpen} open={deleteOpen}>
         <DialogContent>
           <DialogHeader>

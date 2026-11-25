@@ -1,5 +1,12 @@
 # Auditoria de independência
 
+## Atualização Plugueme V1 — 25/11/2026
+
+A trilha de procedência por funcionalidade, versões e licenças locais está em `implementation-provenance.md`. Código MIT recuperado e dependências permissivas são candidatos a reaproveitamento; a licença de uma imagem local não é inferida pela licença do projeto. Imagens sem licença comprovada ficam apenas como referência separada. Nenhum código proprietário foi extraído ou reutilizado.
+
+A fronteira de capacidades standalone bloqueia recursos excluídos e explicita os recursos ainda em desenvolvimento. Isso não prova a remoção física de todas as dependências excluídas do bundle nem valida egress de produção. Mantêm-se pendentes imagem Docker própria, validação de rede, isolamento e restauração de backup.
+
+
 Atualização: 25/11/2026. Auditoria inicial; a independência da aplicação completa ainda não foi atingida.
 
 ## Descobertas adicionais e implementação do primeiro marco

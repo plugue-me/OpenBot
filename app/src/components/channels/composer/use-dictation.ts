@@ -66,8 +66,9 @@ export function useDictation(
     live.getSnapshot,
     live.getSnapshot,
   );
-  const mode: DictationMode =
-    data?.transcription === true
+  const mode: DictationMode = data?.standalone
+    ? null
+    : data?.transcription === true
       ? "recording"
       : (data || isError) && source
         ? "live"
@@ -81,6 +82,7 @@ export function useDictation(
     };
   }, [disabled, mode, session, live]);
   return {
+    capabilities: data,
     mode,
     session,
     state,

@@ -100,6 +100,18 @@ afterAll(async () => {
 
 test("standalone boots without Intelligence or licence and preserves original APIs and durable SSE", async () => {
   expect((await request("/health")).status).toBe(200);
+  const excluded = await request("/api/voice/sessions");
+  expect(excluded.status).toBe(404);
+  expect(await excluded.json()).toMatchObject({
+    feature: "voice",
+    state: "out_of_scope",
+  });
+  const pending = await request("/api/memory");
+  expect(pending.status).toBe(503);
+  expect(await pending.json()).toMatchObject({
+    feature: "memory",
+    state: "in_development",
+  });
   expect(await (await request("/api/capabilities")).json()).toMatchObject({
     mode: "standalone",
     durableHistory: true,

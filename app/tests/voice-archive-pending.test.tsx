@@ -2,6 +2,7 @@ import {
   afterAll,
   afterEach,
   beforeAll,
+  beforeEach,
   expect,
   mock,
   spyOn,
@@ -10,6 +11,7 @@ import {
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
 import { cleanup, renderHook, waitFor } from "@testing-library/react";
 import { useVoiceArchive } from "../src/lib/voice/archive";
+import { deploymentKeys } from "../src/lib/deployment/queries";
 import { queryClient } from "../src/query-client";
 import { settleReactWork } from "./settle-react-work";
 
@@ -22,6 +24,10 @@ import { settleReactWork } from "./settle-react-work";
 
 beforeAll(() => {
   GlobalRegistrator.register({ url: "http://localhost/" });
+});
+
+beforeEach(() => {
+  queryClient.setQueryData(deploymentKeys.capabilities(), { standalone: false });
 });
 
 afterEach(() => {

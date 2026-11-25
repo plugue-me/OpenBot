@@ -1,4 +1,8 @@
 import { MAX_IMAGE_BYTES } from "@openbot/shared/attachments";
+import {
+  productFeatureForPath,
+  WEB_V1_FEATURES,
+} from "@openbot/shared/product-capabilities";
 import type { WhatIfVocabulary } from "@openbot/shared/what-if";
 import type { Hono as HonoApp, MiddlewareHandler } from "hono";
 import { Hono } from "hono";
@@ -573,6 +577,24 @@ export function createApp(
   // First, in every auth mode: a page from another website changes nothing here and opens no socket.
   // See request-trust.ts for what passes and why.
   app.use("/api/*", createOriginGuard(config));
+  if (config.runtime.mode === "standalone")
+    app.use("/api/*", async (context, next) => {
+      const feature = productFeatureForPath(context.req.path);
+      const capability = feature ? WEB_V1_FEATURES[feature] : undefined;
+      if (capability && capability.state !== "available")
+        return context.json(
+          {
+            error:
+              capability.state === "out_of_scope"
+                ? "Este recurso não faz parte do Plugueme V1."
+                : "Este recurso está em desenvolvimento.",
+            feature,
+            state: capability.state,
+          },
+          capability.state === "out_of_scope" ? 404 : 503,
+        );
+      await next();
+    });
   mountDesktopConnectionFailure(app, desktopHostToken);
   mountProviderOAuthProxy(app, modelProviderProxy);
   mountLearningModelEndpoint(app, coworker?.learningModel);
@@ -593,6 +615,9 @@ export function createApp(
   app.get("/api/capabilities", async (context) =>
     context.json({
       mode: config.runtime.mode,
+      ...(config.runtime.mode === "standalone"
+        ? { product: "plugueme-v1", features: WEB_V1_FEATURES }
+        : {}),
       durableHistory: config.runtime.durableHistory,
       /*
        * Whether a Bot may answer with an interface it wrote itself.
@@ -608,7 +633,7 @@ export function createApp(
       // and a deployment that pays for Intelligence never sees it. See self-host-banner.ts.
       // Never in the personal edition: one person running it for themselves is not the audience.
       selfHostBanner:
-        config.edition === "personal"
+        config.runtime.mode === "standalone" || config.edition === "personal"
           ? false
           : selfHostBanner
             ? await selfHostBanner.shown()
@@ -622,11 +647,13 @@ export function createApp(
        * no address anybody else can reach (see `singleUserAllowed` in config.ts), which is exactly
        * a local trial, and an operator cannot forget to set it.
        */
-      localEvaluation: config.singleUser,
+      localEvaluation:
+        config.runtime.mode !== "standalone" && config.singleUser,
       // Which product this is: the app shows the personal edition's screens instead of Admin.
       edition: config.edition,
-      transcription: Boolean(config.transcription),
-      voice: Boolean(config.voice),
+      transcription:
+        config.runtime.mode !== "standalone" && Boolean(config.transcription),
+      voice: config.runtime.mode !== "standalone" && Boolean(config.voice),
       /*
        * Which identity providers this deployment can sign somebody in with.
        *

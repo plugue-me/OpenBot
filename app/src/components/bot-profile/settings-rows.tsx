@@ -1,3 +1,4 @@
+import { productFeatureForPath } from "@openbot/shared/product-capabilities";
 import {
   IconChevronRight,
   IconDeviceMobile,
@@ -30,6 +31,7 @@ import { deliveryQueryOptions } from "@/lib/delivery";
 import {
   deploymentCapabilitiesQueryOptions,
   useOffersMemory,
+  useProductFeature,
 } from "@/lib/deployment/queries";
 import { desktopShell } from "@/lib/desktop/shell";
 import { memorySourcesQueryOptions } from "@/lib/memory";
@@ -71,17 +73,43 @@ type Row = {
  */
 export function BotSettingsRows({ agent }: { agent: AgentProfile }) {
   const me = useQuery(currentUserQueryOptions()).data;
-  const personal =
-    useQuery(deploymentCapabilitiesQueryOptions()).data?.edition === "personal";
+  const capabilities = useQuery(deploymentCapabilitiesQueryOptions()).data;
+  const personal = capabilities?.edition === "personal";
+  const routinesAvailable = useProductFeature("routines");
+  const mcpAvailable = useProductFeature("mcp");
+  const approvalsAvailable = useProductFeature("approvals");
+  const groupsAvailable = useProductFeature("groups");
+  const reachAvailable = useProductFeature("externalChannels");
   const memory = useOffersMemory();
-  const routines = useQuery(routinesQueryOptions());
-  const goals = useQuery(responsibilitiesQueryOptions());
-  const checkIns = useQuery(proactiveSettingsQueryOptions());
+  const routines = useQuery({
+    ...routinesQueryOptions(),
+    enabled: routinesAvailable,
+  });
+  const goals = useQuery({
+    ...responsibilitiesQueryOptions(),
+    enabled: routinesAvailable,
+  });
+  const checkIns = useQuery({
+    ...proactiveSettingsQueryOptions(),
+    enabled: routinesAvailable,
+  });
   const sources = useQuery({ ...memorySourcesQueryOptions(), enabled: memory });
-  const plugins = useQuery(agentPluginsQueryOptions(agent.id));
-  const approvals = useQuery(approvalInboxOptions());
-  const teamBots = useQuery({ ...teamBotsQueryOptions(), enabled: !personal });
-  const reach = useQuery({ ...deliveryQueryOptions(), enabled: !personal });
+  const plugins = useQuery({
+    ...agentPluginsQueryOptions(agent.id),
+    enabled: mcpAvailable,
+  });
+  const approvals = useQuery({
+    ...approvalInboxOptions(),
+    enabled: approvalsAvailable,
+  });
+  const teamBots = useQuery({
+    ...teamBotsQueryOptions(),
+    enabled: !personal && groupsAvailable,
+  });
+  const reach = useQuery({
+    ...deliveryQueryOptions(),
+    enabled: !personal && reachAvailable,
+  });
   const published = teamBots.data?.teamBots.find((bot) => bot.id === agent.id);
   const admin = me?.role === "admin";
   // Its owner and admins change it there; anyone it is published to finds its link there.
@@ -218,10 +246,17 @@ export function BotSettingsRows({ agent }: { agent: AgentProfile }) {
         ]),
   ];
 
+  const availableRows = rows.filter((option) => {
+    if (!capabilities?.standalone) return true;
+    const feature = productFeatureForPath(option.to);
+    return !feature || capabilities.features?.[feature]?.state === "available";
+  });
+  if (!availableRows.length) return null;
+
   return (
     <PageSection title="Settings for this Bot">
       <PageRows>
-        {rows.map(({ to, title, icon: Icon, summary }, index) => (
+        {availableRows.map(({ to, title, icon: Icon, summary }, index) => (
           <Fragment key={to}>
             {index > 0 ? <Separator /> : null}
             <Item

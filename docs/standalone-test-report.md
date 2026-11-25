@@ -1,5 +1,17 @@
 # Relatório de testes standalone
 
+## Validação da camada Plugueme V1 — 25/11/2026
+
+- Produto/capacidades/chat/navegação/composer/voz: seleção de 32 testes passou, 195 assertions.
+- Configuração/store/runner/app standalone e capacidades: 16 passaram, 91 assertions, PostgreSQL de teste e provedor simulado.
+- Regressão UI (composer anexos, badge, admin, histórico de voz e produto): 32 passaram, 159 assertions. O teste legado de voz informa agora explicitamente capacidades legadas, pois o hook depende delas.
+- Seleções se sobrepõem; estes números não representam uma contagem única somada.
+- Build frontend, typecheck frontend e backend de produção passaram. Nenhuma chamada paga ao provedor nesta etapa.
+- Typecheck global de testes: 223 diagnósticos; permanece falhando. Não declarar aprovação global.
+
+Pendentes: validação visual do novo build em execução, testes de rede do artefato, imagem Docker própria e restauração de backup. Recursos ainda em desenvolvimento não foram validados como disponíveis.
+
+
 Data: 25/11/2026. Resultados reais desta etapa; agentes de teste simulados, PostgreSQL real.
 
 ## Validação posterior da aplicação integrada
