@@ -105,6 +105,7 @@ import {
   loadTenantPackage,
   synchronizeTenantPackage,
 } from "../tenant-package";
+import { createUserPreferencesStore } from "../user-preferences";
 import { repeatAfterEach } from "../work/loop";
 import { createWorkQueue } from "../work/queue";
 import { LocalAgentRunner } from "./runner";
@@ -524,6 +525,20 @@ export async function createStandalone(
     undefined,
     undefined,
     people,
+    undefined, // identityProviders
+    undefined, // intentRouter
+    undefined, // pageFrames
+    undefined, // routineRunner
+    undefined, // routineStore
+    undefined, // onboardingStore
+    undefined, // userInstructions
+    undefined, // attachmentDatabase
+    undefined, // hostAccessBroker
+    undefined, // desktopHostToken
+    undefined, // deploymentToolCaller
+    undefined, // composio
+    undefined, // modelProviderProxy
+    createUserPreferencesStore(database),
   );
   return {
     app,

@@ -221,3 +221,31 @@ test("standalone boots without Intelligence or licence and preserves original AP
   expect(calls).toBe(2);
   expect(history.some((m) => m.id === "openbot:personal-memory")).toBe(false);
 }, 20_000);
+
+test("standalone preferences let the user save a skin and preserve other settings", async () => {
+  const endpoint = `${origin}/api/settings/preferences`;
+  const original = await fetch(endpoint).then((r) => r.json());
+  expect(original.preferences).toBeDefined();
+  try {
+    const response = await fetch(endpoint, {
+      method: "PATCH",
+      headers: { origin, "content-type": "application/json" },
+      body: JSON.stringify({ skin: "openduet" }),
+    });
+    expect(response.status).toBe(200);
+    const changed = await response.json();
+    expect(changed.preferences.skin).toBe("openduet");
+    expect(changed.preferences.messageListEmphasis).toBe(
+      original.preferences.messageListEmphasis,
+    );
+    expect((await fetch(endpoint).then((r) => r.json())).preferences.skin).toBe(
+      "openduet",
+    );
+  } finally {
+    await fetch(endpoint, {
+      method: "PATCH",
+      headers: { origin, "content-type": "application/json" },
+      body: JSON.stringify({ skin: original.preferences.skin }),
+    });
+  }
+});
