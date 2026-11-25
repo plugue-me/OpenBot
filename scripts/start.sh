@@ -246,7 +246,7 @@ echo
 echo "OpenBot"
 echo "======="
 
-# Provision the installation's Composio project with the existing CLI sign-in, independently of
+# When explicitly requested, provision Composio with the existing CLI sign-in, independently of
 # Learning. The helper preserves supplied keys and Arcade. The server reads the resulting .env on
 # launch. Bun preserves exported values over .env, including empty strings. A child cannot change
 # this shell's environment, so clear only blank overrides before setup and later server processes.
@@ -259,11 +259,17 @@ if [[ "${COMPOSIO_API_KEY:-}" != *[![:space:]]* ]]; then
   unset COMPOSIO_API_KEY
 fi
 COMPOSIO_BEFORE="$(setting COMPOSIO_API_KEY "")"
-if COMPOSIO_LINE="$(bun scripts/setup-composio.ts 2>&1 | tail -1)"; then
-  info "  $COMPOSIO_LINE"
-else
-  red "  Composio: apps are unavailable this run. ${COMPOSIO_LINE:-The Composio setup did not run.}"
-fi
+case "$(setting OPENBOT_PROVISION_COMPOSIO off)" in
+  on)
+    if COMPOSIO_LINE="$(bun scripts/setup-composio.ts 2>&1 | tail -1)"; then
+      info "  $COMPOSIO_LINE"
+    else
+      red "  Composio: apps are unavailable this run. ${COMPOSIO_LINE:-The Composio setup did not run.}"
+    fi
+    ;;
+  off) info "  External app provisioning is off; supplied integration credentials remain available." ;;
+  *) red "OPENBOT_PROVISION_COMPOSIO must be on or off."; exit 1 ;;
+esac
 # Whatever the helper reported, a key that is new in .env must reach a server that is already up.
 if [ -z "$COMPOSIO_BEFORE" ] && [ -n "$(setting COMPOSIO_API_KEY "")" ]; then
   SECRETS_ROTATED=true

@@ -229,6 +229,8 @@ exit 0
         DOCKER_LOG: dockerLogPath,
         CURL_LOG: curlLogPath,
         TEST_COMPOSIO_SETUP: composioSetup ?? "preserved",
+        // Tests of provisioning opt in. Ordinary startup must never invoke the hosted CLI.
+        ...(composioSetup ? { OPENBOT_PROVISION_COMPOSIO: "on" } : {}),
         ...(probeBrokerEnvironment
           ? {
               BROKER_ENVIRONMENT_PROBE: brokerEnvironmentPath,
@@ -294,7 +296,17 @@ describe("start.sh server restart guard", () => {
   );
 });
 
-describe("start.sh automatic Composio setup", () => {
+describe("start.sh optional Composio setup", () => {
+  test("ordinary startup never provisions an external project", async () => {
+    const result = await runStartWithStaleServerProbe(401, {
+      composioSetup: "configured",
+      processEnvironment: { OPENBOT_PROVISION_COMPOSIO: "off" },
+    });
+    expect(result.exitCode).toBe(0);
+    expect(result.stdout).toContain("External app provisioning is off");
+    expect(result.stdout).not.toContain("COMPOSIO-CONFIGURED");
+    expect(result.envFile).not.toContain("COMPOSIO_API_KEY");
+  });
   test.each(["", " \t "])(
     "a blank exported Composio key (%j) lets a later real Bun child load the provisioned key",
     async (value) => {
