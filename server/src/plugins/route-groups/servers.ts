@@ -1,7 +1,7 @@
 import {
+  enterpriseControls,
   mcpAddressRefusal,
   normalizedServerAddress,
-  enterpriseControls,
 } from "../../admin/controls";
 import { requireAdmin } from "../../auth/guards";
 import { reasonWithoutStatement } from "../../db/query-failure";
@@ -18,17 +18,17 @@ import { vendorSentence } from "../composio";
 import { redirectUriFor } from "../oauth";
 import { ALWAYS_ON_REFUSAL, isAlwaysOn } from "../personal-defaults";
 import {
+  BROKERED_ID_PREFIXES,
+  BROKERED_SCREEN_NAMES,
+  MEMORY_TOOLS_SERVER,
+} from "../plugin-store/model";
+import {
   probeRemoteServer,
   type RemoteOAuthConfig,
   RemoteServerRefusedError,
 } from "../remote-oauth";
 import { asAccountMode } from "../shared-accounts";
 import { asSharedUseApproval, type SharedUseApproval } from "../shared-use";
-import {
-  BROKERED_ID_PREFIXES,
-  BROKERED_SCREEN_NAMES,
-  MEMORY_TOOLS_SERVER,
-} from "../plugin-store/model";
 import {
   CatalogueEntryUnknownError,
   CustomServerRefusedError,
@@ -96,6 +96,7 @@ export function mountServerRoutes({
        * every call was refused before it reached the boundary.
        */
       botsMayCallBack: connect?.botsMayCallBack === true,
+      ...(connect?.builtInTools ? { builtInTools: true } : {}),
       /*
        * Whether this deployment has a broker at all, so the page knows whether brokered apps are
        * on offer.

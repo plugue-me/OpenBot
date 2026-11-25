@@ -51,8 +51,9 @@ export function ApprovalSettings() {
   const inbox = useQuery(approvalInboxOptions());
   const me = useQuery(currentUserQueryOptions()).data;
   // The personal edition has no team for team settings to govern, so no team rules to point at.
-  const personal =
-    useQuery(deploymentCapabilitiesQueryOptions()).data?.edition === "personal";
+  const capabilities = useQuery(deploymentCapabilitiesQueryOptions()).data;
+  const personal = capabilities?.edition === "personal";
+  const standalone = capabilities?.standalone === true;
   const agents = useQuery(agentListQueryOptions());
   const hiddenAgents = useQuery(agentListQueryOptions(true));
   const preferences = useMutation(
@@ -93,7 +94,7 @@ export function ApprovalSettings() {
           {error.message}
         </p>
       ) : null}
-      {me?.role === "admin" && !personal ? (
+      {me?.role === "admin" && !personal && !standalone ? (
         <p className="mt-6 text-muted-foreground text-sm">
           Team settings and shared account requests are in{" "}
           <Link className="underline underline-offset-4" to="/admin/approvals">
@@ -110,12 +111,16 @@ export function ApprovalSettings() {
            * always asks on purpose: deleting a file there is an ordinary change, as the last sentence
            * says.
            */
-          <>
-            {ALWAYS_ASKS} They also ask before every edit or command in a folder
-            on your own computer. {HANDED_TO_YOU} Bots can create, edit, and
-            delete files in their own workspace without asking, unless your
-            settings or rules say so.
-          </>
+          standalone ? (
+            "MCP calls are checked against permissions and approval rules. Unknown or destructive tools require a decision before execution. Denying an action leaves it unexecuted."
+          ) : (
+            <>
+              {ALWAYS_ASKS} They also ask before every edit or command in a
+              folder on your own computer. {HANDED_TO_YOU} Bots can create,
+              edit, and delete files in their own workspace without asking,
+              unless your settings or rules say so.
+            </>
+          )
         }
         title="Before a Bot acts"
       >
@@ -127,7 +132,9 @@ export function ApprovalSettings() {
             <ItemContent>
               <ItemTitle>{ASK_FIRST_TITLE}</ItemTitle>
               <ItemDescription className="line-clamp-none">
-                {ASK_FIRST_DESCRIPTION}
+                {standalone
+                  ? "Require your approval for every change through connected MCP tools."
+                  : ASK_FIRST_DESCRIPTION}
               </ItemDescription>
             </ItemContent>
             <ItemActions>
@@ -139,7 +146,7 @@ export function ApprovalSettings() {
               />
             </ItemActions>
           </Item>
-          {inbox.data?.preferences ? (
+          {inbox.data?.preferences && !standalone ? (
             <>
               <Separator />
               <Item size="sm">

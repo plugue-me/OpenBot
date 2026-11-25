@@ -1,5 +1,13 @@
 # Arquitetura standalone
 
+## MCP e aprovações independentes — 25/11/2026
+
+O composition root standalone reutiliza os stores, rotas, discovery, OAuth, Vault, grants, políticas e execução de aprovações MIT recuperados. Nenhum broker Composio/Arcade é ativado. A interface oferece ferramentas aos funcionários internos sem exigir callback remoto; ferramentas em agentes remotos continuam indisponíveis.
+
+Aprovação única, negação e retomada usam a fila original e o mesmo runner PostgreSQL do chat/tarefas. Grants, política, acesso à conversa e pausa são revalidados antes da ação. O histórico da continuação é preparado sob o lease, com os sanitizadores originais. Decisões são consumidas a cada 2 s, separadamente do worker de tarefas de 30 s. O listener PostgreSQL original publica atualizações do canal na interface. A ingestão pessoal MCP original foi conectada, com sincronização de fontes opt-in a cada minuto; seu ciclo completo ainda exige validação própria.
+
+Auto-review, comandos desktop, Vault de sites, consentimentos de Team Bots e governança administrativa avançada ficam indisponíveis nesta composição. OAuth de fornecedor real, computador isolado, grupos/delegação e demais etapas da matriz permanecem pendentes. Nenhuma migration nova, alteração da instalação proprietária, chamada paga ou conexão de teste salva no banco de uso local nesta etapa.
+
 ## Tarefas manuais e atomicidade
 
 `TaskRunner.startManual` valida título/instrução/funcionário e UUID da solicitação. Um id derivado de usuário + UUID identifica a tarefa, serializado por advisory lock. O store pode ler na transação do chamador; `WorkQueue.offer` aceita executor transacional para offers sem cap. Canal, task de origem manual e work item confirmam juntos. Rollback não deixa trabalho órfão e o pg_notify só é emitido no commit. A fila e o executor de execução continuam os mesmos do item de check-in.

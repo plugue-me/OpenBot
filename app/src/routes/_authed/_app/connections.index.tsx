@@ -29,13 +29,12 @@ import {
   linkedNotice,
   visibleLinkedNotice,
 } from "@/components/settings/linked-notice";
+import { Button } from "@/components/ui/button";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   Item,
   ItemActions,
@@ -44,6 +43,7 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@/components/ui/item";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useConnectApp } from "@/lib/connections/connect-app";
 import {
   type ConnectionRow,
@@ -601,26 +601,28 @@ function RouteComponent() {
        * The rest of what a Bot signs in with. Saved logins and keys live in the Vault, under
        * Settings; this row is a way in from beside the apps that use them.
        */}
-      <PageSection>
-        <PageRows>
-          <Item render={<Link to="/settings/vault" />} size="sm">
-            <ItemMedia variant="icon">
-              <IconLock />
-            </ItemMedia>
-            <ItemContent>
-              <ItemTitle>Vault</ItemTitle>
-              <ItemDescription>
-                {personal
-                  ? "Your saved logins and the keys your apps and models use."
-                  : "Website logins you saved when signing a Bot in."}
-              </ItemDescription>
-            </ItemContent>
-            <ItemActions>
-              <IconChevronRight className="size-4 shrink-0 text-muted-foreground" />
-            </ItemActions>
-          </Item>
-        </PageRows>
-      </PageSection>
+      {!capabilities.data?.standalone ? (
+        <PageSection>
+          <PageRows>
+            <Item render={<Link to="/settings/vault" />} size="sm">
+              <ItemMedia variant="icon">
+                <IconLock />
+              </ItemMedia>
+              <ItemContent>
+                <ItemTitle>Vault</ItemTitle>
+                <ItemDescription>
+                  {personal
+                    ? "Your saved logins and the keys your apps and models use."
+                    : "Website logins you saved when signing a Bot in."}
+                </ItemDescription>
+              </ItemContent>
+              <ItemActions>
+                <IconChevronRight className="size-4 shrink-0 text-muted-foreground" />
+              </ItemActions>
+            </Item>
+          </PageRows>
+        </PageSection>
+      ) : null}
     </PageShell>
   );
 }

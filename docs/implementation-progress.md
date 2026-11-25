@@ -1,5 +1,13 @@
 # Continuidade da implementação independente
 
+## MCP e aprovações independentes — 25/11/2026
+
+O composition root standalone reutiliza os stores, rotas, discovery, OAuth, Vault, grants, políticas e execução de aprovações MIT recuperados. Nenhum broker Composio/Arcade é ativado. A interface oferece ferramentas aos funcionários internos sem exigir callback remoto; ferramentas em agentes remotos continuam indisponíveis.
+
+Aprovação única, negação e retomada usam a fila original e o mesmo runner PostgreSQL do chat/tarefas. Grants, política, acesso à conversa e pausa são revalidados antes da ação. O histórico da continuação é preparado sob o lease, com os sanitizadores originais. Decisões são consumidas a cada 2 s, separadamente do worker de tarefas de 30 s. O listener PostgreSQL original publica atualizações do canal na interface. A ingestão pessoal MCP original foi conectada, com sincronização de fontes opt-in a cada minuto; seu ciclo completo ainda exige validação própria.
+
+Auto-review, comandos desktop, Vault de sites, consentimentos de Team Bots e governança administrativa avançada ficam indisponíveis nesta composição. OAuth de fornecedor real, computador isolado, grupos/delegação e demais etapas da matriz permanecem pendentes. Nenhuma migration nova, alteração da instalação proprietária, chamada paga ou conexão de teste salva no banco de uso local nesta etapa.
+
 ## Criação manual de tarefas — 25/11/2026
 
 Botão New task na página Bots abre formulário com funcionário built-in, título e instrução. `POST /api/tasks` usa o runner existente; a tarefa abre conversa própria e executa sem browser. Origem `manual` preservada no schema/migration 0093, sem fabricar item de check-in. Canal/tarefa/entrada na fila são gravados na mesma transação. Identidade derivada do dono + UUID de solicitação e advisory lock tornam retries concorrentes idempotentes; reutilizar UUID com conteúdo diferente é recusado. UI conserva o conteúdo e a identidade quando a confirmação se perde; rejeições definitivas permitem corrigir o formulário.

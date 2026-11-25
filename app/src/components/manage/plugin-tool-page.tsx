@@ -59,11 +59,13 @@ export function PluginToolPage({
    * beside a tool that refused every call, with no audit row, because the call never arrived.
    */
   const sharedCallback = plugins.data?.botsMayCallBack === true;
-  const canCallBack = (bot: { id: string }) =>
-    sharedCallback ||
-    [...(agents ?? []), ...(hiddenAgents ?? [])].find(
+  const canCallBack = (bot: { id: string }) => {
+    const known = [...(agents ?? []), ...(hiddenAgents ?? [])].find(
       (one) => one.id === bot.id,
-    )?.hasCallbackToken === true;
+    );
+    if (plugins.data?.builtInTools) return known?.endpoint === null;
+    return sharedCallback || known?.hasCallbackToken === true;
+  };
   const [error, setError] = useState<string | null>(null);
 
   const setGrant = useMutation({
@@ -209,7 +211,9 @@ export function PluginToolPage({
                         {held
                           ? canCallBack(bot)
                             ? `Can call this tool. Every call is still checked against boundaries and logged in ${paths.auditLabel}.`
-                            : "Allowed, but this Bot has no callback token. Every call is refused. Issue one on its page, or set AGENT_TOOL_TOKEN."
+                            : plugins.data?.builtInTools
+                              ? "Remote Bots cannot use these tools in this deployment."
+                              : "Allowed, but this Bot has no callback token. Every call is refused. Issue one on its page, or set AGENT_TOOL_TOKEN."
                           : "Can't call this tool. The Bot never sees it."}
                       </ItemDescription>
                     </ItemContent>

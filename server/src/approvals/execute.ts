@@ -25,12 +25,12 @@ export type ApprovedActionDependencies = {
     initiator: AuditInitiator;
   }): Promise<unknown>;
   gate(candidate: ApprovalCandidate): Promise<unknown>;
-  computerTools(
+  computerTools?(
     actorId: string,
     botId: string,
     initiator: AuditInitiator,
   ): Promise<HeadlessTool[]>;
-  hostTools(input: {
+  hostTools?(input: {
     actorId: string;
     botId: string;
     initiator: AuditInitiator;
@@ -56,7 +56,7 @@ export type ApprovedActionDependencies = {
     ref: string,
   ): Promise<string>;
   /** A hand-off or question tool (`bot/...`), run as the coordination tools run it live. */
-  coordinationCall(input: {
+  coordinationCall?(input: {
     name: string;
     args: Record<string, unknown>;
     run: RunAssertion;
@@ -107,13 +107,14 @@ export function createApprovedActionExecutor(deps: ApprovedActionDependencies) {
       });
       return "The person allowed this share. Send it again now, unchanged.";
     }
-    const computer = await deps.computerTools(
-      action.actorId,
-      action.botId,
-      initiator,
-    );
+
     if (snapshot.toolName.startsWith("computer_")) {
-      const tool = computer.find(
+      const computer = await deps.computerTools?.(
+        action.actorId,
+        action.botId,
+        initiator,
+      );
+      const tool = computer?.find(
         (tool) => tool.definition.name === snapshot.toolName,
       );
       if (!tool)
@@ -127,8 +128,12 @@ export function createApprovedActionExecutor(deps: ApprovedActionDependencies) {
     }
     if (snapshot.toolName.startsWith("host_")) {
       const tool = deps
-        .hostTools({ actorId: action.actorId, botId: action.botId, initiator })
-        .find((tool) => tool.name === snapshot.toolName);
+        .hostTools?.({
+          actorId: action.actorId,
+          botId: action.botId,
+          initiator,
+        })
+        ?.find((tool) => tool.name === snapshot.toolName);
       if (!tool)
         throw new ApprovalRefusedError(
           "That host tool is no longer available.",
@@ -160,7 +165,7 @@ export function createApprovedActionExecutor(deps: ApprovedActionDependencies) {
               depth: 0,
               initiator,
             };
-      const answered = await deps.coordinationCall({
+      const answered = await deps.coordinationCall?.({
         name: snapshot.toolName,
         args,
         run,

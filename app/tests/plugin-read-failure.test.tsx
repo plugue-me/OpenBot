@@ -281,3 +281,64 @@ test("a connected account's page says the plugin list failed, not that it is not
   expect(await view.findByRole("alert")).toBeTruthy();
   expect(view.queryByText("You don't connect this app yourself.")).toBeNull();
 });
+
+test("standalone built-in tool execution needs no callback token and does not imply remote support", async () => {
+  global.fetch = Object.assign(
+    async (input: Parameters<typeof fetch>[0]) => {
+      const path = String(input).split("?")[0];
+      if (path === "/api/agents")
+        return Response.json({
+          agents: [
+            {
+              id: "local",
+              name: "Local Bot",
+              endpoint: null,
+              hasCallbackToken: false,
+            },
+            {
+              id: "remote",
+              name: "Remote Bot",
+              endpoint: "https://example.test/agent",
+              hasCallbackToken: true,
+            },
+          ],
+        });
+      if (path === "/api/plugins")
+        return Response.json({
+          catalogue: [],
+          skills: [],
+          builtInTools: true,
+          botsMayCallBack: false,
+          servers: [
+            {
+              id: APP_KEY,
+              title: "Custom MCP",
+              tools: [
+                {
+                  name: TOOL_NAME,
+                  ref: `${APP_KEY}/${TOOL_NAME}`,
+                  effect: "write",
+                  description: "Fixture tool",
+                  grantedTo: ["local", "remote"],
+                },
+              ],
+            },
+          ],
+        });
+      return Response.json({ connections: [] });
+    },
+    { preconnect: originalFetch.preconnect },
+  );
+  const view = renderAdmin(
+    failingQueryClient(),
+    `/admin/plugins/${APP_KEY}/tools/${TOOL_NAME}`,
+  );
+  await view.findByText("Local Bot");
+  expect(
+    await view.findByText(/Can call this tool\. Every call is still checked/),
+  ).toBeTruthy();
+  expect(
+    view.getByText("Remote Bots cannot use these tools in this deployment."),
+  ).toBeTruthy();
+  expect(view.queryByText(/Issue one on its page/)).toBeNull();
+});

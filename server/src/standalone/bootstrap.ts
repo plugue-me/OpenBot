@@ -2,14 +2,17 @@ import { resolve } from "node:path";
 import { CopilotRuntime } from "@copilotkit/runtime/v2";
 import { createCopilotHonoHandler } from "@copilotkit/runtime/v2/hono";
 import { TURN_LIMITS } from "@openbot/toolkit/limits";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { Hono } from "hono";
 import { createActivityStore } from "../activity/activity";
+import { headlessTurnRefusal } from "../admin/controls";
 import { createActorAgentResolver } from "../agents/agent-resolver";
 import { createAgentFetch } from "../agents/endpoint";
 import {
+  BOT_PAUSED_REASON,
   configureBotLifecycle,
   createBotLifecycleStore,
+  isBotPaused,
 } from "../agents/lifecycle";
 import { createBotReset } from "../agents/lifecycle-reset";
 import { createBotLifecycleRoutes } from "../agents/lifecycle-routes";
@@ -19,7 +22,17 @@ import { createRuntimeAgentLoader } from "../agents/runtime-agents";
 import { serverTurnAdmission } from "../agents/turn-admission";
 import { createWakeUpStore } from "../agents/wake-up";
 import { createApp } from "../app";
-import { createAuditReader, createAuditStore } from "../audit";
+import { createApprovedActionExecutor } from "../approvals/execute";
+import { createApprovalResumeTick } from "../approvals/resume-sweep";
+import { createApprovalRoutes } from "../approvals/routes";
+import { createApprovalService } from "../approvals/service";
+import { createApprovalStore } from "../approvals/store";
+import { ApprovalRefusedError } from "../approvals/types";
+import {
+  createAuditReader,
+  createAuditStore,
+  PERSON_INITIATOR,
+} from "../audit";
 import { createAuth } from "../auth";
 import {
   createDevRequireUser,
@@ -31,11 +44,18 @@ import {
   createRequireUser,
   createRoleRepository,
 } from "../auth/guards";
-import { createChannelEventHub } from "../channels/events";
+import {
+  createChannelEventHub,
+  startChannelActivityListener,
+} from "../channels/events";
 import { createChannelStore } from "../channels/routes";
 import { createThreadIdentity } from "../channels/thread-identity";
 import { createThreadRoutes } from "../channels/thread-routes";
 import { createComponentStore } from "../components/store";
+import {
+  createPolicyStore,
+  DEFAULT_ACTION_POLICY,
+} from "../computer/policy-store";
 import { loadConfig } from "../config";
 import {
   createRequestAgents,
@@ -49,13 +69,26 @@ import {
   resolveModelApiKey,
 } from "../credentials";
 import { createDatabase } from "../db/client";
-import { users } from "../db/schema";
+import {
+  brokeredConnections,
+  intelligenceChannelMappings,
+  users,
+} from "../db/schema";
 import { setEdition } from "../edition";
 import { startHttpServer } from "../http-server";
-import { quoteMemoryContext } from "../memory/ingestion";
+import { createMemoryIngestion } from "../memory/ingestion";
 import { createMemoryRoutes } from "../memory/routes";
 import { createMemoryStore } from "../memory/store";
 import { createPeopleStore } from "../people/store";
+import { redirectUriFor } from "../plugins/oauth";
+import { storedProvider } from "../plugins/provider-wiring";
+import { createPluginRoutes } from "../plugins/routes";
+import { createPluginStore } from "../plugins/store";
+import { grantedTools, REFUSAL_MARKER, vendorAnswer } from "../plugins/tools";
+import {
+  createPrivateShareCheck,
+  PRIVATE_SHARE_TOOL_REF,
+} from "../proactive/private-share";
 import { createRequestActor } from "../request-actor";
 import { corsOrigin } from "../request-trust";
 import { createRoutineRoutes } from "../routines/routes";
@@ -129,8 +162,51 @@ export async function createStandalone(
     config.deploymentId ?? (await deploymentNameOf(database, pkg)),
   );
   const channels = createChannelStore(database, profiles, identity);
+  const channelEvents = createChannelEventHub();
   // Reuse the local MIT store. No Intelligence client or broker is constructed.
   const memory = createMemoryStore(database);
+  const approvals = createApprovalService(createApprovalStore(database));
+  const policy = createPolicyStore(
+    config.computer?.policy ?? DEFAULT_ACTION_POLICY,
+    database,
+  );
+  await policy.load();
+  // No broker is activated. The name below only identifies existing broker-owned rows.
+  const brokerProvider = storedProvider(
+    { kind: "unconfigured" },
+    (
+      await database
+        .selectDistinct({ provider: brokeredConnections.provider })
+        .from(brokeredConnections)
+    ).map((row) => row.provider),
+  );
+  const nativePlugins = createPluginStore({
+    database,
+    auditStore: audit,
+    credentials,
+    encryptionKey: config.keyEncryptionKey,
+    brokerProvider,
+    policy: policy.get,
+    approvalGate: approvals.gate,
+    privateShareCheck: createPrivateShareCheck({ approvals: approvals.store }),
+    redirectUri: config.publicUrl
+      ? redirectUriFor(config.publicUrl)
+      : undefined,
+  });
+  const plugins = {
+    ...nativePlugins,
+    callTool: async (...args: Parameters<typeof nativePlugins.callTool>) => {
+      // Current policy is authoritative on every call; a failed read prevents vendor execution.
+      await policy.refresh();
+      return nativePlugins.callTool(...args);
+    },
+  };
+  const memoryIngestion = createMemoryIngestion({
+    store: memory,
+    plugins,
+    canUseBot: async (owner, bot) =>
+      (await profiles.get(await actorFor(owner), bot)) !== null,
+  });
   normalizeModelBaseUrls();
   const maxOutputTokens = Number(
     environment.STANDALONE_MAX_OUTPUT_TOKENS ?? "256",
@@ -146,10 +222,12 @@ export async function createStandalone(
     maxOutputTokens,
   };
   const resolver = createActorAgentResolver({
+    loadToolsForActor:
+      (actorId, initiator = PERSON_INITIATOR) =>
+      async (botId) =>
+        grantedTools({ store: plugins, actorId, botId, initiator }),
     loadPersonalMemoryForActor: (owner) => (bot) =>
-      memory
-        .retrieve(owner, [], "", { botId: bot, heldServerIds: new Set() })
-        .then(quoteMemoryContext),
+      memoryIngestion.contextFor(owner, bot),
     agentFetch: createAgentFetch({
       allowedHosts: config.agentEndpointAllowedHosts,
     }),
@@ -197,6 +275,70 @@ export async function createStandalone(
       });
     },
   });
+  const sourceFor = async (run: {
+    actorId: string;
+    botId: string;
+    threadId: string;
+  }) => {
+    if (await isBotPaused(run.actorId, run.botId)) return null;
+    const actor = await actorFor(run.actorId);
+    const [mapping] = await database
+      .select()
+      .from(intelligenceChannelMappings)
+      .where(
+        and(
+          eq(intelligenceChannelMappings.userId, run.actorId),
+          eq(intelligenceChannelMappings.threadId, run.threadId),
+        ),
+      )
+      .limit(1);
+    if (!mapping) return null;
+    const channel = await channels.get(actor, mapping.channelId);
+    const profile = await profiles.get(actor, run.botId);
+    return channel?.agentIds.includes(run.botId) && profile
+      ? { channelId: channel.id, botId: run.botId }
+      : null;
+  };
+  const executeApprovedAction = createApprovedActionExecutor({
+    sourceFor,
+    gate: approvals.gate,
+    callTool: async (input) => {
+      if (
+        !(await sourceFor({
+          actorId: input.actorId,
+          botId: input.botId,
+          threadId: input.threadId ?? "",
+        }))
+      )
+        throw new ApprovalRefusedError(
+          "This conversation is no longer available.",
+        );
+      return plugins.callTool(input);
+    },
+    credentialActorFor: async (actorId) => actorId,
+    answer: vendorAnswer,
+    privateShareToolRef: PRIVATE_SHARE_TOOL_REF,
+    refusalMarker: REFUSAL_MARKER,
+    personInitiator: PERSON_INITIATOR,
+  });
+  const resumeApprovalTick = createApprovalResumeTick({
+    approvalQueue: createWorkQueue(database),
+    approvalOwner: `standalone-approvals:${crypto.randomUUID()}`,
+    approvalService: approvals,
+    executeApprovedAction,
+    refusal: async (action) =>
+      (await isBotPaused(action.actorId, action.botId))
+        ? BOT_PAUSED_REASON
+        : headlessTurnRefusal({
+            ownerUserId: action.actorId,
+            agentId: action.botId,
+            threadId: action.threadId,
+          }),
+    database,
+    approvalContinuationRunner: runTurn,
+    channelStore: channels,
+    actorFor,
+  });
   const routines = createRoutineStore(database);
   const tasks = createTaskStore(database);
   const taskRunner = createTaskRunner({
@@ -225,6 +367,8 @@ export async function createStandalone(
     );
     return work;
   };
+  const resumeApprovals = () => track(resumeApprovalTick());
+  const syncMemory = () => track(memoryIngestion.syncDue());
   const routineExecutor = createRoutineRunner({
     routineStore: routines,
     channelStore: channels,
@@ -261,6 +405,29 @@ export async function createStandalone(
     forwardHeaders: { deny: ["authorization"], denyPrefixes: ["x-"] },
   });
   const handler = new Hono<{ Variables: AppVariables }>();
+  handler.route("/api/approvals", createApprovalRoutes(approvals, requireUser));
+  handler.route(
+    "/api/plugins",
+    createPluginRoutes(
+      plugins,
+      requireUser,
+      async (actor, botId) => (await profiles.get(actor, botId)) !== null,
+      {
+        encryptionKey: config.keyEncryptionKey,
+        publicUrl: config.publicUrl,
+        builtInTools: true,
+        appUrl: config.appUrl,
+        personHasAccess: async (id) => {
+          try {
+            await actorFor(id);
+            return true;
+          } catch {
+            return false;
+          }
+        },
+      },
+    ),
+  );
   handler.route(
     "/api/bots",
     createBotLifecycleRoutes(
@@ -289,7 +456,7 @@ export async function createStandalone(
   );
   handler.route(
     "/api/memory",
-    createMemoryRoutes(memory, undefined, requireUser),
+    createMemoryRoutes(memory, memoryIngestion, requireUser),
   );
   handler.route(
     "/api/threads",
@@ -350,7 +517,7 @@ export async function createStandalone(
     undefined,
     profiles,
     channels,
-    createChannelEventHub(),
+    channelEvents,
     audit,
     createComponentStore(database),
     undefined,
@@ -374,6 +541,11 @@ export async function createStandalone(
     tasks,
     taskRunner,
     close,
+    plugins,
+    approvals,
+    resumeApprovals,
+    syncMemory,
+    channelEvents,
   };
 }
 
@@ -392,6 +564,10 @@ export async function startStandalone() {
     computerGateway: undefined,
     app: deployment.app,
   });
+  const activityListener = await startChannelActivityListener(
+    deployment.config.databaseUrl,
+    deployment.channelEvents,
+  );
   const schedule = repeatAfterEach(async () => {
     try {
       await deployment.sweep();
@@ -404,22 +580,26 @@ export async function startStandalone() {
       );
     }
   }, 30_000);
+  // Approval decisions must not wait behind a long-running task or scheduled turn.
+  const approvalSchedule = repeatAfterEach(
+    () => deployment.resumeApprovals(),
+    2_000,
+  );
+  const memorySchedule = repeatAfterEach(() => deployment.syncMemory(), 60_000);
   console.info(
     JSON.stringify({
       type: "standalone-ready",
       port: deployment.config.port,
       mode: "standalone",
-      unavailable: [
-        "automatic-learning",
-        "recorder",
-        "computer",
-        "integrations",
-      ],
+      unavailable: ["automatic-learning", "recorder", "computer"],
     }),
   );
   const close = async () => {
     schedule.stop();
+    approvalSchedule.stop();
+    memorySchedule.stop();
     await server.stop(true);
+    await activityListener.stop();
     await deployment.close();
     process.exit(0);
   };

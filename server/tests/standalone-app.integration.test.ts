@@ -116,10 +116,10 @@ test("standalone boots without Intelligence or licence and preserves original AP
     feature: "voice",
     state: "out_of_scope",
   });
-  const pending = await request("/api/memory/sources");
+  const pending = await request("/api/computers");
   expect(pending.status).toBe(503);
   expect(await pending.json()).toMatchObject({
-    feature: "mcp",
+    feature: "computer",
     state: "in_development",
   });
   expect(await (await request("/api/capabilities")).json()).toMatchObject({

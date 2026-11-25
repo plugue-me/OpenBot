@@ -321,6 +321,8 @@ export type PluginConnectOptions = {
    * grant the deployment cannot honour.
    */
   botsMayCallBack?: boolean;
+  /** Built-in agents execute granted tools in this server without a callback credential. */
+  builtInTools?: boolean;
   publicUrl: string | undefined;
   /**
    * Where the app is, which is not where this API is.

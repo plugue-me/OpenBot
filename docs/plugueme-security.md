@@ -13,3 +13,7 @@ Estado: desenvolvimento local; não aprovado para exposição a clientes.
 - Telemetria proprietária é desabilitada no entrypoint local; verificação de egress da distribuição inteira ainda é necessária.
 
 Pendências: auth comercial, teste multiusuário end-to-end, ACL corporativa, hardening de imagens, carga/retention, revisão de dependências e teste de rede isolado. Ver provenance e test-report para evidências, sem inferir segurança por existência de código.
+
+## Evidência MCP standalone
+
+O executor nativo preserva classificação conservadora de ferramentas sem anotação, criptografia de credenciais, grants e controles SSRF. A decisão humana não dispensa a revalidação de acesso, política, grant e pausa. Os testes incluem negar, revogar e pausar após a solicitação, sem execução externa nesses casos. Grants antigos de ferramentas retiradas podem permanecer armazenados pelo contrato original, mas não são anunciados nem executados. Sem auto-review, broker ou callback remoto de ferramentas nesta composição. O cenário ainda não substitui testes multiusuário/fornecedor OAuth reais e auditoria de produção.

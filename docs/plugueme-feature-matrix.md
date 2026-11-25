@@ -13,15 +13,15 @@
 | Grupos e autoria | Pendente | Fonte group/channels existente, sem wiring standalone |
 | Comunicação e delegação entre funcionários | Pendente | Handoff/subagent/delivery existentes; adaptar runner |
 | Notificações internas/não lidas | Parcial | Activity/read markers locais; atenção/worker ainda não conectados |
-| Tasks/rotinas/CRON/fusos/worker | Parcial | Mesmo runner PostgreSQL do chat, cron/fusos e worker local conectados; teste completo de rotina e tarefa de item existente passou. Criação manual disponível pelo botão New task em Bots, com retry idempotente; goals/check-ins e ferramentas externas ainda pendentes |
+| Tasks/rotinas/CRON/fusos/worker | Parcial | Mesmo runner PostgreSQL do chat, cron/fusos e worker local conectados; teste completo de rotina e tarefa de item existente passou. Criação manual disponível pelo botão New task em Bots, com retry idempotente; goals/check-ins pendentes; MCP aprovado integrado ao runner |
 | Goals/check-ins/segundo plano | Pendente | Store/engine originais não conectados ao composition root |
-| Memória individual | Parcial | CRUD pessoal e contexto no chat conectados ao PostgreSQL; persistência após restart e desabilitação validadas. Fontes MCP e gravação pelo modelo ainda pendentes |
+| Memória individual | Parcial | CRUD pessoal e contexto no chat conectados ao PostgreSQL; persistência após restart e desabilitação validadas. Ingestão MCP conectada ao store original; ciclo completo de fontes e gravação pelo modelo ainda pendente |
 | Memória compartilhada/conhecimento | Pendente | Definir ACL e escopo corporativo sem vazar memória pessoal |
 | Skills manuais | Pendente | Store/grants/importação existentes; separar Learning |
 | Upload/geração/download de arquivos | Pendente | Anexos e computador existentes; endpoints/workspaces não conectados |
-| MCP remoto/OAuth/discovery/grants | Pendente | SDK/rotas/migration 0091 existentes; sem brokers na V1 |
+| MCP remoto/OAuth/discovery/grants | Parcial | Cadastro, discovery, Vault, grants e execução em funcionário interno validados na composição real com MCP local; rotas OAuth originais e testes preservados, sem validar login em fornecedor real. Sem brokers ou callback de ferramentas em agentes remotos |
 | Vault criptografado/rotação/revogação | Parcial | Gravação real anterior e resposta sem plaintext; validar ciclo completo |
-| Aprovações humanas/políticas | Pendente | Implementação local madura; adaptar execução e retomada |
+| Aprovações humanas/políticas | Parcial | Aprovar uma vez, negar, revogar ferramenta e pausar antes da execução validados; resultado e retomada duráveis. Auto-review, computador e governança administrativa avançada indisponíveis |
 | Browser/terminal/computador isolado | Pendente | Fontes recuperadas; construir/testar imagens próprias |
 | Login/logout/sessões/usuários/roles | Parcial | Better Auth/guards existentes; ambiente local é single-user restrito |
 | OpenAI BYOK | Validada | Uma conversa real no marco anterior; não repetida nesta etapa |

@@ -10,9 +10,11 @@ import type { TurnAdmission } from "@openbot/toolkit/ports";
 import {
   concludeTurn,
   frameFiring,
+  sanitizeSeededHistory,
   settle,
   type TurnRunner,
   turnInput,
+  turnMessages,
 } from "@openbot/toolkit/run-turn";
 import type { AuditInitiator } from "../audit";
 import type { LocalAgentRunner } from "./runner";
@@ -33,9 +35,13 @@ export function createLocalTurnRunner(options: {
   abortGraceMs?: number;
 }): TurnRunner {
   return async (host) => {
-    // Resuming approvals needs the governed continuation service, not an invented answer.
-    if (host.continuation)
-      throw new Error("Standalone approval continuation is not available yet.");
+    if (
+      host.continuation &&
+      host.continuation.snapshot.threadId !== host.threadId
+    )
+      throw new Error(
+        "The interrupted conversation does not match this thread.",
+      );
     host.signal?.throwIfAborted();
     const admitted = await options.admission(host);
     admitted?.throwIfAborted();
@@ -48,25 +54,33 @@ export function createLocalTurnRunner(options: {
     agent.agentId = host.agentId;
     const runId = host.runId ?? crypto.randomUUID();
     if (!runId.trim()) throw new Error("A non-empty run id is required.");
-    const scope = await options.store.scopeFor(host.threadId, host.ownerUserId);
-    const historic = scope
-      ? (await options.store.read(scope)).thread.snapshot.messages
-      : [];
-    const before = new Set(historic.map((message) => message.id));
-    const input = turnInput({
-      threadId: host.threadId,
-      runId,
-      messages: [
-        host.userMessage ?? {
-          id: `${runId}:ask`,
-          role: "user",
-          content: frameFiring(host.instruction),
-        },
-      ],
-      state: {},
-      tools: [],
-      skill: host.skill,
-    });
+    const before = new Set<string>();
+    const prepareInput = (snapshot: {
+      messages: import("@ag-ui/client").Message[];
+      state: Record<string, unknown>;
+    }) => {
+      before.clear();
+      for (const message of snapshot.messages) before.add(message.id);
+      return turnInput({
+        threadId: host.threadId,
+        runId,
+        messages: turnMessages({
+          seeded: sanitizeSeededHistory(snapshot.messages),
+          historicIds: before,
+          turn: host.userMessage ?? {
+            id: `${runId}:ask`,
+            role: "user",
+            content: frameFiring(host.instruction),
+          },
+          continuation: host.continuation,
+        }).messages,
+        state: host.continuation?.snapshot.state ?? snapshot.state,
+        tools: [],
+        skill: host.skill,
+        continuation: host.continuation,
+      });
+    };
+    const input = prepareInput({ messages: [], state: {} });
     agent.use(new HeadlessToolsMiddleware([], initiator));
     const controller = new AbortController();
     const signal = admitted
@@ -79,15 +93,16 @@ export function createLocalTurnRunner(options: {
     let waiting: HeadlessToolSuspension | undefined;
     let failed: { error: unknown } | undefined;
     const chunks: string[] = [];
-    const stream = options.runner.run({
-      threadId: host.threadId,
-      ownerId: host.ownerUserId,
-      agent,
-      input,
-      signal,
-    });
     let subscription: { unsubscribe(): void } | undefined;
     try {
+      const stream = options.runner.run({
+        threadId: host.threadId,
+        ownerId: host.ownerUserId,
+        agent,
+        input,
+        signal,
+        prepareInput,
+      });
       await new Promise<void>((resolve, reject) => {
         backstop = setTimeout(
           () =>

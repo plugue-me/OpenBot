@@ -17,6 +17,11 @@ import {
 } from "./store";
 
 type Store = ReturnType<typeof createLocalConversationStore>;
+type LocalRunRequest = AgentRunnerRunRequest & {
+  signal?: AbortSignal;
+  /** Trusted in-process preparation under the acquired lease; never supplied over HTTP. */
+  prepareInput?: (snapshot: LocalSnapshot) => AgentRunnerRunRequest["input"];
+};
 type Active = {
   scope: LocalRunScope;
   agent: AgentRunnerRunRequest["agent"];
@@ -46,9 +51,7 @@ export class LocalAgentRunner extends AgentRunner {
     return owned !== undefined || !(await this.store.exists(threadId));
   }
 
-  run(
-    request: AgentRunnerRunRequest & { signal?: AbortSignal },
-  ): Observable<BaseEvent> {
+  run(request: LocalRunRequest): Observable<BaseEvent> {
     if (this.closing)
       throw new Error("The standalone executor is shutting down.");
     const ownerId = request.ownerId;
@@ -214,7 +217,7 @@ export class LocalAgentRunner extends AgentRunner {
   }
 
   private async execute(
-    request: AgentRunnerRunRequest & { signal?: AbortSignal },
+    request: LocalRunRequest,
     scope: LocalRunScope,
     admitted: () => void,
   ) {
@@ -250,15 +253,18 @@ export class LocalAgentRunner extends AgentRunner {
       const messages = new Map(restored.messages.map((m) => [m.id, m]));
       for (const message of request.input.messages)
         messages.set(message.id, message);
-      const input = {
+      const input = request.prepareInput?.(structuredClone(restored)) ?? {
         ...request.input,
         messages: [...messages.values()],
         state: { ...restored.state, ...request.input.state },
       };
+      if (input.threadId !== scope.threadId || input.runId !== scope.runId)
+        throw new Error("Prepared execution identity changed.");
       // AbstractAgent prepares RunAgentInput from its own messages/state and ignores those
       // fields in runAgent's parameter. Seed both before invoking it (as the headless path does).
       request.agent.messages = structuredClone(input.messages);
       request.agent.state = structuredClone(input.state);
+      request.agent.threadId = scope.threadId;
       const started = {
         type: EventType.RUN_STARTED,
         threadId: scope.threadId,

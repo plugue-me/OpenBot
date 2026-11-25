@@ -22,8 +22,8 @@ export const WEB_V1_FEATURES = {
   memory: { state: "available", label: "Memória pessoal" },
   knowledge: { state: "in_development", label: "Conhecimento compartilhado" },
   skills: { state: "in_development", label: "Skills" },
-  mcp: { state: "in_development", label: "Conexões MCP" },
-  approvals: { state: "in_development", label: "Aprovações" },
+  mcp: { state: "available", label: "Conexões MCP" },
+  approvals: { state: "available", label: "Aprovações" },
   computer: { state: "in_development", label: "Computador do funcionário" },
   files: { state: "in_development", label: "Arquivos" },
   modelSelection: { state: "in_development", label: "Seleção de modelo" },
@@ -59,6 +59,21 @@ export function productFeatureForPath(
 ): ProductFeature | undefined {
   const p = path.replace(/\/+$/, "") || "/";
   const match = (part: string) => p === part || p.startsWith(`${part}/`);
+  if (
+    [
+      "/api/plugins/composio",
+      "/api/plugins/arcade",
+      "/admin/plugins/composio",
+      "/admin/plugins/arcade",
+      "/connections/composio",
+      "/connections/arcade",
+    ].some(match)
+  )
+    return "brokers";
+  if (match("/api/plugins/skills")) return "skills";
+  if (match("/api/approvals/computer")) return "computer";
+  if (["/settings/vault", "/api/passwords"].some(match)) return "computer";
+  if (match("/admin/approvals")) return "governance";
   if (/^\/api\/bots\/[^/]+\/reset(?:\/|$)/.test(p)) return "reset";
   if (
     match("/api/bots/routing") ||

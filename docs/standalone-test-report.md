@@ -1,5 +1,14 @@
 # Relatório de testes standalone
 
+## MCP e aprovações — 25/11/2026
+
+- Nova integração MCP standalone: **6 pass, 40 assertions**, usando MCP SDK real, PostgreSQL dedicado de teste e LLMock local. Cadastro/discovery, Vault sem plaintext na resposta, grants, rejeição de endereços inseguros, execução autorizada, suspensão, aprovação única, negação, revogação e pausa antes da execução. Nenhuma chamada paga.
+- Regressão final de executor/aprovações/políticas e turnos/tarefas standalone: **22 pass, 75 assertions**. Seleção anterior mais ampla: 78 pass, 317 assertions; seleções se sobrepõem e não devem ser somadas.
+- Contratos OAuth/conexão/provedor originais: 67 pass, 150 assertions. Não equivale a validar OAuth com fornecedor real.
+- UI de ferramentas internas, aprovações e capacidades: seleção final 11 pass, 48 assertions; regressões anteriores de conexões/tarefas 27 pass, 211 assertions. Eventos/listener de canais: 37 pass, 78 assertions.
+- Typecheck backend de produção, build web, Biome dos arquivos alterados e diff check passaram. Typecheck global de testes mantém 223 diagnósticos preexistentes; não está aprovado globalmente.
+- Sem migration nesta etapa, sem ferramenta/configuração de teste criada no banco local de uso e sem alteração dos containers de avaliação.
+
 ## Criação manual de tarefas — 25/11/2026
 
 - Tarefas originais + composição standalone: 24 pass, 141 assertions.

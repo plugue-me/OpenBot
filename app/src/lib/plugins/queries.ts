@@ -243,6 +243,7 @@ export type PluginsPage = {
    * grant, the boundary or the audit trail, which is not something a grant switch can show.
    */
   botsMayCallBack: boolean;
+  builtInTools?: boolean;
   /**
    * The redirect URI to register with a `user-oauth` vendor, exactly as this deployment will send it.
    *

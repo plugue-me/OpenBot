@@ -30,13 +30,14 @@ export function createApprovalResumeTick(deps: {
   approvalOwner: string;
   approvalService: ApprovalService;
   executeApprovedAction: ApprovalResumeDependencies["execute"];
+  refusal?: ApprovalResumeDependencies["refusal"];
   database: Database;
-  responsibilityStore: ResponsibilityStore;
-  groupConversations: Pick<GroupConversations, "continueWaiting">;
+  responsibilityStore?: ResponsibilityStore;
+  groupConversations?: Pick<GroupConversations, "continueWaiting">;
   approvalContinuationRunner: TurnRunner;
   channelStore: ChannelStore;
   actorFor: (ownerUserId: string) => Promise<AgentActor>;
-  notify: (
+  notify?: (
     scope: DeliveryScope,
     input: { id: string; text: string; kind: "reply" },
   ) => Promise<void>;
@@ -88,12 +89,14 @@ export function createApprovalResumeTick(deps: {
         const resumeDependencies: ApprovalResumeDependencies = {
           // Asked before the action runs: with Use Bots off, or the Bot's model off the allowlist,
           // nothing is carried out and the refusal is final rather than retried.
-          refusal: (action) =>
-            headlessTurnRefusal({
-              ownerUserId: action.actorId,
-              agentId: action.botId,
-              threadId: action.threadId,
-            }),
+          refusal:
+            deps.refusal ??
+            ((action) =>
+              headlessTurnRefusal({
+                ownerUserId: action.actorId,
+                agentId: action.botId,
+                threadId: action.threadId,
+              })),
           validate: (action) =>
             approvalService.validateReentry(action, () =>
               executeApprovedAction(action),
@@ -105,17 +108,19 @@ export function createApprovalResumeTick(deps: {
             messageId,
             approvalId,
           }) => {
-            const [waitingRun] = await database
-              .select({ id: responsibilityRuns.id })
-              .from(responsibilityRuns)
-              .where(
-                and(
-                  eq(responsibilityRuns.status, "waiting"),
-                  sql`${responsibilityRuns.waiting}->>'approvalId' = ${approvalId}`,
-                ),
-              )
-              .limit(1);
-            if (waitingRun) {
+            const [waitingRun] = responsibilityStore
+              ? await database
+                  .select({ id: responsibilityRuns.id })
+                  .from(responsibilityRuns)
+                  .where(
+                    and(
+                      eq(responsibilityRuns.status, "waiting"),
+                      sql`${responsibilityRuns.waiting}->>'approvalId' = ${approvalId}`,
+                    ),
+                  )
+                  .limit(1)
+              : [];
+            if (waitingRun && responsibilityStore) {
               await responsibilityStore.resumeWaiting(
                 input.ownerUserId,
                 waitingRun.id,
@@ -140,19 +145,19 @@ export function createApprovalResumeTick(deps: {
             let outcome: { replyText: string };
             try {
               // A group turn's approval also writes the resumed reply into the shared transcript.
-              outcome = await groupConversations.continueWaiting(
-                approvalId,
-                () =>
-                  approvalContinuationRunner({
-                    ownerUserId: input.ownerUserId,
-                    routineId: "approval",
-                    agentId: request.action.botId,
-                    threadId: snapshot.threadId,
-                    instruction: "",
-                    initiator: snapshot.initiator ?? PERSON_INITIATOR,
-                    continuation: { snapshot, result, messageId },
-                  }),
-              );
+              const resume = () =>
+                approvalContinuationRunner({
+                  ownerUserId: input.ownerUserId,
+                  routineId: "approval",
+                  agentId: request.action.botId,
+                  threadId: snapshot.threadId,
+                  instruction: "",
+                  initiator: snapshot.initiator ?? PERSON_INITIATOR,
+                  continuation: { snapshot, result, messageId },
+                });
+              outcome = groupConversations
+                ? await groupConversations.continueWaiting(approvalId, resume)
+                : await resume();
             } catch (error) {
               if (!(error instanceof HeadlessToolSuspension)) throw error;
               waitingOn = {
@@ -204,7 +209,7 @@ export function createApprovalResumeTick(deps: {
               );
             // A decision made in Slack, SMS or the phone gets its result back there too.
             if (source && outcome.replyText)
-              await deps.notify(
+              await deps.notify?.(
                 {
                   ownerUserId: input.ownerUserId,
                   channelId: source.channelId,
