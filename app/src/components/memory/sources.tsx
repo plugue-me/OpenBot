@@ -42,6 +42,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { agentListQueryOptions } from "@/lib/agents/queries";
+import { useProductFeature } from "@/lib/deployment/queries";
 import {
   addMemorySourceMutationOptions,
   availableMemorySourcesQueryOptions,
@@ -58,6 +59,17 @@ import { queryClient } from "@/query-client";
  * rather than in the dialog, so the Bot's read actions are already loaded when it opens.
  */
 export function MemorySources({ agentId: fixedBot }: { agentId?: string }) {
+  const available = useProductFeature("mcp");
+  if (!available)
+    return (
+      <p className="text-muted-foreground text-sm">
+        Fontes conectadas em desenvolvimento.
+      </p>
+    );
+  return <AvailableMemorySources agentId={fixedBot} />;
+}
+
+function AvailableMemorySources({ agentId: fixedBot }: { agentId?: string }) {
   const sources = useQuery(memorySourcesQueryOptions());
   const bots = useQuery(agentListQueryOptions());
   const [adding, setAdding] = useState(false);

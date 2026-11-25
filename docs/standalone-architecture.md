@@ -1,5 +1,12 @@
 # Arquitetura standalone
 
+## Memória pessoal local
+
+A composição standalone instancia o store PostgreSQL MIT sem a opção Intelligence e monta as rotas CRUD originais. O resolver carrega `retrieve(owner, [], "", {botId, heldServerIds: new Set()})` e formata o resultado com `quoteMemoryContext`: dados pessoais manuais e observações do próprio funcionário, sem importações ou concessões de ferramentas externas. O middleware original substitui a mensagem de memória a cada turno, portanto desabilitar um fato retira esse contexto no turno seguinte. Isso não apaga eventual menção já feita no histórico de conversa.
+
+A ingestão é opcional nas rotas originais: quando ausente, todos os endpoints de fontes retornam 503. O limite de capacidades associa fontes a MCP, ainda em desenvolvimento. Conhecimento corporativo e gravação pelo modelo não estão habilitados.
+
+
 ## Camada de produto Plugueme V1
 
 `shared/product-capabilities.ts` define estados de recursos e o mapeamento compartilhado de rotas. No modo standalone, `server/src/app.ts` expõe capacidades e aplica bloqueios antes dos handlers; a interface consulta os mesmos estados para navegação, rotas e ferramentas. Capacidades não concedem autorização e não substituem guards de usuário, origem e propriedade. O runtime SSE e o armazenamento PostgreSQL existentes continuam responsáveis pelo chat.

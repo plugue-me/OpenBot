@@ -19,7 +19,7 @@ export const WEB_V1_FEATURES = {
   routines: { state: "in_development", label: "Rotinas" },
   goals: { state: "in_development", label: "Metas" },
   checkIns: { state: "in_development", label: "Check-ins" },
-  memory: { state: "in_development", label: "Memória" },
+  memory: { state: "available", label: "Memória pessoal" },
   knowledge: { state: "in_development", label: "Conhecimento compartilhado" },
   skills: { state: "in_development", label: "Skills" },
   mcp: { state: "in_development", label: "Conexões MCP" },
@@ -104,6 +104,7 @@ export function productFeatureForPath(
   if (["/team-bots", "/api/team-bots"].some(match)) return "groups";
   if (["/routines", "/api/routines", "/internal/routines"].some(match))
     return "routines";
+  if (match("/api/memory/sources")) return "mcp";
   if (["/memory", "/api/memory"].some(match)) return "memory";
   if (["/skills", "/api/skills"].some(match)) return "skills";
   if (["/connections", "/api/plugins", "/api/mcp"].some(match)) return "mcp";

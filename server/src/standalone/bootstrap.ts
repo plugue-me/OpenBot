@@ -39,6 +39,9 @@ import {
 import { createDatabase } from "../db/client";
 import { setEdition } from "../edition";
 import { startHttpServer } from "../http-server";
+import { quoteMemoryContext } from "../memory/ingestion";
+import { createMemoryRoutes } from "../memory/routes";
+import { createMemoryStore } from "../memory/store";
 import { createPeopleStore } from "../people/store";
 import { createRequestActor } from "../request-actor";
 import { corsOrigin } from "../request-trust";
@@ -102,6 +105,8 @@ export async function createStandalone(
     config.deploymentId ?? (await deploymentNameOf(database, pkg)),
   );
   const channels = createChannelStore(database, profiles, identity);
+  // Reuse the local MIT store. No Intelligence client or broker is constructed.
+  const memory = createMemoryStore(database);
   normalizeModelBaseUrls();
   const maxOutputTokens = Number(
     environment.STANDALONE_MAX_OUTPUT_TOKENS ?? "256",
@@ -117,6 +122,10 @@ export async function createStandalone(
     maxOutputTokens,
   };
   const resolver = createActorAgentResolver({
+    loadPersonalMemoryForActor: (owner) => (bot) =>
+      memory
+        .retrieve(owner, [], "", { botId: bot, heldServerIds: new Set() })
+        .then(quoteMemoryContext),
     agentFetch: createAgentFetch({
       allowedHosts: config.agentEndpointAllowedHosts,
     }),
@@ -140,6 +149,10 @@ export async function createStandalone(
     forwardHeaders: { deny: ["authorization"], denyPrefixes: ["x-"] },
   });
   const handler = new Hono<{ Variables: AppVariables }>();
+  handler.route(
+    "/api/memory",
+    createMemoryRoutes(memory, undefined, requireUser),
+  );
   handler.route(
     "/api/threads",
     createThreadRoutes(identity, requireUser, async (id, owner) =>
@@ -207,7 +220,7 @@ export async function createStandalone(
     undefined,
     people,
   );
-  return { app, config, database, profiles, actors, runner, store };
+  return { app, config, database, profiles, actors, runner, store, memory };
 }
 
 export async function startStandalone() {

@@ -1,5 +1,10 @@
 # Relatório de testes standalone
 
+## Memória standalone — 25/11/2026
+
+41 testes passaram, 139 assertions, na seleção `standalone-app.integration`, `memory-store.integration`, `memory-runtime`, `memory` e `product-capabilities`. Banco PostgreSQL real de teste, endpoint AG-UI simulado e nenhuma chamada paga. Verificados CRUD pessoal no wiring real, memória enviada ao agente como dados não confiáveis, persistência após restart, remoção do contexto após desabilitação, isolamento original do store e 503 para fontes sem ingestão. Backend typecheck e frontend build passaram; tela Memory acessível em 3031. Isso não valida memória corporativa, fontes MCP ou escrita pelo modelo.
+
+
 ## Validação da camada Plugueme V1 — 25/11/2026
 
 - Produto/capacidades/chat/navegação/composer/voz: seleção de 32 testes passou, 195 assertions.

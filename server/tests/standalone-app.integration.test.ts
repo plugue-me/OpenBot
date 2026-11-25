@@ -2,7 +2,12 @@ import { afterAll, expect, test } from "bun:test";
 import { randomBytes, randomUUID } from "node:crypto";
 import { resolve } from "node:path";
 import { eq } from "drizzle-orm";
-import { agents, credentials, localThreads } from "../src/db/schema";
+import {
+  agents,
+  credentials,
+  localThreads,
+  personalMemories,
+} from "../src/db/schema";
 import { startHttpServer } from "../src/http-server";
 import { createStandalone } from "../src/standalone/bootstrap";
 import { testDatabaseUrl } from "./support/database";
@@ -12,7 +17,7 @@ process.env.COPILOTKIT_TELEMETRY_DISABLED = "true";
 const address = testDatabaseUrl();
 const key = randomBytes(32).toString("base64");
 let calls = 0;
-let history: { id: string }[] = [];
+let history: { id: string; content?: string }[] = [];
 const remote = Bun.serve({
   hostname: "127.0.0.1",
   port: 0,
@@ -21,7 +26,7 @@ const remote = Bun.serve({
     const input = (await request.json()) as {
       threadId: string;
       runId: string;
-      messages: { id: string }[];
+      messages: { id: string; content?: string }[];
     };
     history = input.messages;
     const id = `answer-${input.runId}`;
@@ -75,6 +80,7 @@ const serve = () =>
 let server = serve();
 let agentId: string | undefined;
 let credentialId: string | undefined;
+let memoryId: string | undefined;
 const threadId = randomUUID();
 const request = (path: string, body?: unknown) =>
   fetch(`${origin}${path}`, {
@@ -95,6 +101,10 @@ afterAll(async () => {
     await deployment.database
       .delete(credentials)
       .where(eq(credentials.id, credentialId));
+  if (memoryId)
+    await deployment.database
+      .delete(personalMemories)
+      .where(eq(personalMemories.id, memoryId));
   await deployment.database.$client.close();
 });
 
@@ -106,10 +116,10 @@ test("standalone boots without Intelligence or licence and preserves original AP
     feature: "voice",
     state: "out_of_scope",
   });
-  const pending = await request("/api/memory");
+  const pending = await request("/api/memory/sources");
   expect(pending.status).toBe(503);
   expect(await pending.json()).toMatchObject({
-    feature: "memory",
+    feature: "mcp",
     state: "in_development",
   });
   expect(await (await request("/api/capabilities")).json()).toMatchObject({
@@ -140,6 +150,12 @@ test("standalone boots without Intelligence or licence and preserves original AP
   });
   expect(created.status).toBe(201);
   agentId = (await created.json()).agent.id;
+  const remembered = await request("/api/memory", {
+    content: "Standalone memory validation: prefers concise replies.",
+    provenance: "Explicit user preference",
+  });
+  expect(remembered.status).toBe(201);
+  memoryId = (await remembered.json()).memory.id;
   const input = {
     threadId,
     runId: randomUUID(),
@@ -156,6 +172,12 @@ test("standalone boots without Intelligence or licence and preserves original AP
   expect(events).toContain("Simulated standalone response");
   expect(events).toContain("RUN_FINISHED");
   expect(calls).toBe(1);
+  expect(
+    history.find((m) => m.id === "openbot:personal-memory")?.content,
+  ).toContain("prefers concise replies");
+  expect(
+    history.find((m) => m.id === "openbot:personal-memory")?.content,
+  ).toContain("untrusted data");
   const saved = await (
     await request(`/api/copilotkit/threads/${threadId}/messages`)
   ).json();
@@ -172,12 +194,22 @@ test("standalone boots without Intelligence or licence and preserves original AP
   await deployment.database.$client.close();
   deployment = await createStandalone(environment);
   server = serve();
+  const memories = await (await request("/api/memory")).json();
+  expect(memories.memories.some((m: { id: string }) => m.id === memoryId)).toBe(
+    true,
+  );
   const replay = await request(
     `/api/copilotkit/agent/${agentId}/connect`,
     input,
   );
   expect(await replay.text()).toContain("Simulated standalone response");
   expect(calls).toBe(1);
+  const disabled = await fetch(`${origin}/api/memory/${memoryId}`, {
+    method: "PATCH",
+    headers: { origin, "content-type": "application/json" },
+    body: JSON.stringify({ enabled: false }),
+  });
+  expect(disabled.status).toBe(200);
   const next = await request(`/api/copilotkit/agent/${agentId}/run`, {
     ...input,
     runId: randomUUID(),
@@ -187,4 +219,5 @@ test("standalone boots without Intelligence or licence and preserves original AP
   expect(history.some((m) => m.id === "first-question")).toBe(true);
   expect(history.some((m) => m.id === "follow-up")).toBe(true);
   expect(calls).toBe(2);
+  expect(history.some((m) => m.id === "openbot:personal-memory")).toBe(false);
 }, 20_000);

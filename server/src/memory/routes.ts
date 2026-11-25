@@ -12,11 +12,32 @@ import {
 
 export function createMemoryRoutes(
   store: MemoryStore,
-  ingestion: MemoryIngestion,
+  ingestion: MemoryIngestion | undefined,
   requireUser: MiddlewareHandler<{ Variables: AppVariables }>,
 ) {
   const routes = new Hono<{ Variables: AppVariables }>();
   routes.use("*", requireUser, bodyLimit({ maxSize: 16_384 }));
+  // Standalone can offer durable personal memory before connector ingestion is enabled.
+  const requireSources: MiddlewareHandler<{ Variables: AppVariables }> = async (
+    context,
+    next,
+  ) => {
+    if (!ingestion)
+      return context.json(
+        { error: "Connected memory sources are in development." },
+        503,
+      );
+    return next();
+  };
+  routes.use("/sources", requireSources);
+  routes.use("/sources/*", requireSources);
+  function sourceIngestion(): MemoryIngestion {
+    if (!ingestion)
+      throw new MemoryRefusedError(
+        "Connected memory sources are in development.",
+      );
+    return ingestion;
+  }
   routes.onError((error, context) => {
     if (error instanceof MemoryNotFoundError)
       return context.json({ error: error.message }, 404);
@@ -58,7 +79,7 @@ export function createMemoryRoutes(
   );
   routes.get("/sources/available/:botId", async (context) =>
     context.json({
-      tools: await ingestion.availableSources(
+      tools: await sourceIngestion().availableSources(
         context.var.actor.id,
         context.req.param("botId"),
       ),
@@ -66,7 +87,7 @@ export function createMemoryRoutes(
   );
   routes.post("/sources", async (context) =>
     context.json(
-      await ingestion.createSource(
+      await sourceIngestion().createSource(
         context.var.actor.id,
         await body(context.req.raw),
       ),
@@ -92,7 +113,10 @@ export function createMemoryRoutes(
   });
   routes.post("/sources/:id/sync", async (context) =>
     context.json(
-      await ingestion.sync(context.var.actor.id, context.req.param("id")),
+      await sourceIngestion().sync(
+        context.var.actor.id,
+        context.req.param("id"),
+      ),
     ),
   );
   routes.delete("/sources/:id", async (context) => {

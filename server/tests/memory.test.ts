@@ -7,8 +7,8 @@ import {
   quoteMemoryContext,
 } from "../src/memory/ingestion";
 import { createMemoryRoutes } from "../src/memory/routes";
-import type { MemoryStore } from "../src/memory/store";
 import { createMemoryRuntime } from "../src/memory/runtime";
+import type { MemoryStore } from "../src/memory/store";
 import { memoryTools, offeredMemoryTools } from "../src/memory/tools";
 import {
   parseMemoryInput,
@@ -194,6 +194,28 @@ test("the personal edition puts no memory in a Bot's turn and its sweep reads no
   expect(await team.loadForActor?.("u1")("bot")).toBe("Prefers mornings");
   await team.sweep();
   expect(calls).toEqual(["adopt u1 bot", "context", "sync", "mirror"]);
+});
+
+test("personal memory without ingestion refuses all source routes explicitly", async () => {
+  const routes = createMemoryRoutes(
+    {} as MemoryStore,
+    undefined,
+    async (context, next) => {
+      context.set("actor", { id: "person" } as AuthenticatedActor);
+      await next();
+    },
+  );
+  for (const [path, method] of [
+    ["/sources", "GET"],
+    ["/sources", "POST"],
+    ["/sources/source-1/sync", "POST"],
+  ]) {
+    const response = await routes.request(path, { method });
+    expect(response.status).toBe(503);
+    expect(await response.json()).toEqual({
+      error: "Connected memory sources are in development.",
+    });
+  }
 });
 
 test("a source sync a connector's policy refuses answers 400 with the reason, not 503", async () => {

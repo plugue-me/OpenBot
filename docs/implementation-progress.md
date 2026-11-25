@@ -1,5 +1,12 @@
 # Continuidade da implementação independente
 
+## Memória local conectada — 25/11/2026
+
+Reutilizados `createMemoryStore`, `createMemoryRoutes`, `quoteMemoryContext` e o middleware original do resolver para oferecer CRUD pessoal e contexto de memória no standalone. Nenhum cliente Intelligence ou broker é construído. Memórias manuais são pessoais e chegam aos funcionários desse usuário; memórias formadas por funcionário mantêm o filtro original por bot, e importações não são incluídas sem fonte autorizada. Isso não implementa conhecimento compartilhado da empresa. Gravação por ferramenta do modelo e fontes MCP continuam pendentes.
+
+A seleção final tem 41 testes aprovados (139 assertions), incluindo memória no turno HTTP simulado, persistência após reconstrução do servidor e retirada do contexto após desabilitação. Backend typecheck e frontend build passaram. Tela Memory conferida no servidor local 3031 após reinício; nenhuma chamada paga de IA. Fontes recebem 503 e a interface explicita desenvolvimento.
+
+
 ## Etapa Plugueme V1 — capacidades web (25/11/2026)
 
 A especificação integral está em `PLUGUEME-V1-SCOPE.md`. O reaproveitamento e as licenças estão em `implementation-provenance.md`; roadmap, matriz funcional, segurança, implantação e backup possuem documentos próprios `plugueme-*.md`.

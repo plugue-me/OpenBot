@@ -15,7 +15,7 @@
 | Notificações internas/não lidas | Parcial | Activity/read markers locais; atenção/worker ainda não conectados |
 | Tasks/rotinas/CRON/fusos/worker | Pendente | Fonte e testes originais; falta execução local unificada |
 | Goals/check-ins/segundo plano | Pendente | Store/engine originais não conectados ao composition root |
-| Memória individual | Pendente | Fallback local preservado, ainda não conectado ao chat |
+| Memória individual | Parcial | CRUD pessoal e contexto no chat conectados ao PostgreSQL; persistência após restart e desabilitação validadas. Fontes MCP e gravação pelo modelo ainda pendentes |
 | Memória compartilhada/conhecimento | Pendente | Definir ACL e escopo corporativo sem vazar memória pessoal |
 | Skills manuais | Pendente | Store/grants/importação existentes; separar Learning |
 | Upload/geração/download de arquivos | Pendente | Anexos e computador existentes; endpoints/workspaces não conectados |
