@@ -13,7 +13,7 @@
 | Grupos e autoria | Pendente | Fonte group/channels existente, sem wiring standalone |
 | Comunicação e delegação entre funcionários | Pendente | Handoff/subagent/delivery existentes; adaptar runner |
 | Notificações internas/não lidas | Parcial | Activity/read markers locais; atenção/worker ainda não conectados |
-| Tasks/rotinas/CRON/fusos/worker | Pendente | Fonte e testes originais; falta execução local unificada |
+| Tasks/rotinas/CRON/fusos/worker | Parcial | Mesmo runner PostgreSQL do chat, cron/fusos e worker local conectados; teste completo de rotina e tarefa de item existente passou. Criação manual, goals/check-ins e ferramentas externas ainda pendentes |
 | Goals/check-ins/segundo plano | Pendente | Store/engine originais não conectados ao composition root |
 | Memória individual | Parcial | CRUD pessoal e contexto no chat conectados ao PostgreSQL; persistência após restart e desabilitação validadas. Fontes MCP e gravação pelo modelo ainda pendentes |
 | Memória compartilhada/conhecimento | Pendente | Definir ACL e escopo corporativo sem vazar memória pessoal |

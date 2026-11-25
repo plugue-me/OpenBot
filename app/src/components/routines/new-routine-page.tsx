@@ -32,7 +32,10 @@ import {
   type ChannelSummary,
   channelListQueryOptions,
 } from "@/lib/channels/queries";
-import { deploymentCapabilitiesQueryOptions } from "@/lib/deployment/queries";
+import {
+  deploymentCapabilitiesQueryOptions,
+  useProductFeature,
+} from "@/lib/deployment/queries";
 import {
   type ProactiveSetting,
   proactiveAllowedQueryOptions,
@@ -222,9 +225,16 @@ export function NewRoutinePage({
     createFromPlanMutationOptions(queryClient),
   );
   // Only tell you is offered once the answer says an admin allows check-ins: not while it loads.
-  const allowed = useQuery(proactiveAllowedQueryOptions()).data === true;
+  const goalsAvailable = useProductFeature("goals");
+  const checkInsAvailable = useProductFeature("checkIns");
+  const allowed =
+    useQuery({ ...proactiveAllowedQueryOptions(), enabled: checkInsAvailable })
+      .data === true && checkInsAvailable;
   // The same request as `allowed`: both read one key.
-  const checkIns = useQuery(proactiveSettingsQueryOptions());
+  const checkIns = useQuery({
+    ...proactiveSettingsQueryOptions(),
+    enabled: checkInsAvailable,
+  });
   // FOUND IN REVIEW: Slack was offered as a source in every edition. The personal edition has no
   // Slack (Connections leaves it out), so a goal woken by a Slack event there never ran, while its
   // row named the event as if it would.
@@ -534,7 +544,9 @@ export function NewRoutinePage({
               description={
                 does === "tell"
                   ? "It looks this often, and tells you when something needs you."
-                  : "On a schedule, when something happens, or once, now."
+                  : goalsAvailable
+                    ? "On a schedule, when something happens, or once, now."
+                    : "On a schedule."
               }
               title={does === "tell" ? "How often it looks" : "When it starts"}
             >
@@ -611,7 +623,11 @@ export function NewRoutinePage({
                                   </SelectTrigger>
                                   <SelectContent>
                                     <SelectGroup>
-                                      {STARTS.map((choice) => (
+                                      {STARTS.filter(
+                                        (choice) =>
+                                          goalsAvailable ||
+                                          choice === "schedule",
+                                      ).map((choice) => (
                                         <SelectItem key={choice} value={choice}>
                                           {STARTS_LABEL[choice]}
                                         </SelectItem>
@@ -786,9 +802,10 @@ export function NewRoutinePage({
                                     <span className="font-medium text-foreground">
                                       {scheduleSentence(values)}
                                     </span>
-                                    , your time ({timeZone}). For anything else,
-                                    like every other Tuesday, ask the Bot in a
-                                    conversation.
+                                    , your time ({timeZone}).
+                                    {goalsAvailable
+                                      ? " For anything else, like every other Tuesday, ask the Bot in a conversation."
+                                      : null}
                                   </FieldDescription>
                                 )}
                               </form.Subscribe>
@@ -910,7 +927,7 @@ export function NewRoutinePage({
           selector={(state) => [state.values.does, state.values.starts]}
         >
           {([does, starts]) =>
-            does === "tell" ? null : (
+            does === "tell" || !goalsAvailable ? null : (
               <PageSection
                 description={
                   starts === "now"

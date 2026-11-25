@@ -44,6 +44,7 @@ import { Separator } from "@/components/ui/separator";
 import { agentListQueryOptions } from "@/lib/agents/queries";
 import { conversationLabel } from "@/lib/channels/label";
 import { channelListQueryOptions } from "@/lib/channels/queries";
+import { useProductFeature } from "@/lib/deployment/queries";
 import {
   createProactiveSettingMutationOptions,
   type LastCheckIn,
@@ -146,8 +147,13 @@ export function SuggestionsInbox({
  * admin turned check-ins off for them, or they turned them off for all their Bots.
  */
 export function useCheckInsBlocked(): string | null {
-  const allowed = useQuery(proactiveAllowedQueryOptions());
+  const available = useProductFeature("checkIns");
+  const allowed = useQuery({
+    ...proactiveAllowedQueryOptions(),
+    enabled: available,
+  });
   const preferences = useUserPreferences();
+  if (!available) return "Em desenvolvimento";
   if (allowed.data === false) return "Turned off by your admin";
   if (preferences.data?.proactive === "off") return "Off for all your Bots";
   return null;

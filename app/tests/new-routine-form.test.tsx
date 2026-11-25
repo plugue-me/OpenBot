@@ -1,5 +1,6 @@
 import { afterAll, afterEach, beforeAll, expect, test } from "bun:test";
 import { GlobalRegistrator } from "@happy-dom/global-registrator";
+import { WEB_V1_FEATURES } from "@openbot/shared/product-capabilities";
 import { QueryClientProvider } from "@tanstack/react-query";
 import {
   createMemoryHistory,
@@ -47,6 +48,7 @@ const channel = (id: string, name: string, agentIds: string[]) => ({
 
 type Write = [method: string, path: string, body: unknown];
 const recorded: Write[] = [];
+const reads: string[] = [];
 
 /** The non-GET calls made since `serving()`, as `[method, path, body]`. */
 function writes(): Write[] {
@@ -62,9 +64,11 @@ function serving({
   routines = () => Response.json({ routine: { id: "r1" } }, { status: 201 }),
   goalDeletes = true,
   edition = "team",
+  standalone = false,
 }: {
   /** What `GET /api/capabilities` says this deployment is. */
   edition?: "team" | "personal";
+  standalone?: boolean;
   proactive?: unknown;
   /** How `POST /api/routines` answers. */
   routines?: () => Response | Promise<Response>;
@@ -72,6 +76,7 @@ function serving({
   goalDeletes?: boolean;
 } = {}) {
   recorded.length = 0;
+  reads.length = 0;
   proactiveAnswer = proactive;
   global.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
     const url = String(input);
@@ -95,6 +100,7 @@ function serving({
         return Response.json({ responsibility: { id: "g1", title: "Goal" } });
       return Response.json({ ok: true });
     }
+    reads.push(url);
     if (url.startsWith("/api/agents"))
       return Response.json({
         agents: [
@@ -109,7 +115,13 @@ function serving({
       });
     if (url === "/api/proactive/settings")
       return Response.json(proactiveAnswer);
-    if (url === "/api/capabilities") return Response.json({ edition });
+    if (url === "/api/capabilities")
+      return Response.json({
+        edition,
+        ...(standalone
+          ? { mode: "standalone", features: WEB_V1_FEATURES }
+          : {}),
+      });
     return Response.json({});
   }) as unknown as typeof fetch;
 }
@@ -150,6 +162,19 @@ test("the default answers make a routine", async () => {
   expect(writes().map(([method, path]) => `${method} ${path}`)).toEqual([
     "POST /api/routines",
   ]);
+});
+
+test("standalone offers schedules without pending goals or check-ins", async () => {
+  serving({ standalone: true });
+  const view = draw();
+  const user = userEvent.setup({ document });
+  await view.findByLabelText("What to do");
+  await settleReactWork();
+  expect(view.queryByLabelText("Done when (optional)")).toBeNull();
+  expect(reads).not.toContain("/api/proactive/settings");
+  expect(view.queryByText("Only tell you")).toBeNull();
+  await user.click(view.getByRole("combobox", { name: "Starts" }));
+  expect(view.queryByRole("option", { name: "Now, once" })).toBeNull();
 });
 
 test("an outcome on a schedule makes a goal and its routine", async () => {

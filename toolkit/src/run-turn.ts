@@ -670,7 +670,7 @@ export class EmptyTurnError extends Error {
  * (`channel-manager.mjs:311-313`) — so a stop this turn itself requested has actually settled before
  * it is reported on, not just been requested.
  */
-async function conclude(
+export async function concludeTurn(
   outcome: TurnOutcome,
   stopped: Promise<unknown> | undefined,
   turnTimeoutMs: number,
@@ -1179,6 +1179,6 @@ export function createTurnRunner(options: {
       pendingInterrupts: agent.pendingInterrupts,
       componentNames: components?.names ?? new Set(),
     });
-    return conclude(outcome, stopPromise, turnTimeoutMs);
+    return concludeTurn(outcome, stopPromise, turnTimeoutMs);
   };
 }

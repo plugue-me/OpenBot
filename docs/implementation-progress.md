@@ -1,5 +1,14 @@
 # Continuidade da implementação independente
 
+## Executor headless, tarefas e rotinas locais — 25/11/2026
+
+Reaproveitados `tasks/{store,runner,turn,routes}`, `routines/{store,runner,routes,sweep,schedule}`, fila `work_items`, lifecycle/activity e helpers MIT do toolkit. O adaptador `standalone/turn.ts` executa no mesmo LocalAgentRunner do chat, sem cliente Intelligence. Registry id atribuído antes da execução, admissão original, isolamento de dono/agente, contexto persistido, lease, cancelamento, deadline e resultado durável compartilhados. Encerramento coordenado aborta providers e espera escritas/resultados antes de fechar PostgreSQL. O worker standalone executa sweep a cada 30 s, sem browser. Cada pass considera uma rotina e mantém a lease da fila por mais que o deadline máximo do turno.
+
+Rotas/UI de rotinas habilitadas para agendas. Metas/check-ins continuam bloqueados, sem consultas opcionais ou escolhas inexistentes no formulário. Tarefas existentes podem executar, listar, concluir/reabrir e tentar novamente pela fila original. Início a partir de item existente foi validado; criação manual de tarefas e geração de itens por check-in ainda pendentes. Headless só admite funcionários built-in; agentes externos, ferramentas MCP/computador e continuação de aprovações ainda não são habilitados.
+
+Validação: 12 testes em quatro suítes standalone (77 assertions), incluindo built-in real com OpenAI local simulado; 114 regressões existentes de tarefas/cron/sweep (543 assertions); 68 testes de formulário/discovery (264 assertions). Há testes sobrepostos a seleções anteriores; não somar como total único. Backend typecheck e build web passaram. Typecheck global dos testes continua em 223 diagnósticos, sem apontamentos nos novos testes/arquivos standalone. Tela de agenda conferida em 3031, opções limitadas a schedule. Nenhuma chamada paga, nenhuma extração proprietária, nenhuma migration nesta etapa.
+
+
 ## Memória local conectada — 25/11/2026
 
 Reutilizados `createMemoryStore`, `createMemoryRoutes`, `quoteMemoryContext` e o middleware original do resolver para oferecer CRUD pessoal e contexto de memória no standalone. Nenhum cliente Intelligence ou broker é construído. Memórias manuais são pessoais e chegam aos funcionários desse usuário; memórias formadas por funcionário mantêm o filtro original por bot, e importações não são incluídas sem fonte autorizada. Isso não implementa conhecimento compartilhado da empresa. Gravação por ferramenta do modelo e fontes MCP continuam pendentes.

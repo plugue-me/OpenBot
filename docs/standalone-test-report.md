@@ -1,5 +1,16 @@
 # Relatório de testes standalone
 
+## Tarefas/rotinas/headless — 25/11/2026
+
+- `standalone-work`, `standalone-turn`, `standalone-runner`, `standalone-app`: 12 pass, 77 assertions. Cron executado via composição real, built-in/modelo simulado local, resultado no histórico web; tarefa pronta para revisão e resolve/reopen; replay, concorrência, dono estrangeiro, cancelamento, timeout e shutdown durável.
+- `routine-run-turn`, `routine-runner`, `routine-sweep.integration`, `routine-run-now.integration`, `tasks.integration`, `tasks-state`: 114 pass, 543 assertions.
+- `new-routine-form` + `routines-discovery`: 68 pass, 264 assertions, incluindo standalone sem consulta/oferta de check-ins e metas.
+- Backend typecheck e build web passaram. Typecheck global dos testes: 223 diagnósticos preexistentes; sem diagnóstico nos novos módulos/testes standalone. Não está aprovado globalmente.
+- Interface local de nova rotina conferida em 3031. Nenhum agendamento de teste salvo no banco de uso local e nenhuma chamada paga de IA.
+
+A validação não cobre criação manual de tarefa, geração de check-ins, ferramentas externas, aprovações ou execução headless em agentes remotos; permanecem pendentes.
+
+
 ## Memória standalone — 25/11/2026
 
 41 testes passaram, 139 assertions, na seleção `standalone-app.integration`, `memory-store.integration`, `memory-runtime`, `memory` e `product-capabilities`. Banco PostgreSQL real de teste, endpoint AG-UI simulado e nenhuma chamada paga. Verificados CRUD pessoal no wiring real, memória enviada ao agente como dados não confiáveis, persistência após restart, remoção do contexto após desabilitação, isolamento original do store e 503 para fontes sem ingestão. Backend typecheck e frontend build passaram; tela Memory acessível em 3031. Isso não valida memória corporativa, fontes MCP ou escrita pelo modelo.

@@ -28,7 +28,10 @@ import {
 } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
 import { type AgentProfile, agentListQueryOptions } from "@/lib/agents/queries";
-import { deploymentCapabilitiesQueryOptions } from "@/lib/deployment/queries";
+import {
+  deploymentCapabilitiesQueryOptions,
+  useProductFeature,
+} from "@/lib/deployment/queries";
 import { proactiveSettingsQueryOptions } from "@/lib/proactive";
 import { relativeTime } from "@/lib/relative-time";
 import {
@@ -251,8 +254,16 @@ export function RoutinesList({
   embedded?: boolean;
 } = {}) {
   const routines = useQuery(routinesQueryOptions());
-  const goals = useQuery(responsibilitiesQueryOptions());
-  const checkIns = useQuery(proactiveSettingsQueryOptions());
+  const goalsAvailable = useProductFeature("goals");
+  const checkInsAvailable = useProductFeature("checkIns");
+  const goals = useQuery({
+    ...responsibilitiesQueryOptions(),
+    enabled: goalsAvailable,
+  });
+  const checkIns = useQuery({
+    ...proactiveSettingsQueryOptions(),
+    enabled: checkInsAvailable,
+  });
   const blocked = useCheckInsBlocked();
   /* Names and faces for each row's Bot, hidden Bots included: a routine outlives hiding its Bot. */
   const shownBots = useQuery(agentListQueryOptions());
@@ -282,7 +293,10 @@ export function RoutinesList({
   ).length;
   const noWorker = nothingIsFiring(sweep, scheduled);
   const edition = useQuery(deploymentCapabilitiesQueryOptions()).data?.edition;
-  const pending = routines.isPending || goals.isPending || checkIns.isPending;
+  const pending =
+    routines.isPending ||
+    (goalsAvailable && goals.isPending) ||
+    (checkInsAvailable && checkIns.isPending);
   const failed = [
     routines.error ? "routines" : null,
     goals.error ? "goals" : null,

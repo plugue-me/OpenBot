@@ -15,8 +15,8 @@ export const WEB_V1_FEATURES = {
   users: { state: "available", label: "Usuários" },
   groups: { state: "in_development", label: "Conversas em grupo" },
   delegation: { state: "in_development", label: "Delegação" },
-  tasks: { state: "in_development", label: "Tarefas" },
-  routines: { state: "in_development", label: "Rotinas" },
+  tasks: { state: "available", label: "Tarefas" },
+  routines: { state: "available", label: "Rotinas" },
   goals: { state: "in_development", label: "Metas" },
   checkIns: { state: "in_development", label: "Check-ins" },
   memory: { state: "available", label: "Memória pessoal" },
@@ -59,6 +59,14 @@ export function productFeatureForPath(
 ): ProductFeature | undefined {
   const p = path.replace(/\/+$/, "") || "/";
   const match = (part: string) => p === part || p.startsWith(`${part}/`);
+  if (/^\/api\/bots\/[^/]+\/reset(?:\/|$)/.test(p)) return "reset";
+  if (
+    match("/api/bots/routing") ||
+    /^\/api\/bots\/[^/]+\/notifications(?:\/|$)/.test(p)
+  )
+    return "notifications";
+  if (/^\/api\/bots\/[^/]+\/activity\/handoffs(?:\/|$)/.test(p))
+    return "delegation";
   if (
     ["/api/auth/desktop", "/api/auth/electron", "/api/host-access"].some(match)
   )
@@ -102,6 +110,8 @@ export function productFeatureForPath(
     return "governance";
   if (["/settings/notifications"].some(match)) return "notifications";
   if (["/team-bots", "/api/team-bots"].some(match)) return "groups";
+  if (match("/routines/goals")) return "goals";
+  if (match("/routines/check-ins")) return "checkIns";
   if (["/routines", "/api/routines", "/internal/routines"].some(match))
     return "routines";
   if (match("/api/memory/sources")) return "mcp";

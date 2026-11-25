@@ -30,6 +30,8 @@ type Active = {
  */
 export class LocalAgentRunner extends AgentRunner {
   private readonly active = new Map<string, Active>();
+  private readonly executions = new Set<Promise<void>>();
+  private closing = false;
   constructor(
     private readonly store: Store,
     private readonly pollMs = 100,
@@ -44,7 +46,11 @@ export class LocalAgentRunner extends AgentRunner {
     return owned !== undefined || !(await this.store.exists(threadId));
   }
 
-  run(request: AgentRunnerRunRequest): Observable<BaseEvent> {
+  run(
+    request: AgentRunnerRunRequest & { signal?: AbortSignal },
+  ): Observable<BaseEvent> {
+    if (this.closing)
+      throw new Error("The standalone executor is shutting down.");
     const ownerId = request.ownerId;
     const agentId = request.agent.agentId;
     if (!ownerId || !agentId) throw new LocalThreadDenied();
@@ -61,7 +67,9 @@ export class LocalAgentRunner extends AgentRunner {
       refuse = reject;
     });
     // Start now, independently of whether an HTTP observer stays subscribed.
-    void this.execute(request, scope, admit).catch(refuse);
+    const execution = this.execute(request, scope, admit).catch(refuse);
+    this.executions.add(execution);
+    void execution.finally(() => this.executions.delete(execution));
     // Handle rejection even when the caller never subscribes.
     void ready.catch(() => {});
     return new Observable((subscriber) => {
@@ -81,6 +89,16 @@ export class LocalAgentRunner extends AgentRunner {
         subscription?.unsubscribe();
       };
     });
+  }
+
+  /** Stop provider execution and wait for durability writes before closing PostgreSQL. */
+  async close() {
+    this.closing = true;
+    for (const running of this.active.values()) {
+      running.cancelled = true;
+      running.agent.abortRun();
+    }
+    await Promise.allSettled([...this.executions]);
   }
 
   connect(request: AgentRunnerConnectRequest): Observable<BaseEvent> {
@@ -196,13 +214,19 @@ export class LocalAgentRunner extends AgentRunner {
   }
 
   private async execute(
-    request: AgentRunnerRunRequest,
+    request: AgentRunnerRunRequest & { signal?: AbortSignal },
     scope: LocalRunScope,
     admitted: () => void,
   ) {
     const restored = await this.store.claim(scope);
     const running: Active = { scope, agent: request.agent, cancelled: false };
     this.active.set(scope.threadId, running);
+    const cancel = () => {
+      running.cancelled = true;
+      request.agent.abortRun();
+    };
+    request.signal?.addEventListener("abort", cancel, { once: true });
+    if (request.signal?.aborted || this.closing) cancel();
     admitted();
     const events: BaseEvent[] = [];
     let leaseLost = false;
@@ -246,6 +270,7 @@ export class LocalAgentRunner extends AgentRunner {
         state: input.state,
       });
       events.push(started);
+      if (running.cancelled) throw new Error("The execution was cancelled.");
       await request.agent.runAgent(input, {
         onEvent: async ({ event }) => {
           if (leaseLost) throw new Error("Execution lease lost.");
@@ -268,6 +293,7 @@ export class LocalAgentRunner extends AgentRunner {
       // Provider exceptions can contain credentials or full requests. Persist a safe boundary error.
     } finally {
       clearInterval(timer);
+      request.signal?.removeEventListener("abort", cancel);
       await renewal;
       try {
         if (!leaseLost) {

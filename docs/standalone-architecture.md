@@ -1,5 +1,12 @@
 # Arquitetura standalone
 
+## Execução headless compartilhada
+
+`standalone/turn.ts` implementa o contrato TurnRunner sobre o mesmo LocalAgentRunner usado pelo runtime HTTP. Reutiliza os helpers MIT `turnInput`, `frameFiring`, `settle` e `concludeTurn`, além do middleware headless; não fornece um objeto que finge ser Intelligence. O host revalida usuário/roles/revogação e visibilidade do funcionário. Somente built-in é habilitado; não são fornecidas ferramentas externas ou continuação de aprovação.
+
+Routines e tasks usam os stores e filas originais. O sweep standalone roda a cada 30 s, uma rotina por pass, sem sobreposição do timer. A dispatch aguarda o resultado real; sua lease deriva do limite de execução mais a graça de cancelamento e margem. Rotinas mantêm dedupe por ocorrência, fusos, janela de atraso e reaper originais. Shutdown fecha admissão de novos runs, aborta agentes e aguarda tarefas e rotinas antes de fechar o banco. Mantém-se o limite de um executor por instalação.
+
+
 ## Memória pessoal local
 
 A composição standalone instancia o store PostgreSQL MIT sem a opção Intelligence e monta as rotas CRUD originais. O resolver carrega `retrieve(owner, [], "", {botId, heldServerIds: new Set()})` e formata o resultado com `quoteMemoryContext`: dados pessoais manuais e observações do próprio funcionário, sem importações ou concessões de ferramentas externas. O middleware original substitui a mensagem de memória a cada turno, portanto desabilitar um fato retira esse contexto no turno seguinte. Isso não apaga eventual menção já feita no histórico de conversa.
