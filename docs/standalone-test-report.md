@@ -2,6 +2,19 @@
 
 Data: 25/11/2026. Resultados reais desta etapa; agentes de teste simulados, PostgreSQL real.
 
+## Validação posterior da aplicação integrada
+
+- `http://127.0.0.1:3031/health`: 200; `/api/capabilities`: standalone/durableHistory true; `/api/copilotkit/info`: SSE, telemetryDisabled true, sem licenseStatus falsificado; HTML da interface: 200.
+- PostgreSQL separado criado em 5544; migrations aplicadas ao banco independente.
+- Agente criado pela API original: 201; exibido na lista original de Bots pelo navegador.
+- Chave OpenAI do usuário salva no Vault criptografado; **uma conversa real** na UI pediu apenas `OK` e recebeu `OK`, usando `gpt-4.1-mini`. Reload mostrou a mesma pergunta e resposta. Não foi consultado faturamento e não se afirma custo exato. Saída limitada a 256 tokens por etapa.
+- Suítes standalone store/runner/app/config na validação final: **14 pass, 0 fail, 76 assertions**. Teste HTTP de app usa endpoint AG-UI simulado, valida reinício/replay/contexto sem repetir execução. Inclui teste do limite de saída do modelo e de conexão vazia antes da primeira mensagem.
+- Regressão config/copilot/thread-routes/thread-status: **291 pass, 0 fail, 679 assertions**.
+- Build de frontend e typecheck de backend passaram. Typecheck da árvore inteira de testes falhou com numerosos diagnósticos fora dos arquivos standalone; não aprovado. Saída: `/tmp/openbot-standalone-test-types.log`.
+- Reinício do processo independente depois do commit funcional e reload da conversa real: pergunta e resposta `OK` preservadas; nenhuma nova mensagem foi enviada ao provedor.
+
+## Registro dos testes anteriores
+
 | Verificação | Resultado |
 | --- | --- |
 | `bun install --frozen-lockfile` | Passou, 1384 installs verificados; lockfile sem alterações |
@@ -25,4 +38,4 @@ Testes que acessam Docker/portas locais precisaram executar fora do sandbox. A s
 
 Boot standalone do servidor principal, cadastro/login/UI, criação de agentes pela UI, BYOK real, aprovações com ferramentas reais, rotina end-to-end, MCP real, computador/navegador, persistência após reinício de um processo real, imagens Docker próprias e bloqueio dos domínios proprietários na aplicação inteira.
 
-Não há evidência suficiente para declarar a missão concluída. O container servidor observado inicialmente continua pertencendo à execução anterior; não foi substituído por este código.
+A missão completa e o segundo marco continuam pendentes. O container servidor antigo não foi substituído; o servidor independente roda em processo próprio na porta 3031. O primeiro marco de conversa tem evidência real de UI, provedor e reload; os demais itens acima continuam como pendências, exceto os explicitamente validados na seção mais recente.

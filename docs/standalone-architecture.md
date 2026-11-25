@@ -1,6 +1,10 @@
 # Arquitetura standalone
 
-Estado em 25/11/2026: base de persistência e executor implementados e testados; integração na aplicação pendente.
+Estado em 25/11/2026: persistência/executor integrados num entrypoint independente; conversa real e reload verificados. A composição original com Intelligence permanece separada.
+
+`standalone-entry.ts` prepara o processo sem credenciais remotas/licença e desliga telemetria. `standalone/bootstrap.ts` constrói o runtime SSE MIT com nosso `LocalAgentRunner`, guarda identidade/grants pelo resolver original, reutiliza os stores de agentes/canais e o Vault criptográfico, e monta endpoints assíncronos de histórico no PostgreSQL. `loadConfig` recebe explicitamente as capacidades do modo independente; o caminho original continua exigindo sua configuração original.
+
+As requisições de chat passam por `markAskedRun` e pela política original de encaminhamento de headers e CORS. Isso evita que um turno humano seja confundido com sugestão interna e que credenciais de sessão sejam enviadas a agentes remotos. `createAgentFetch` valida também os redirects. Nenhum entitlement é simulado.
 
 ## Implementado
 
@@ -31,4 +35,4 @@ O store não substitui a autorização de acesso ao Bot. O host precisa resolver
 5. Usar memória local existente; desligar Learning/Inspector/Recorder que exigem Intelligence, com capacidades explícitas na interface.
 6. Desligar telemetria proprietária, adaptar startup/health e Compose, validar BYOK sem chave e UI original.
 
-Nenhuma resposta de licença ou entitlement foi falsificada. O servidor principal ainda não seleciona esse runner.
+Nenhuma resposta de licença ou entitlement foi falsificada. O entrypoint independente seleciona o runner local; o entrypoint original continua com Intelligence. Os itens de integração acima permanecem como roteiro para o segundo marco, especialmente execução headless, memória e recursos opcionais.

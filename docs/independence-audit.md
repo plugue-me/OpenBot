@@ -2,6 +2,32 @@
 
 Atualização: 25/11/2026. Auditoria inicial; a independência da aplicação completa ainda não foi atingida.
 
+## Descobertas adicionais e implementação do primeiro marco
+
+- Branch nova `codex/plugueme-intelligence`; ambiente de referência preservado. Seu `.gitignore` já tinha alteração local, mantida.
+- `git show f238ce97:server/src/copilot.ts`: o primeiro commit já construía `CopilotKitIntelligence`; não foi localizada nessa origem uma implementação anterior de transcript local a recuperar. Não fiz downgrade da aplicação.
+- `git log --all -- server/drizzle/0054_memory_on_intelligence.sql` identifica `4c25119d` (#773). O pai desse commit tem `createMemoryStore` PostgreSQL, fontes, deduplicação e retrieval com escopo por usuário/Bot. A versão recuperada já conserva fallback local: nenhuma linha proprietária foi extraída e não foi necessário restaurar o arquivo antigo.
+- O runtime MIT instalado oferece SSE com `AgentRunner`, identidade de proprietário e hooks. Os contratos públicos AG-UI descrevem os eventos de texto e snapshots para recuperação: [eventos](https://github.com/ag-ui-protocol/ag-ui/blob/main/docs/concepts/events.mdx), [mensagens](https://github.com/ag-ui-protocol/ag-ui/blob/main/docs/concepts/messages.mdx). Nossa implementação grava eventos no PostgreSQL e mantém o transporte por SSE, sem emular a API licenciada do Intelligence.
+- O caminho independente está em `standalone-entry.ts`/`standalone/bootstrap.ts`, selecionado por `start:standalone`. Reutiliza configuração, autenticação, agentes, canais, Vault e UI originais. Usa `markAskedRun`, CORS, denylist de headers e `createAgentFetch` originais. O entrypoint original não é alterado para fingir licença.
+- Provedor real: OpenAI BYOK fornecido pelo usuário, chave criptografada no Vault, `gpt-4.1-mini`, uma resposta `OK` verificada na UI e recuperada após reload. Nenhum segredo é reproduzido nesta documentação.
+- Containers/projeto próprios de banco, porta 5544. Servidor de fonte em 3031. Não houve inspeção de código privado, descompilação nem extração de imagens proprietárias.
+
+As classificações da tabela abaixo registram a situação original. As dependências de conversa foram substituídas **no entrypoint independente**; Learning, memória integrada, ferramentas e execução headless permanecem indisponíveis nele.
+
+### Entradas, saídas e fronteiras do primeiro marco
+
+| Função/arquivo | Entrada → saída | Fluxo independente |
+| --- | --- | --- |
+| `loadConfig` (`config.ts`) | ambiente + capacidades explícitas → configuração validada | Aplica as mesmas restrições de autenticação/chave/origem; só o contrato remoto pertence ao outro ramo. |
+| `createRequestActor` (`request-actor.ts`) | request/sessão + roles → actor e identidade de thread | Reutilizado, sem identidade enviada pelo browser substituir o proprietário autenticado. |
+| `createRuntimeAgentLoader` (`agents/runtime-agents.ts`) | actor + PostgreSQL/Vault → agentes visíveis | Reutiliza filtro de visibilidade e credenciais por endpoint; resolver monta o agente por request. |
+| `markAskedRun` (`copilot.ts`) | request + método runtime → request com marca confiável | Mantido no hook do runtime; remove alegação indevida de sugestões e marca turnos humanos. |
+| `LocalAgentRunner.run` | agente autorizado + RunAgentInput + owner → Observable AG-UI | Claim local, restauração do snapshot, execução desanexada, persistência antes de publicação e conclusão. |
+| `LocalAgentRunner.connect` | threadId + owner → replay AG-UI | Consulta escopo imutável, lê páginas de eventos; não chama o modelo. |
+| `createLocalConversationStore` (`standalone/store.ts`) | escopo owner/agent/thread/run + eventos/snapshot → cursores/estado | Transações PostgreSQL, lease e fencing entre pools. Nenhuma consulta de licença. |
+| `/api/copilotkit/threads/:id/messages` (`standalone/bootstrap.ts`) | sessão + threadId → mensagens locais | Guard de usuário e consulta por proprietário; nenhuma chamada de transcript remoto. |
+| `createCredentialAdminService` (`credentials.ts`) | usuário admin + segredo → metadados sem plaintext | Criptografia e storage originais; resolução de modelo feita no servidor a cada construção. |
+
 ## Base confirmada
 
 - Diretório: `OpenBot-FullSource`; branch existente `plugueme/standalone`, inicialmente limpa.

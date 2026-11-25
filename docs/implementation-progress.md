@@ -2,6 +2,32 @@
 
 Atualizado em 25/11/2026.
 
+## Estado atual — servidor independente integrado
+
+Branch de desenvolvimento: `codex/plugueme-intelligence`, criada de `fc9a9a8f`. A alteração preexistente `.copilotkit/local.json` no `.gitignore` foi preservada. Não modificar a instalação de avaliação nem copiar suas implementações.
+
+**Comando disponível: `rtk proxy bun run start:standalone`.** Servidor independente em `http://127.0.0.1:3031`; PostgreSQL dedicado em 5544, projeto Compose `openbot-independent`, volume `openbot-independent_independent-postgres`. Inicializa fonte Bun/Hono, aplica migrations e serve o frontend original. `.env.standalone` privado (0600), com segredos aleatórios, gerado uma única vez e ignorado pelo Git. Não imprimir esse arquivo.
+
+`standalone-entry.ts` desliga a telemetria pelo opt-out oficial antes de importar o runtime e remove credenciais/endpoints Intelligence do processo. `standalone/bootstrap.ts` usa o runtime SSE MIT, nosso runner PostgreSQL, stores originais de agentes/canais/Vault, guards originais de ator/origem/CORS e política de endpoints de agentes. A composição original com Intelligence continua separada.
+
+**Validação real concluída:** chave OpenAI fornecida pelo usuário salva pelo endpoint original do Vault, criptografada no banco independente. Uma conversa na interface original usou `gpt-4.1-mini`, pediu somente `OK`, recebeu `OK` e preservou pergunta/resposta após reload. Não repetir chamadas pagas sem necessidade; usuário informou orçamento total de US$3. Limite standalone de saída: 256 tokens por etapa, configurável por `STANDALONE_MAX_OUTPUT_TOKENS` (1–8192). Não é um controle global de saldo; não afirmar custo exato sem faturamento.
+
+O teste HTTP automatizado usa agente AG-UI simulado local: criação pela API, credencial sintética com resposta sem plaintext, SSE, histórico, reconstrução do servidor e reconexão sem novo run, próximo turno com contexto restaurado. Três suítes standalone: **11 pass / 72 assertions**. Regressão config/copilot/thread-routes/thread-status: **291 pass / 679 assertions**. Backend e frontend compilaram. Biome passou antes dos últimos ajustes, repetir nos arquivos finais.
+
+Typecheck de toda a árvore de testes falha em numerosos testes antigos (stubs incompletos, tipos de fetch, argumentos legados). Não há diagnósticos nos arquivos `standalone` na saída salva em `/tmp/openbot-standalone-test-types.log`; não declarar essa checagem global como aprovada. Typecheck do backend de produção passou.
+
+**Ainda indisponíveis neste marco:** tasks, rotinas, goals/check-ins, memória conectada ao chat, Learning, Recorder, MCP/ferramentas, computador/navegador e arquivos de agentes. A interface mantém as telas e mostra aviso global de indisponibilidade; algumas telas/widgets opcionais ainda exibem avisos de API indisponível (ex.: histórico de voz, Needs you). Não apagar telas nem fingir listas vazias para ocultar limitações.
+
+Próximos passos: tratar widgets opcionais por capacidades; ligar memória local já existente; compartilhar leases/histórico com execução headless; avançar rotinas/tasks/MCP/aprovações e computador apenas após testes. Construir imagem própria com as fontes (não feita nesta etapa), revisar todas as saídas de rede e fazer validação de egress em ambiente separado. O guard de rede da suíte bloqueia destinos não locais, mas não prova sozinho o egress da aplicação inteira em produção.
+
+Validação final após limite de tokens e reconexão vazia: **14 pass / 76 assertions** em quatro suítes standalone; typecheck de produção passou novamente. O campo `RuntimeModel.maxOutputTokens` é opcional e só é preenchido pela composição standalone; a composição original mantém seu comportamento. A conexão de uma thread ainda não criada retorna replay vazio, enquanto uma thread de outro proprietário continua recusada.
+
+Commit funcional: `c5d26cd9` (usar `git log` para hash completo). Após esse commit, reiniciado somente o processo independente e recarregada a conversa real no navegador: pergunta e `OK` continuaram visíveis, sem enviar outra mensagem ao provedor. A sessão atual deixa o servidor em execução na 3031. A única alteração preexistente que deve continuar fora dos commits é `.gitignore` com `.copilotkit/local.json`.
+
+Arquivos deste marco: `server/src/standalone-entry.ts`, `server/src/standalone/bootstrap.ts`, `server/src/standalone/runner.ts`, `server/src/config.ts`, `server/src/copilot.ts`, `server/src/app.ts`, `server/src/http-server.ts`, `server/src/recorder/wiring.ts`, `scripts/start-standalone.ts`, `docker-compose.standalone.yml`, `package.json`, `app/src/lib/copilot/provider.tsx`, `app/src/lib/deployment/queries.ts` e testes standalone de app/config/runner. Nenhuma imagem proprietária foi extraída ou adaptada.
+
+## Registro da etapa anterior (superado pelo estado acima)
+
 ## Base e alterações
 
 Branch `plugueme/standalone`, HEAD inicial `6d1919a3` (pai da remoção `f71b0f4b`). Árvore estava limpa. Sem atualização de upstream, push, alteração de licença, remoção de volumes ou reinício de containers.
