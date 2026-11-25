@@ -10,8 +10,8 @@ import {
 import { agents, channels, users } from "./core";
 import { proactiveSuggestions } from "./proactive";
 
-/** How a task began. Only from a check-in's item for now, so the check keeps it to that. */
-export type BotTaskOrigin = "check_in";
+/** Preserve the actual origin: a check-in item or work explicitly requested by a person. */
+export type BotTaskOrigin = "check_in" | "manual";
 
 /**
  * Work a Bot does for a person in a conversation of its own. Written when the person starts an item a
@@ -61,6 +61,9 @@ export const botTasks = pgTable(
     uniqueIndex("bot_tasks_channel_idx").on(table.channelId),
     // An item is started once, so it opens one task. Postgres keeps any number of nulls apart.
     uniqueIndex("bot_tasks_suggestion_idx").on(table.suggestionId),
-    check("bot_tasks_origin_check", sql`${table.origin} IN ('check_in')`),
+    check(
+      "bot_tasks_origin_check",
+      sql`${table.origin} IN ('check_in', 'manual')`,
+    ),
   ],
 );

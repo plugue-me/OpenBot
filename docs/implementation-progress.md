@@ -1,5 +1,14 @@
 # Continuidade da implementação independente
 
+## Criação manual de tarefas — 25/11/2026
+
+Botão New task na página Bots abre formulário com funcionário built-in, título e instrução. `POST /api/tasks` usa o runner existente; a tarefa abre conversa própria e executa sem browser. Origem `manual` preservada no schema/migration 0093, sem fabricar item de check-in. Canal/tarefa/entrada na fila são gravados na mesma transação. Identidade derivada do dono + UUID de solicitação e advisory lock tornam retries concorrentes idempotentes; reutilizar UUID com conteúdo diferente é recusado. UI conserva o conteúdo e a identidade quando a confirmação se perde; rejeições definitivas permitem corrigir o formulário.
+
+Migration 0093 gerada pelo Drizzle, inspecionada (somente ampliação do check de origem), aplicada ao banco de teste e ao PostgreSQL dedicado da instalação standalone pelo startup. Não aplicada aos bancos de referência. Snapshot/journal gerados preservados. Tarefas antigas continuam aceitas.
+
+Validação: 24 testes de tarefas/standalone (141 assertions), 28 de fila/migration/standalone (68 assertions), 17 de UI (169 assertions). As seleções se sobrepõem. Backend typecheck e build web passaram. Typecheck global dos testes permanece com 223 diagnósticos e nenhum nos novos módulos standalone. Formulário e funcionários elegíveis conferidos em 3031; nenhuma tarefa paga foi criada nessa conferência. Pipeline completo testado com LLMock local.
+
+
 ## Executor headless, tarefas e rotinas locais — 25/11/2026
 
 Reaproveitados `tasks/{store,runner,turn,routes}`, `routines/{store,runner,routes,sweep,schedule}`, fila `work_items`, lifecycle/activity e helpers MIT do toolkit. O adaptador `standalone/turn.ts` executa no mesmo LocalAgentRunner do chat, sem cliente Intelligence. Registry id atribuído antes da execução, admissão original, isolamento de dono/agente, contexto persistido, lease, cancelamento, deadline e resultado durável compartilhados. Encerramento coordenado aborta providers e espera escritas/resultados antes de fechar PostgreSQL. O worker standalone executa sweep a cada 30 s, sem browser. Cada pass considera uma rotina e mantém a lease da fila por mais que o deadline máximo do turno.

@@ -15,6 +15,7 @@ import {
   workItems,
 } from "../src/db/schema";
 import { createStandalone } from "../src/standalone/bootstrap";
+import { createWorkQueue } from "../src/work/queue";
 import { testDatabaseUrl } from "./support/database";
 
 // Exercise the production composition with the real built-in Bot; only the LLM is local/fake.
@@ -25,6 +26,7 @@ let agentId: string;
 let channelId: string;
 let routineId: string;
 let taskId: string;
+const taskIds: string[] = [];
 const channelIds: string[] = [];
 const origin = "http://127.0.0.1:3039";
 const request = (
@@ -77,7 +79,7 @@ afterAll(async () => {
     await deployment.database
       .delete(workItems)
       .where(
-        sql`${workItems.payload}->>'taskId' = ${taskId ?? ""} or ${workItems.payload}->>'routineId' = ${routineId ?? ""}`,
+        sql`${inArray(sql<string>`${workItems.payload}->>'taskId'`, taskIds.length ? taskIds : [""])} or ${workItems.payload}->>'routineId' = ${routineId ?? ""}`,
       );
     if (channelIds.length) {
       const rows = await deployment.database
@@ -168,6 +170,7 @@ test("a started task uses the same local executor and supports resolve/reopen", 
     item: item!,
   });
   taskId = opened.id;
+  taskIds.push(taskId);
   channelIds.push(opened.channelId);
   await deployment.taskRunner.idle();
   const response = await request(`/api/tasks/${taskId}`);
@@ -191,3 +194,58 @@ test("a started task uses the same local executor and supports resolve/reopen", 
       .status,
   ).toBe("ready_for_review");
 }, 20_000);
+
+test("manual task submission commits once under concurrent retries and rejects changed request contents", async () => {
+  const input = {
+    requestId: crypto.randomUUID(),
+    agentId,
+    title: "Manual draft",
+    instruction: "Prepare a concise draft.",
+  };
+  const responses = await Promise.all([
+    request("/api/tasks", input),
+    request("/api/tasks", input),
+  ]);
+  expect(responses.map((r) => r.status)).toEqual([201, 201]);
+  const tasks = await Promise.all(responses.map((r) => r.json()));
+  expect(tasks[0].task.id).toBe(tasks[1].task.id);
+  const created = tasks[0].task;
+  taskIds.push(created.id);
+  channelIds.push(created.channelId);
+  expect(created.origin).toBe("manual");
+  await deployment.taskRunner.idle();
+  expect(
+    (await (await request(`/api/tasks/${created.id}`)).json()).task.status,
+  ).toBe("ready_for_review");
+  const queued = await deployment.database
+    .select()
+    .from(workItems)
+    .where(sql`${workItems.payload}->>'taskId' = ${created.id}`);
+  expect(queued).toHaveLength(1);
+  expect(queued[0]?.attempts).toBe(1);
+  expect(
+    (await request("/api/tasks", { ...input, instruction: "Changed request" }))
+      .status,
+  ).toBe(409);
+  expect(
+    (await request("/api/tasks", { ...input, ownerUserId: "spoofed" })).status,
+  ).toBe(400);
+});
+
+test("a queue offer within a rolled-back task transaction leaves no runnable work", async () => {
+  const key = `rollback-${crypto.randomUUID()}`;
+  await expect(
+    deployment.database.transaction(async (transaction) => {
+      await createWorkQueue(deployment.database).offer(
+        { kind: "proactive.task", key, payload: {} },
+        transaction,
+      );
+      throw new Error("Rollback fixture");
+    }),
+  ).rejects.toThrow("Rollback fixture");
+  const queued = await deployment.database
+    .select()
+    .from(workItems)
+    .where(eq(workItems.key, key));
+  expect(queued).toHaveLength(0);
+});

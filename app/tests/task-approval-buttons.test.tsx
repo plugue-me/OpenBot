@@ -55,6 +55,7 @@ const request = (
 function serving() {
   global.fetch = (async (input: RequestInfo | URL) => {
     const path = String(input);
+    if (path === "/api/capabilities") return Response.json({ edition: "team" });
     if (path === "/api/approvals")
       return Response.json({
         enabled: false,

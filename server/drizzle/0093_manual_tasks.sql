@@ -1,0 +1,2 @@
+ALTER TABLE "bot_tasks" DROP CONSTRAINT "bot_tasks_origin_check";--> statement-breakpoint
+ALTER TABLE "bot_tasks" ADD CONSTRAINT "bot_tasks_origin_check" CHECK ("bot_tasks"."origin" IN ('check_in', 'manual'));

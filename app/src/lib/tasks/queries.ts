@@ -31,7 +31,7 @@ export type BotTask = {
   threadId: string | null;
   title: string;
   why: string | null;
-  origin: "check_in";
+  origin: "check_in" | "manual";
   suggestionId: string | null;
   sourceApp: string | null;
   sourceLink: string | null;

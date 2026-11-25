@@ -14,6 +14,7 @@ import {
   PageSection,
   PageShell,
 } from "@/components/layout/page-shell";
+import { NewTaskButton } from "@/components/tasks/new-task-button";
 import { Button } from "@/components/ui/button";
 import {
   Item,
@@ -47,16 +48,19 @@ function BotsPage() {
   return (
     <PageShell
       action={
-        <Button
-          render={(props) => (
-            <Link {...props} search={{ new: true }} to="/bots" />
-          )}
-          size="sm"
-          variant="ghost"
-        >
-          <IconPlus />
-          New Bot
-        </Button>
+        <div className="flex items-center gap-2">
+          <NewTaskButton />
+          <Button
+            render={(props) => (
+              <Link {...props} search={{ new: true }} to="/bots" />
+            )}
+            size="sm"
+            variant="ghost"
+          >
+            <IconPlus />
+            New Bot
+          </Button>
+        </div>
       }
       description={
         personal

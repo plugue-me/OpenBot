@@ -53,6 +53,7 @@ import {
   decideApprovalMutationOptions,
   dismissPersonQuestionMutationOptions,
 } from "@/lib/approvals";
+import { useProductFeature } from "@/lib/deployment/queries";
 import { readFailure } from "@/lib/read-failure";
 import { relativeTime } from "@/lib/relative-time";
 import { cn } from "@/lib/utils";
@@ -67,15 +68,16 @@ type WaitingRequest = ApprovalInboxData["requests"][number];
  * the Bot whose conversation it is.
  */
 function useWaiting(agentId: string | undefined) {
-  const inbox = useQuery(approvalInboxOptions());
+  const available = useProductFeature("approvals");
+  const inbox = useQuery({ ...approvalInboxOptions(), enabled: available });
   const ours = (botId: string) => agentId === undefined || botId === agentId;
   return {
-    error: inbox.error,
-    failure: readFailure(inbox),
-    questions: (inbox.data?.questions ?? []).filter((question) =>
-      ours(question.conversationBotId ?? question.botId),
+    error: available ? inbox.error : null,
+    failure: available ? readFailure(inbox) : null,
+    questions: (available ? (inbox.data?.questions ?? []) : []).filter(
+      (question) => ours(question.conversationBotId ?? question.botId),
     ),
-    pending: (inbox.data?.requests ?? []).filter(
+    pending: (available ? (inbox.data?.requests ?? []) : []).filter(
       (request) => request.status === "pending" && ours(request.action.botId),
     ),
   };

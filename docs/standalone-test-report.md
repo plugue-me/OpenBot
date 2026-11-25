@@ -1,5 +1,15 @@
 # Relatório de testes standalone
 
+## Criação manual de tarefas — 25/11/2026
+
+- Tarefas originais + composição standalone: 24 pass, 141 assertions.
+- Fila original + journal de migrations + standalone: 28 pass, 68 assertions.
+- Nova tarefa + Needs you + botões de aprovação legados: 17 pass, 169 assertions.
+- Cobertura nova: dois POSTs concorrentes geram uma tarefa/um turno; UUID com conteúdo diferente recebe 409; dono no payload é recusado; rollback não deixa work item; confirmação de rede perdida conserva a mesma solicitação no retry da UI.
+- Backend typecheck e build web passaram. Typecheck global dos testes continua com 223 diagnósticos, sem apontamentos nos novos arquivos standalone.
+- Migration 0093 aplicada em teste e no banco dedicado local. Tela New task e seletor de funcionários conferidos em 3031. Sem chamadas pagas e sem teste gravado no banco de uso local.
+
+
 ## Tarefas/rotinas/headless — 25/11/2026
 
 - `standalone-work`, `standalone-turn`, `standalone-runner`, `standalone-app`: 12 pass, 77 assertions. Cron executado via composição real, built-in/modelo simulado local, resultado no histórico web; tarefa pronta para revisão e resolve/reopen; replay, concorrência, dono estrangeiro, cancelamento, timeout e shutdown durável.

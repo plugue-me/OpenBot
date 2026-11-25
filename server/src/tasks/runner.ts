@@ -1,6 +1,6 @@
 import { createHash, randomUUID } from "node:crypto";
 import { setTimeout as sleep } from "node:timers/promises";
-import { and, eq } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { z } from "zod";
 import type { AgentActor } from "../agents/profile-types";
 import type { ChannelStore } from "../channels/routes";
@@ -34,6 +34,15 @@ import type { TaskScope, TaskTurn } from "./turn";
 const TASK_LEASE_MS = 3 * 60_000;
 /** How long a task's turn that threw waits before its one retry. */
 const TASK_RETRY_MS = 10_000;
+
+export const manualTaskSchema = z
+  .object({
+    requestId: z.string().uuid(),
+    agentId: z.string().trim().min(1).max(128),
+    title: z.string().trim().min(1).max(160),
+    instruction: z.string().trim().min(1).max(6000),
+  })
+  .strict();
 
 /** An item a check-in raised, as the person started it. */
 export type StartedItem = Parameters<TaskService["startFromItem"]>[0]["item"];
@@ -350,6 +359,74 @@ export function createTaskRunner(deps: {
 
   return {
     ...service,
+    /** Channel, task and queued turn commit together; retries of a request never open duplicates. */
+    async startManual(
+      ownerUserId: string,
+      input: z.infer<typeof manualTaskSchema>,
+    ) {
+      const parsed = manualTaskSchema.parse(input);
+      const actor = await deps.actorFor(ownerUserId);
+      const id = `manual-task-${createHash("sha256")
+        .update(JSON.stringify([ownerUserId, parsed.requestId]))
+        .digest("hex")}`;
+      const task = await deps.database.transaction(async (transaction) => {
+        await transaction.execute(
+          sql`select pg_advisory_xact_lock(hashtext(${id}))`,
+        );
+        const existing = await deps.store.locate(ownerUserId, id, transaction);
+        if (existing) {
+          if (
+            existing.agentId !== parsed.agentId ||
+            existing.title !== parsed.title ||
+            existing.why !== parsed.instruction
+          )
+            throw new TaskRefusedError(
+              "This request was already used for another task.",
+            );
+          return { id, channelId: existing.channelId };
+        }
+        const channel = await deps.channels.create(
+          actor,
+          [parsed.agentId],
+          transaction,
+        );
+        const created = await deps.store.create(
+          {
+            id,
+            ownerUserId,
+            agentId: parsed.agentId,
+            channelId: channel.id,
+            title: parsed.title,
+            why: parsed.instruction,
+            origin: "manual",
+            suggestionId: null,
+            sourceApp: null,
+            sourceLink: null,
+          },
+          transaction,
+        );
+        if (!created)
+          throw new TaskRefusedError("The task could not be created.");
+        const offered = await deps.queue.offer(
+          {
+            kind: PROACTIVE_TASK_KIND,
+            key: `task:${id}`,
+            payload: {
+              ownerUserId,
+              taskId: id,
+              text: parsed.instruction,
+              runs: TASK_RUNS,
+            },
+          },
+          transaction,
+        );
+        if (offered !== "queued")
+          throw new TaskRefusedError("The task could not be queued.");
+        return created;
+      });
+      startSoon();
+      return task;
+    },
     /**
      * Try again: a task whose turn couldn't finish runs it once more, in the same conversation, as a
      * turn of its own beside the one that failed. Keyed on how many turns the task has had, so two

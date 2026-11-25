@@ -1,7 +1,40 @@
 import { mutationOptions, type QueryClient } from "@tanstack/react-query";
 import { botLifecycleKeys } from "@/lib/bot-lifecycle/queries";
+import { channelKeys } from "@/lib/channels/queries";
 import { client } from "@/lib/client";
 import { type BotTask, taskKeys } from "./queries";
+
+export const createTaskMutationOptions = (queryClient: QueryClient) =>
+  mutationOptions({
+    mutationFn: async (input: {
+      requestId: string;
+      agentId: string;
+      title: string;
+      instruction: string;
+    }) => {
+      const task = await client<BotTask>("/api/tasks", "task", {
+        method: "POST",
+        body: input,
+        fallback:
+          "Couldn't confirm this task. Retry to check the same request.",
+      });
+      if (
+        !task ||
+        typeof task.id !== "string" ||
+        typeof task.channelId !== "string"
+      )
+        throw new Error(
+          "Couldn't confirm this task. Retry to check the same request.",
+        );
+      return task;
+    },
+    onSuccess: async () => {
+      await Promise.all([
+        invalidateTasks(queryClient),
+        queryClient.invalidateQueries({ queryKey: channelKeys.all }),
+      ]);
+    },
+  });
 
 /** A task's state moves the sidebar's badge as well as the lists, so both are read again. */
 function invalidateTasks(queryClient: QueryClient) {

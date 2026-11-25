@@ -43,7 +43,11 @@ export function NeedsYouBoard({ agentId }: { agentId?: string }) {
 
 function AvailableNeedsYouBoard({ agentId }: { agentId?: string }) {
   const agents = useQuery(agentListQueryOptions());
-  const settings = useQuery(proactiveSettingsQueryOptions());
+  const checkInsAvailable = useProductFeature("checkIns");
+  const settings = useQuery({
+    ...proactiveSettingsQueryOptions(),
+    enabled: checkInsAvailable,
+  });
   const waiting = useWaitingByBot(agentId);
   const list = useNeedsYou(agentId);
 

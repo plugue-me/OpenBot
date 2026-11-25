@@ -1,5 +1,12 @@
 # Arquitetura standalone
 
+## Tarefas manuais e atomicidade
+
+`TaskRunner.startManual` valida título/instrução/funcionário e UUID da solicitação. Um id derivado de usuário + UUID identifica a tarefa, serializado por advisory lock. O store pode ler na transação do chamador; `WorkQueue.offer` aceita executor transacional para offers sem cap. Canal, task de origem manual e work item confirmam juntos. Rollback não deixa trabalho órfão e o pg_notify só é emitido no commit. A fila e o executor de execução continuam os mesmos do item de check-in.
+
+O formulário New task em Bots só aparece no standalone. Apenas funcionários built-in são oferecidos. Após envio sem confirmação, conserva UUID/conteúdo e permite repetir a mesma solicitação. O sucesso abre a conversa própria da tarefa. Não habilita ferramentas externas ou aprovações por essa via.
+
+
 ## Execução headless compartilhada
 
 `standalone/turn.ts` implementa o contrato TurnRunner sobre o mesmo LocalAgentRunner usado pelo runtime HTTP. Reutiliza os helpers MIT `turnInput`, `frameFiring`, `settle` e `concludeTurn`, além do middleware headless; não fornece um objeto que finge ser Intelligence. O host revalida usuário/roles/revogação e visibilidade do funcionário. Somente built-in é habilitado; não são fornecidas ferramentas externas ou continuação de aprovação.

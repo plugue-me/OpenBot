@@ -41,6 +41,7 @@ export const RESOLVED_FOR_DAYS = 7;
 const LIST_LIMIT = 200;
 
 export type NewTask = {
+  id?: string;
   ownerUserId: string;
   agentId: string;
   channelId: string;
@@ -216,7 +217,12 @@ export function createTaskStore(
       const at = now();
       const [row] = await transaction
         .insert(botTasks)
-        .values({ id: randomUUID(), ...input, createdAt: at, updatedAt: at })
+        .values({
+          ...input,
+          id: input.id ?? randomUUID(),
+          createdAt: at,
+          updatedAt: at,
+        })
         .onConflictDoNothing({ target: botTasks.suggestionId })
         .returning({ id: botTasks.id, channelId: botTasks.channelId });
       return row ?? null;
@@ -241,8 +247,12 @@ export function createTaskStore(
     list,
     get: one,
     /** Where a task lives, without working out what it is doing: for running its turn. */
-    async locate(owner: string, id: string): Promise<TaskRow | null> {
-      const [row] = await database
+    async locate(
+      owner: string,
+      id: string,
+      executor: Pick<Database, "select"> = database,
+    ): Promise<TaskRow | null> {
+      const [row] = await executor
         .select()
         .from(botTasks)
         .where(owned(owner, id))

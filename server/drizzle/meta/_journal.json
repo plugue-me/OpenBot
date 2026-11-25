@@ -652,6 +652,13 @@
       "when": 1795631101421,
       "tag": "0092_standalone_conversations",
       "breakpoints": true
+    },
+    {
+      "idx": 93,
+      "version": "7",
+      "when": 1795638779820,
+      "tag": "0093_manual_tasks",
+      "breakpoints": true
     }
   ]
 }

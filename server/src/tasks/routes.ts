@@ -3,6 +3,7 @@ import { bodyLimit } from "hono/body-limit";
 import type { AppVariables } from "../auth/guards";
 import type { TaskResponse, TasksResponse } from "../proactive/contracts";
 import type { TaskRunner } from "./runner";
+import { manualTaskSchema } from "./runner";
 import { TaskNotFoundError, TaskRefusedError, type TaskStore } from "./store";
 
 /**
@@ -12,7 +13,7 @@ import { TaskNotFoundError, TaskRefusedError, type TaskStore } from "./store";
  */
 export function createTaskRoutes(
   store: TaskStore,
-  runner: Pick<TaskRunner, "again">,
+  runner: Pick<TaskRunner, "again"> & Partial<Pick<TaskRunner, "startManual">>,
   requireUser: MiddlewareHandler<{ Variables: AppVariables }>,
 ) {
   const routes = new Hono<{ Variables: AppVariables }>();
@@ -37,6 +38,27 @@ export function createTaskRoutes(
       tasks: await store.list(context.var.actor.id),
     }),
   );
+  if (runner.startManual) {
+    const start = runner.startManual;
+    routes.post("/", async (context) => {
+      const parsed = manualTaskSchema.safeParse(
+        await context.req.json().catch(() => null),
+      );
+      if (!parsed.success)
+        return context.json(
+          {
+            error:
+              "Choose a Bot, title and instruction, with a valid request id.",
+          },
+          400,
+        );
+      const opened = await start(context.var.actor.id, parsed.data);
+      return context.json(
+        { task: await store.get(context.var.actor.id, opened.id) },
+        201,
+      );
+    });
+  }
   routes.get("/:id", async (context) =>
     context.json<TaskResponse>({
       task: await store.get(context.var.actor.id, context.req.param("id")),

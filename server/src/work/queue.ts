@@ -99,23 +99,26 @@ export type WorkQueue = {
    * key that already existed was reported to the model as handed over, while the row it named had
    * long since been delivered and finished. Nothing was queued and nobody was ever going to run it.
    */
-  offer: (item: {
-    kind: string;
-    key: string;
-    payload?: Record<string, unknown>;
-    runAt?: Date;
-    /**
-     * Refuse this if the prefix is already that full.
-     *
-     * COUNTED AND WRITTEN AS ONE STEP, which is the whole reason it lives here rather than in the
-     * caller. Counting first and offering second is a cap that holds only while nothing else is
-     * offering: a model that emits five tool calls in one turn runs all five at once, each reads a
-     * count taken before any of the others had written, and all five pass a cap of three. The
-     * failure needs no cluster and no unusual timing; it is what asking for several things at once
-     * looks like.
-     */
-    atMost?: { keyPrefix: string; max: number };
-  }) => Promise<"queued" | "already" | "refused">;
+  offer: (
+    item: {
+      kind: string;
+      key: string;
+      payload?: Record<string, unknown>;
+      runAt?: Date;
+      /**
+       * Refuse this if the prefix is already that full.
+       *
+       * COUNTED AND WRITTEN AS ONE STEP, which is the whole reason it lives here rather than in the
+       * caller. Counting first and offering second is a cap that holds only while nothing else is
+       * offering: a model that emits five tool calls in one turn runs all five at once, each reads a
+       * count taken before any of the others had written, and all five pass a cap of three. The
+       * failure needs no cluster and no unusual timing; it is what asking for several things at once
+       * looks like.
+       */
+      atMost?: { keyPrefix: string; max: number };
+    },
+    executor?: Pick<Database, "insert" | "execute">,
+  ) => Promise<"queued" | "already" | "refused">;
   /** Take up to `limit` due items, leased to `owner`. */
   claim: (input: {
     kind: string;
@@ -210,8 +213,10 @@ export function createWorkQueue(database: Database): WorkQueue {
     );
 
   return {
-    async offer({ kind, key, payload = {}, runAt, atMost }) {
-      const write = async (transaction: Database) =>
+    async offer({ kind, key, payload = {}, runAt, atMost }, executor) {
+      if (executor && atMost)
+        throw new Error("Capped offers require the queue's own transaction.");
+      const write = async (transaction: Pick<Database, "insert">) =>
         transaction
           .insert(workItems)
           .values({ kind, key, payload, ...(runAt ? { runAt } : {}) })
@@ -230,8 +235,9 @@ export function createWorkQueue(database: Database): WorkQueue {
           .returning({ key: workItems.key });
 
       if (!atMost) {
-        const [written] = await write(database);
-        if (written) await announceOffered(database, kind);
+        const target = executor ?? database;
+        const [written] = await write(target);
+        if (written) await announceOffered(target, kind);
         return written ? "queued" : "already";
       }
 

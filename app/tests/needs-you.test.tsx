@@ -140,6 +140,7 @@ function serving() {
   sent.length = 0;
   global.fetch = (async (input: RequestInfo | URL, init?: RequestInit) => {
     const path = String(input);
+    if (path === "/api/capabilities") return Response.json({ edition: "team" });
     const method = init?.method ?? "GET";
     if (method !== "GET") sent.push({ method, path });
     if (method === "GET" && failing.has(path))
