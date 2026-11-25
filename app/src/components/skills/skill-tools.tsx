@@ -156,7 +156,7 @@ export function SkillTools({
       tools: RESEARCH_ROLES.map((role) => ({
         ref: role.ref,
         title: role.label,
-        description: "Uses whichever research app the Bot has.",
+        description: "Uses whichever research app the Agente has.",
         writes: false,
       })),
     },

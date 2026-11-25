@@ -166,7 +166,7 @@ export function GroupChat({ channelId }: { channelId: string }) {
           {messages.length === 0 ? (
             <p className="text-sm text-muted-foreground">
               Say something to {bots.map((bot) => bot.name).join(" and ")}.
-              Every Bot answers in turn; start with @Name to ask just one.
+              Every Agente answers in turn; start with @Name to ask just one.
             </p>
           ) : null}
           {messages.map((message) => (
@@ -175,14 +175,14 @@ export function GroupChat({ channelId }: { channelId: string }) {
               message={message}
               name={
                 message.agentId
-                  ? (names.get(message.agentId) ?? "A Bot no longer here")
+                  ? (names.get(message.agentId) ?? "A Agente no longer here")
                   : message.ownerUserId === me?.id
                     ? "You"
                     : "A teammate"
               }
               answeredBy={
                 message.answeredBy
-                  ? (names.get(message.answeredBy) ?? "another Bot")
+                  ? (names.get(message.answeredBy) ?? "another Agente")
                   : undefined
               }
               mine={message.ownerUserId === me?.id}
@@ -211,7 +211,7 @@ export function GroupChat({ channelId }: { channelId: string }) {
             <QuestionNotice
               avatarSeed={asker?.avatarSeed || (askerId ?? question.id)}
               botName={
-                (askerId && names.get(askerId)) || asker?.name || "A Bot"
+                (askerId && names.get(askerId)) || asker?.name || "A Agente"
               }
               onAnswered={(text) => answerTo(text, question)}
               question={question}
@@ -329,7 +329,7 @@ function GroupLine({
           )
         ) : message.status === "failed" ? (
           <p className="text-sm text-destructive" role="alert">
-            {message.text || "This Bot couldn't answer."}
+            {message.text || "This Agente couldn't answer."}
           </p>
         ) : (
           <Bubble

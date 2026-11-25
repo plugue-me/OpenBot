@@ -235,12 +235,12 @@ function useSkillNotice(title: string, next: LearningNext) {
     try {
       new Notification(
         next.kind === "learned"
-          ? `Your Bots learned “${title}”`
+          ? `Your Agentes learned “${title}”`
           : `A skill from “${title}” is ready to review`,
         {
           body:
             next.kind === "learned"
-              ? "Open Teach a Bot to try it."
+              ? "Open Teach a Agente to try it."
               : "Review it on the Skills page.",
           tag: `openbot-learned-${skill}`,
         },
@@ -261,18 +261,18 @@ export function learningNextWords(
   const { next, canReview, autoApprove } = learning;
   if (next.kind === "learned")
     return {
-      heading: "Your Bots learned it",
-      sentence: `Your Bots can do “${title}” now. Try it, or ask any Bot to do it.`,
+      heading: "Your Agentes learned it",
+      sentence: `Your Agentes can do “${title}” now. Try it, or ask any Agente to do it.`,
     };
   if (next.kind === "proposed")
     return canReview
       ? {
           heading: "Your new skill is ready to review",
-          sentence: `Learning made a skill from “${title}”. Approve it on the Skills page, then ask any Bot to do it.`,
+          sentence: `Learning made a skill from “${title}”. Approve it on the Skills page, then ask any Agente to do it.`,
         }
       : {
           heading: "Your new skill is waiting for an admin",
-          sentence: `Learning made a skill from “${title}”. Once an admin approves it, ask any Bot to do it.`,
+          sentence: `Learning made a skill from “${title}”. Once an admin approves it, ask any Agente to do it.`,
         };
   if (next.kind === "model" || next.kind === "off")
     return {
@@ -284,13 +284,13 @@ export function learningNextWords(
     return {
       heading: `Saved “${title}”`,
       sentence:
-        "OpenBot learns a skill from it, and an admin reviews it. Once it's approved, ask any Bot to do it.",
+        "OpenBot learns a skill from it, and an admin reviews it. Once it's approved, ask any Agente to do it.",
     };
   return {
     heading: `Saved “${title}”`,
     sentence: autoApprove
-      ? "OpenBot learns a skill from it, and you'll find it on the Skills page. Once it's learned, ask any Bot to do it."
-      : "OpenBot learns a skill from it, and you'll see it on the Skills page to review. Once you approve it, ask any Bot to do it.",
+      ? "OpenBot learns a skill from it, and you'll find it on the Skills page. Once it's learned, ask any Agente to do it."
+      : "OpenBot learns a skill from it, and you'll see it on the Skills page to review. Once you approve it, ask any Agente to do it.",
   };
 }
 

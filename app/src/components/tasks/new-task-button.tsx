@@ -96,7 +96,7 @@ function AvailableNewTaskButton() {
           <DialogHeader>
             <DialogTitle>New task</DialogTitle>
             <DialogDescription>
-              Choose a Bot and describe the work. Its result appears in a
+              Choose a Agente and describe the work. Its result appears in a
               separate conversation, even when this page is closed.
             </DialogDescription>
           </DialogHeader>
@@ -109,14 +109,14 @@ function AvailableNewTaskButton() {
           >
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="task-bot">Bot</FieldLabel>
+                <FieldLabel htmlFor="task-bot">Agente</FieldLabel>
                 <Select
                   value={agentId || null}
                   onValueChange={(value) => setAgentId(value ?? "")}
                   disabled={submitted}
                 >
                   <SelectTrigger id="task-bot">
-                    <SelectValue placeholder="Choose a Bot" />
+                    <SelectValue placeholder="Choose a Agente" />
                   </SelectTrigger>
                   <SelectContent>
                     {bots.map((bot) => (
@@ -152,10 +152,10 @@ function AvailableNewTaskButton() {
             </FieldGroup>
           </form>
           {agents.error ? (
-            <p role="alert">Couldn't load your Bots. Reopen to try again.</p>
+            <p role="alert">Couldn't load your Agentes. Reopen to try again.</p>
           ) : null}
           {open && !agents.isPending && !agents.error && bots.length === 0 ? (
-            <p>Create a built-in Bot before starting a task.</p>
+            <p>Create a built-in Agente before starting a task.</p>
           ) : null}
           {create.error ? (
             <p role="alert" className="text-sm text-destructive">

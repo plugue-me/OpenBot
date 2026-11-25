@@ -57,7 +57,7 @@ export function SkillsPage() {
   return (
     <PageShell
       action={newSkill("lg")}
-      description="Write instructions a Bot follows when someone picks a skill from the / menu. A skill only uses what a Bot can already do, and you choose which Bots offer it."
+      description="Write instructions a Agente follows when someone picks a skill from the / menu. A skill only uses what a Agente can already do, and you choose which Agentes offer it."
       title="Skills"
     >
       {/* One section, so no title: the page title already names it. */}
@@ -73,7 +73,7 @@ export function SkillsPage() {
             icon={IconFileText}
             title="No skills yet"
           >
-            Write one, then choose which Bots offer it.
+            Write one, then choose which Agentes offer it.
           </PageEmpty>
         ) : (
           <PageRows>

@@ -57,7 +57,7 @@ export function ApprovalCard(props: Waiting<ApprovalArgs> & { name?: string }) {
 
   if (status === "inProgress") {
     return (
-      <GalleryFrame title={args.title ?? "Waiting for the Bot…"}>
+      <GalleryFrame title={args.title ?? "Waiting for the Agente…"}>
         <p className="text-sm text-muted-foreground">Preparing the request…</p>
       </GalleryFrame>
     );
@@ -98,15 +98,15 @@ export function ApprovalCard(props: Waiting<ApprovalArgs> & { name?: string }) {
         {
           value: "approved",
           label: approve,
-          description: "The Bot goes ahead.",
+          description: "The Agente goes ahead.",
         },
         {
           value: "declined",
           label: decline,
-          description: "The Bot doesn't, and is told you declined.",
+          description: "The Agente doesn't, and is told you declined.",
         },
       ]}
-      other={{ placeholder: "Tell the Bot something else…" }}
+      other={{ placeholder: "Tell the Agente something else…" }}
       submitting={sending || !respond}
       title={args.title}
     >
@@ -162,7 +162,7 @@ export function ChoiceCard(props: Waiting<ChoiceArgs>) {
 
   if (status === "inProgress") {
     return (
-      <GalleryFrame title={args.title ?? "Waiting for the Bot…"}>
+      <GalleryFrame title={args.title ?? "Waiting for the Agente…"}>
         <p className="text-sm text-muted-foreground">Preparing the question…</p>
       </GalleryFrame>
     );
@@ -263,7 +263,7 @@ export const GALLERY: GalleryComponent[] = [
     title: "Approval",
     kind: "decision",
     summary:
-      "Asks you to approve or decline something. The Bot waits for your answer.",
+      "Asks you to approve or decline something. The Agente waits for your answer.",
     description:
       "Ask the person to approve or decline something, and wait for their answer. You are given their decision: `approved`, `declined`, or `other` with `note`, what they wrote instead. Use it only before something you cannot undo that nothing else asks them about (your instructions say which kinds of action the person is already asked about), or for a decision only they can make. Do not use it to confirm a step they already asked you to take.",
     parameters: ApprovalCardProps,
@@ -291,7 +291,7 @@ export const GALLERY: GalleryComponent[] = [
     title: "Choice",
     kind: "decision",
     summary:
-      "Asks you to pick one of several options. The Bot waits for your answer.",
+      "Asks you to pick one of several options. The Agente waits for your answer.",
     description:
       "Ask the person to pick one of several options, and wait for their answer. Use it only when the options lead to materially different work and nothing you can read settles it; otherwise pick the most reasonable one, say which, and carry on. You are given the id of the option they chose as `choice`, or `answer`, what they wrote instead.",
     parameters: ChoiceCardProps,

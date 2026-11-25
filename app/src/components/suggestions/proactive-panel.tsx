@@ -86,7 +86,7 @@ export function SuggestionsInbox({
   const bots = useQuery(agentListQueryOptions());
   const [expanded, setExpanded] = useState(false);
   const botName = (id: string) =>
-    bots.data?.find((bot) => bot.id === id)?.name ?? "Your Bot";
+    bots.data?.find((bot) => bot.id === id)?.name ?? "Your Agente";
   if (agentId !== undefined && shown.length === 0) return null;
   /*
    * The newest few, the rest a click away. Each suggestion is a paragraph with two buttons, and a
@@ -134,7 +134,7 @@ export function SuggestionsInbox({
         </PageRows>
       ) : (
         <PageEmpty icon={IconBulb} title="Nothing needs you right now">
-          When a Bot's check-in finds something that needs you, it shows up
+          When a Agente's check-in finds something that needs you, it shows up
           here.
         </PageEmpty>
       )}
@@ -155,7 +155,7 @@ export function useCheckInsBlocked(): string | null {
   const preferences = useUserPreferences();
   if (!available) return "Em desenvolvimento";
   if (allowed.data === false) return "Turned off by your admin";
-  if (preferences.data?.proactive === "off") return "Off for all your Bots";
+  if (preferences.data?.proactive === "off") return "Off for all your Agentes";
   return null;
 }
 
@@ -196,14 +196,14 @@ export function ProactiveResearchSettings({
           </Button>
         ) : null
       }
-      description="A Bot offers a check-in when you look at something together that keeps changing, like a document or your inbox. It reads that once a day, or as often as you choose, and tells you when something there needs you. It can only read: it can't send messages, change anything in an app, or use a browser or computer."
+      description="A Agente offers a check-in when you look at something together that keeps changing, like a document or your inbox. It reads that once a day, or as often as you choose, and tells you when something there needs you. It can only read: it can't send messages, change anything in an app, or use a browser or computer."
       title="Check-ins"
     >
       {blocked ? (
         <p className="mt-1 max-w-prose text-muted-foreground text-sm">
-          {blocked === "Off for all your Bots" ? (
+          {blocked === "Off for all your Agentes" ? (
             <>
-              You turned off check-ins for all your Bots in{" "}
+              You turned off check-ins for all your Agentes in{" "}
               <Link className="underline underline-offset-4" to="/routines">
                 Routines
               </Link>
@@ -314,7 +314,7 @@ export function TurnOnResearchDialog({
             <FieldGroup>
               {fixedBot === undefined ? (
                 <Field>
-                  <FieldLabel htmlFor={`${id}-bot`}>Bot</FieldLabel>
+                  <FieldLabel htmlFor={`${id}-bot`}>Agente</FieldLabel>
                   <Select
                     items={bots.data?.map((bot) => ({
                       value: bot.id,
@@ -328,7 +328,7 @@ export function TurnOnResearchDialog({
                     value={agentId || null}
                   >
                     <SelectTrigger className="w-full" id={`${id}-bot`}>
-                      <SelectValue placeholder="Choose a Bot" />
+                      <SelectValue placeholder="Choose a Agente" />
                     </SelectTrigger>
                     <SelectContent>
                       {bots.data?.map((bot) => (

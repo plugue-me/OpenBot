@@ -387,7 +387,7 @@ function IsolatedRow({
 function sharedSummary(isPublic: boolean): string {
   return isPublic
     ? "Runs on the computer of whoever is using it."
-    : "Runs on your computer, alongside your other Bots.";
+    : "Runs on your computer, alongside your other Agentes.";
 }
 
 /**

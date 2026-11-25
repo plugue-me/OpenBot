@@ -38,13 +38,13 @@ export const Route = createFileRoute("/_authed/settings/components-gallery/")({
 const WORDS = {
   team: {
     intro:
-      "Browse components that Bots can display in conversations. An admin controls which components each Bot can use.",
+      "Browse components that Agentes can display in conversations. An admin controls which components each Agente can use.",
     emptyTitle: "Nothing published yet",
     empty: "When an admin publishes a component, it will show up here.",
   },
   personal: {
     intro:
-      "Browse the components your Bots can show in conversations. Every Bot can use all of them.",
+      "Browse the components your Agentes can show in conversations. Every Agente can use all of them.",
     emptyTitle: "No components yet",
     empty:
       "Components show up here once OpenBot has loaded them. Reload the page if this stays empty.",

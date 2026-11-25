@@ -24,7 +24,7 @@ import {
  * tell the personal starter it "can't use tools" while it searched the web and used the browser.
  */
 export const KEY_FROM_OPENBOT =
-  "OpenBot runs this Bot, so it can use its tools without a key.";
+  "OpenBot runs this Agente, so it can use its tools without a key.";
 
 export function CallbackTokenPanel({
   agentId,
@@ -64,8 +64,8 @@ export function CallbackTokenPanel({
 
       <p className="text-muted-foreground text-sm">
         {hasToken
-          ? "This Bot has a key, so it can use its tools. If you make a new key, the old one stops working right away."
-          : "This Bot has no key yet. It can talk but can't use tools. Generate a key and add it to your agent's configuration."}
+          ? "This Agente has a key, so it can use its tools. If you make a new key, the old one stops working right away."
+          : "This Agente has no key yet. It can talk but can't use tools. Generate a key and add it to your agent's configuration."}
       </p>
 
       {token ? (

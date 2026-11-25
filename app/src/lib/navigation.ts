@@ -88,7 +88,7 @@ const TEAM_FEATURES_ITEM: NavigationItem = {
 export const NAVIGATION: readonly NavigationItem[] = [
   {
     id: "bots",
-    label: "Bots",
+    label: "Agentes",
     to: "/bots",
     icon: IconBolt,
     section: "primary",

@@ -124,7 +124,7 @@ export function grantPlugin(variables: {
       agentId: variables.agentId,
       ...(variables.approval ? { approval: variables.approval } : {}),
     },
-    fallback: "Couldn't change that Bot.",
+    fallback: "Couldn't change that Agente.",
   });
 }
 
@@ -238,7 +238,7 @@ export function setPluginGrantMutationOptions(queryClient: QueryClient) {
       }
       await client(
         `/api/plugins/grants?kind=${variables.kind}&ref=${encodeURIComponent(variables.ref)}&agentId=${encodeURIComponent(variables.agentId)}`,
-        { method: "DELETE", fallback: "Couldn't change that Bot." },
+        { method: "DELETE", fallback: "Couldn't change that Agente." },
       );
     },
     onSettled: () => invalidatePlugins(queryClient),

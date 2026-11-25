@@ -25,6 +25,10 @@ import { DeleteConversationDialog } from "@/components/channels/delete-conversat
 import { BrandName } from "@/components/edition/brand-name";
 import { NavigationTarget } from "@/components/edition/team-features-dialog";
 import { OpenBotVersion } from "@/components/layout/openbot-version";
+import {
+  COMMAND_MENU_KEYS,
+  openCommandMenu,
+} from "@/components/navigation/command-menu";
 import { Button } from "@/components/ui/button";
 import {
   ContextMenu,
@@ -47,10 +51,6 @@ import {
 import { useOffersMemory } from "@/lib/deployment/queries";
 import { appConfig } from "@/lib/generated/application-config";
 import { memoriesQueryOptions } from "@/lib/memory";
-import {
-  COMMAND_MENU_KEYS,
-  openCommandMenu,
-} from "@/components/navigation/command-menu";
 import { isNavigationLink, useNavigationItems } from "@/lib/navigation";
 import { routinesQueryOptions } from "@/lib/routines/queries";
 import { cn } from "@/lib/utils";
@@ -182,11 +182,11 @@ function BotsSection({
     .filter(isNavigationLink)
     .find((item) => item.id === "bots");
   return (
-    <section aria-label="Bots">
+    <section aria-label="Agentes">
       <NavLabel
         actions={
           <IconAction
-            label="Create Bot"
+            label="Create Agente"
             onClick={onNavigate}
             render={(props) => (
               <Link {...props} search={{ new: true }} to="/bots" />
@@ -200,15 +200,15 @@ function BotsSection({
       </NavLabel>
       {agents.isPending ? null : agents.error ? (
         <p className="px-3.5 py-1.5 text-[12px] text-destructive" role="alert">
-          Couldn't load your Bots. Reload the page.
+          Couldn't load your Agentes. Reload the page.
         </p>
       ) : dots.length === 0 ? (
         <p className="px-3.5 py-1.5 text-[12px] leading-relaxed text-(--opendots-faint)">
-          No Bots yet. Use + to create one.
+          No Agentes yet. Use + to create one.
         </p>
       ) : (
         <nav
-          aria-label="Your Bots"
+          aria-label="Your Agentes"
           className="grid max-h-[32vh] gap-[3px] overflow-y-auto"
         >
           {dots.map((agent) => {

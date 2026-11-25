@@ -198,7 +198,7 @@ export function PluginBotPage({
 
   /* Nothing rather than a placeholder, so no sentence asserts anything while a fetch is open. */
   if (plugins.isPending || agents.isPending || hiddenAgents.isPending) {
-    return <PageShell title="Bot">{null}</PageShell>;
+    return <PageShell title="Agente">{null}</PageShell>;
   }
 
   /*
@@ -217,7 +217,7 @@ export function PluginBotPage({
         title={appTitle}
       >
         <PageEmpty icon={IconPlugOff} title="This app is off">
-          Nothing to give a Bot here.
+          Nothing to give a Agente here.
         </PageEmpty>
       </PageShell>
     );
@@ -259,10 +259,10 @@ export function PluginBotPage({
     return (
       <PageShell
         backButton={back}
-        description="There is no Bot with that name."
-        title="Not a Bot"
+        description="There is no Agente with that name."
+        title="Not a Agente"
       >
-        <PageEmpty icon={IconBolt} title="Bot not found">
+        <PageEmpty icon={IconBolt} title="Agente not found">
           It may have been deleted after you opened this page.
         </PageEmpty>
       </PageShell>
@@ -489,7 +489,7 @@ export function PluginBotPage({
           {ungranted.length > 0 ? (
             <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
               <p className="text-muted-foreground text-xs">
-                {`This Bot would then have ${wouldHold} ${
+                {`This Agente would then have ${wouldHold} ${
                   wouldHold === 1 ? "tool" : "tools"
                 } from this app.`}
               </p>

@@ -16,7 +16,7 @@ export const openfuse: Skin = {
   id: "openfuse",
   name: "OpenFuse",
   description:
-    "One Bot at the centre of a phone-shaped column, with five tabs.",
+    "One Agente at the centre of a phone-shaped column, with five tabs.",
   Frame: OpenFuseFrame,
   screens: {
     activity: ActivityScreen,

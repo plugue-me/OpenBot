@@ -95,7 +95,7 @@ export function ProposedBotCard({
   if (!respond) {
     return (
       <GalleryFrame title={titleFor(args.name, clashes)}>
-        <p className="text-muted-foreground text-sm">Writing the Bot…</p>
+        <p className="text-muted-foreground text-sm">Writing the Agente…</p>
       </GalleryFrame>
     );
   }
@@ -116,7 +116,7 @@ export function ProposedBotCard({
       // Left on the card with the buttons still live. See `refusal` above.
       setSending(null);
       setRefusal(
-        cause instanceof Error ? cause.message : "The Bot wasn't created.",
+        cause instanceof Error ? cause.message : "The Agente wasn't created.",
       );
       return;
     }
@@ -137,7 +137,7 @@ export function ProposedBotCard({
       action={<Badge tone="caution">Waiting on you</Badge>}
       caption={
         clashes
-          ? `There's already a ${clashes.title}, and it's ${clashes.ownership === "the deployment's" ? "built into OpenBot" : clashes.ownership}. Two Bots with the same name are hard to tell apart.`
+          ? `There's already a ${clashes.title}, and it's ${clashes.ownership === "the deployment's" ? "built into OpenBot" : clashes.ownership}. Two Agentes with the same name are hard to tell apart.`
           : "Nothing is created until you press Create it."
       }
       title={titleFor(values.name, clashes)}
@@ -206,7 +206,7 @@ function titleFor(
   name: string | undefined,
   clashes: { title: string } | undefined,
 ): string {
-  const called = name?.trim() ? name.trim() : "a new Bot";
+  const called = name?.trim() ? name.trim() : "a new Agente";
   return clashes ? `Create ${called}, again` : `Create ${called}`;
 }
 
@@ -230,7 +230,7 @@ function TalkToIt({
       params={{ agentId }}
       to="/bots/$agentId"
     >
-      Open {name?.trim() || "the Bot"}
+      Open {name?.trim() || "the Agente"}
     </Link>
   );
 }
@@ -266,10 +266,10 @@ function Unwritable({
   return (
     <GalleryFrame
       action={<Badge tone="neutral">Not created</Badge>}
-      title="Create a Bot"
+      title="Create a Agente"
     >
       <p className="text-sm">
-        This Bot couldn't be created as written. It's being rewritten.
+        This Agente couldn't be created as written. It's being rewritten.
       </p>
     </GalleryFrame>
   );

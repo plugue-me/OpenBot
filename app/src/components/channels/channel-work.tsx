@@ -38,7 +38,7 @@ export function ChannelWorkRows({
             // the same face every time.
             media={
               <AbstractAvatar
-                name={name ?? "Bot"}
+                name={name ?? "Agente"}
                 seed={known?.avatarSeed ?? entry.botId}
                 size={20}
               />
@@ -52,7 +52,7 @@ export function ChannelWorkRows({
 
 function labelFor(entry: ChannelWork, name: string | null): string {
   if (entry.kind === "handoff") {
-    return name ? `Asking ${name}…` : "Asking another Bot…";
+    return name ? `Asking ${name}…` : "Asking another Agente…";
   }
   return name ? `${name} is running a routine…` : "A routine is running…";
 }

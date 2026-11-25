@@ -137,7 +137,7 @@ export function sameFilters(a: ChipFilters, b: ChipFilters): boolean {
 const STARTED_BY: Record<string, string> = {
   person: "A person",
   routine: "A routine",
-  handoff: "Another Bot",
+  handoff: "Another Agente",
   responsibility: "A goal",
   memory: "A memory source",
   deployment: "OpenBot",
@@ -224,7 +224,7 @@ export function chipText(
     case "outcome":
       return `Outcome: ${some((filters.outcome ?? []).map((value) => OUTCOMES.find((entry) => entry.value === value)?.label ?? value))}`;
     case "bot":
-      return `Bot: ${some(botsOf(filters.bot).map((id) => names.labels.bots[id] ?? (names.nameFor(id) || id)))}`;
+      return `Agente: ${some(botsOf(filters.bot).map((id) => names.labels.bots[id] ?? (names.nameFor(id) || id)))}`;
     case "actorUserId":
       return `Person: ${personName(filters.actorUserId as string, names)}`;
     case "initiatorKind":
@@ -421,7 +421,7 @@ function FilterOptions({
 
 const FILTER_TITLES: Record<ChipKey, string> = {
   outcome: "Outcome",
-  bot: "Bot",
+  bot: "Agente",
   initiatorKind: "Started by",
   actorUserId: "Person",
   eventType: "Type",

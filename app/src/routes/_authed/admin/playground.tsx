@@ -350,7 +350,7 @@ function PlaygroundPage() {
                       <div className="text-xs text-muted-foreground">
                         {component.published
                           ? `published, revision ${component.revision}`
-                          : "draft only, no Bot can draw it"}
+                          : "draft only, no Agente can draw it"}
                         {component.hasUnpublishedChanges
                           ? " · edited since publishing"
                           : ""}
@@ -379,8 +379,8 @@ function PlaygroundPage() {
               </ul>
             )}
             <p className="border-border border-t px-4 py-2 text-muted-foreground text-xs">
-              Publishing makes it available to every Bot. Turn it off for one
-              Bot on the UI components page.
+              Publishing makes it available to every Agente. Turn it off for one
+              Agente on the UI components page.
             </p>
           </div>
         </div>
@@ -400,7 +400,7 @@ function PlaygroundPage() {
           <DialogHeader>
             <DialogTitle>Delete {deleting}?</DialogTitle>
             <DialogDescription>
-              It's removed from this deployment, and no Bot can draw it. You
+              It's removed from this deployment, and no Agente can draw it. You
               can't undo this.
             </DialogDescription>
           </DialogHeader>

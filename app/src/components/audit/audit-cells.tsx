@@ -217,7 +217,8 @@ export function whatName(event: AuditEvent): string {
  * was nobody's approval (see {@link givenWithoutAsking}).
  */
 export function whatText(event: AuditEvent, storedNames = true): string {
-  if (!storedNames && givenWithoutAsking(event)) return "Let a Bot use an app";
+  if (!storedNames && givenWithoutAsking(event))
+    return "Let a Agente use an app";
   const action = actionOf(event);
   if (action) return auditActionWords(action);
   const change =
@@ -546,10 +547,10 @@ export function decisionText(event: AuditEvent, storedNames = true): string {
   const routed =
     event.eventType === "channel.routed"
       ? payload.viaMention === true
-        ? "The person chose this Bot"
+        ? "The person chose this Agente"
         : payload.fallback === true
-          ? "Sent to the default Bot"
-          : "Sent to the Bot it was meant for"
+          ? "Sent to the default Agente"
+          : "Sent to the Agente it was meant for"
       : null;
   const legacy = legacyFolderAction(event);
   return (
@@ -712,7 +713,7 @@ function policyChangeLines(payload: Record<string, unknown>): string[] {
  * is given, which names the component and its data by their ids and sends the person to an admin.
  */
 const COMPONENT_REFUSALS: Record<string, string> = {
-  "component.refused": "This Bot can't show it.",
+  "component.refused": "This Agente can't show it.",
   "component.function_refused": "It isn't allowed to read that data.",
 };
 
@@ -837,7 +838,7 @@ export function decisionDetails(
   )
     lines.push(payload.reason);
   if (event.eventType === "bot.declined" && typeof payload.reason === "string")
-    lines.push(`${payload.reason}, reported by the Bot itself`);
+    lines.push(`${payload.reason}, reported by the Agente itself`);
   const notConnected = connectPromptOf(event);
   if (failed && notConnected)
     lines.push(notConnectedLine(notConnected, storedNames));
@@ -1155,10 +1156,10 @@ const NAMED_TARGETS = new Set([
 ]);
 
 const DECISIONS: Record<string, string> = {
-  "bot.declined": "The Bot declined",
+  "bot.declined": "The Agente declined",
   // Not a refusal, so not the refusal colour: nothing was blocked. The Bot was asked and never
   // answered, which is the same complaint as an action that was allowed and then did not happen.
-  "agent.stream_stalled": "The Bot stopped responding",
+  "agent.stream_stalled": "The Agente stopped responding",
   "agent.tool_limit_refused": "Too many tools for its model",
   "computer.policy_loaded": "Boundary at start-up",
   "computer.policy_changed": "Boundaries saved",
@@ -1170,19 +1171,19 @@ const DECISIONS: Record<string, string> = {
   "what_if.checked": "Checked, nothing changed",
   "computer.isolation_loaded": "Isolation at start-up",
   "computer.control_taken": "A person took control",
-  "computer.control_released": "Control went back to the Bot",
-  "computer.help_requested": "The Bot asked for help",
-  "computer.secret_requested": "The Bot asked for a secret",
+  "computer.control_released": "Control went back to the Agente",
+  "computer.help_requested": "The Agente asked for help",
+  "computer.secret_requested": "The Agente asked for a secret",
   "computer.secret_supplied": "A person supplied a secret",
   "computer.reset": "The computer was reset",
   "computer.browser_cleared": "A person cleared the browser",
   "computer.updated": "The computer was updated",
   "computer.stopped": "A person pressed stop",
 
-  "component.granted": "Granted to this Bot",
-  "component.revoked": "Taken away from this Bot",
-  "component.published": "Published. Every Bot can use it",
-  "component.unpublished": "Unpublished. No Bot can use it",
+  "component.granted": "Granted to this Agente",
+  "component.revoked": "Taken away from this Agente",
+  "component.published": "Published. Every Agente can use it",
+  "component.unpublished": "Unpublished. No Agente can use it",
   "component.draft_saved": "Draft saved, not yet published",
   "component.description_updated": "Description updated to this version's",
   "component.refused": "Refused",
@@ -1196,11 +1197,11 @@ const DECISIONS: Record<string, string> = {
   // Not a call and not a decision: the tools this run was allowed to see. Worded so nobody reads it
   // as permission, which it is not — everything named was already granted.
   "mcp.tools_discovered": "Tools offered for one run",
-  "mcp.call_succeeded": "Called on this Bot's behalf",
+  "mcp.call_succeeded": "Called on this Agente's behalf",
   "mcp.call_rejected": "Blocked",
   "mcp.call_failed": "The server didn't answer",
   // Not "Blocked": nothing about the Bot was judged, because nothing proved which Bot it was.
-  "mcp.callback_refused": "Couldn't confirm which Bot it was",
+  "mcp.callback_refused": "Couldn't confirm which Agente it was",
 
   // A request closed without an answer: asking was turned off, or a rule now allows it.
   "approval.withdrawn": "Withdrawn",

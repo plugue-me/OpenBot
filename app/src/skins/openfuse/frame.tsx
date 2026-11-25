@@ -34,8 +34,8 @@ import { MainChatLink } from "./links";
 import { MenuSheet } from "./menu-sheet";
 import {
   centreBot,
-  inColumn,
   type FuseTab,
+  inColumn,
   statusLine,
   tabFor,
   waitingOnYou,
@@ -165,7 +165,9 @@ export function OpenFuseFrame({ children }: { children: ReactNode }) {
             <div className="pointer-events-none flex flex-col items-center">
               <button
                 aria-label={
-                  bot ? `${bot.name}, ${status}. Switch Bot` : "Choose a Bot"
+                  bot
+                    ? `${bot.name}, ${status}. Switch Agente`
+                    : "Choose a Agente"
                 }
                 className="group pointer-events-auto flex max-w-[70%] flex-col items-center gap-px rounded-2xl outline-none transition-opacity active:opacity-65 focus-visible:ring-3 focus-visible:ring-ring/50 motion-reduce:transition-none"
                 onClick={() => setSheet("bots")}
@@ -198,7 +200,7 @@ export function OpenFuseFrame({ children }: { children: ReactNode }) {
                   className="mb-1.5 max-w-full truncate text-[11px] text-muted-foreground"
                   data-testid="openfuse-status"
                 >
-                  {bot ? status : agents.isPending ? "" : "No Bots yet"}
+                  {bot ? status : agents.isPending ? "" : "No Agentes yet"}
                 </span>
               </button>
             </div>

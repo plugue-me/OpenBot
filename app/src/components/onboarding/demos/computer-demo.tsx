@@ -1,6 +1,6 @@
-import { DemoOrb } from "@/components/onboarding/demo-orb";
 import { DesktopIllustration } from "@/components/computer/desktop-illustration";
 import { ComputerPlaceholder } from "@/components/computer/placeholder";
+import { DemoOrb } from "@/components/onboarding/demo-orb";
 import { DemoStage } from "../demo-stage";
 
 /**
@@ -17,7 +17,7 @@ export function ComputerDemo() {
       beats={2}
       className="overflow-hidden p-3"
       kind="computer"
-      label="A Bot's own browser and folder of files open, and the Bot working on them"
+      label="A Agente's own browser and folder of files open, and the Agente working on them"
       rest={0}
     >
       {({ beat, playing }) => (

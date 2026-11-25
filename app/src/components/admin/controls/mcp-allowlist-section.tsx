@@ -47,7 +47,7 @@ export function McpAllowlistSection() {
   const [address, setAddress] = useState("");
   return (
     <ControlsSection
-      description="With the allowlist on, Bots can only call tools on the MCP servers approved here, and people can only add a server by its address once it's approved. Calls to any other server are refused."
+      description="With the allowlist on, Agentes can only call tools on the MCP servers approved here, and people can only add a server by its address once it's approved. Calls to any other server are refused."
       title="MCP servers"
     >
       {({ data, setSetting, saving }) => {
@@ -87,7 +87,7 @@ export function McpAllowlistSection() {
                   <ItemDescription>
                     {mcpAllowlist.enabled
                       ? `${mcpAllowlist.servers.length} approved`
-                      : "Off. Bots can use any registered server they have access to."}
+                      : "Off. Agentes can use any registered server they have access to."}
                   </ItemDescription>
                 </ItemContent>
                 <ItemActions>
@@ -207,8 +207,8 @@ export function McpAllowlistSection() {
                 <DialogHeader>
                   <DialogTitle>Approve a server</DialogTitle>
                   <DialogDescription>
-                    People can add the MCP server at this address, and Bots can
-                    call its tools.
+                    People can add the MCP server at this address, and Agentes
+                    can call its tools.
                   </DialogDescription>
                 </DialogHeader>
                 <DialogBody className="mt-4">

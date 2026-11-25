@@ -133,7 +133,7 @@ export function AddServerPage() {
   return (
     <PageShell
       backButton={back}
-      description="Give your Bots the tools of an MCP server OpenBot doesn't list, from its address. If it asks you to sign in, you'll go to its sign-in page next."
+      description="Give your Agentes the tools of an MCP server OpenBot doesn't list, from its address. If it asks you to sign in, you'll go to its sign-in page next."
       title="Add server"
     >
       <form
@@ -180,7 +180,7 @@ export function AddServerPage() {
                   <Field data-invalid={isInvalid}>
                     <FieldLabel htmlFor={field.name}>Name</FieldLabel>
                     <FieldDescription>
-                      What you and your Bots call it.
+                      What you and your Agentes call it.
                     </FieldDescription>
                     <Input
                       aria-invalid={isInvalid}

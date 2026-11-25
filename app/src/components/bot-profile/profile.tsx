@@ -116,7 +116,7 @@ export function BotProfile({
           ) : null}
           {lifecycle.isPending ? null : lifecycle.error ? (
             <p className="mt-4 text-destructive text-sm" role="alert">
-              Couldn't load this Bot's settings. Reload the page.
+              Couldn't load this Agente's settings. Reload the page.
             </p>
           ) : (
             <PageRows>
@@ -203,7 +203,7 @@ export function BotProfile({
                     <ItemContent>
                       <ItemTitle>Browser notifications</ItemTitle>
                       <ItemDescription>
-                        Off in this browser. Turn them on to hear when a Bot
+                        Off in this browser. Turn them on to hear when a Agente
                         needs you.
                       </ItemDescription>
                     </ItemContent>

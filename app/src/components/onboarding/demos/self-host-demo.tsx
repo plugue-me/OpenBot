@@ -3,9 +3,9 @@ import { AnimatePresence, motion } from "motion/react";
 import type { ReactNode } from "react";
 import { HarnessMark } from "@/components/agents/harness-mark";
 import { appConfig } from "@/lib/generated/application-config";
+import { DemoStage } from "../demo-stage";
 import { LaptopIllustration } from "../laptop-illustration";
 import { OrganizationFlow } from "../organization-flow";
-import { DemoStage } from "../demo-stage";
 
 /** Every framework the New Bot wizard offers by name; "an agent you already run" is the sentence. */
 export const FRAMEWORKS = WEB_HARNESSES.filter(
@@ -69,7 +69,7 @@ export function SelfHostDemo() {
       beatMs={3200}
       className="flex min-h-[22rem] flex-col justify-center gap-10 px-4 py-8 sm:px-6"
       kind="self-host"
-      label={`${PRODUCT} on a laptop; frameworks that work as Bots: ${FRAMEWORKS.map((harness) => harness.name).join(", ")}; and your organization signing in with Google, Microsoft or Okta`}
+      label={`${PRODUCT} on a laptop; frameworks that work as Agentes: ${FRAMEWORKS.map((harness) => harness.name).join(", ")}; and your organization signing in with Google, Microsoft or Okta`}
       rest={-1}
     >
       {({ beat, reduced }) =>

@@ -129,13 +129,13 @@ function ResetDialog({
                 <p className="text-muted-foreground">
                   {plan.data.sharedConversationsKept} conversation
                   {plan.data.sharedConversationsKept === 1 ? " is" : "s are"}{" "}
-                  shared with other people or Bots and will be kept.
+                  shared with other people or Agentes and will be kept.
                 </p>
               ) : null}
               {/* Where memory isn't offered there are no memories to keep (see `offersMemory`). */}
               {memory ? (
                 <p className="text-muted-foreground">
-                  Memories you told a Bot yourself are kept.
+                  Memories you told a Agente yourself are kept.
                 </p>
               ) : null}
             </div>
@@ -219,10 +219,10 @@ export function ManageSection({
             <ItemTitle>Pinned</ItemTitle>
             <ItemDescription>
               {assigned
-                ? "An admin assigned it to you. It stays at the top of your Bots list."
+                ? "An admin assigned it to you. It stays at the top of your Agentes list."
                 : agent.pinned
-                  ? `At the top of your Bots list.${onlyYours}`
-                  : `Keep it at the top of your Bots list.${onlyYours}`}
+                  ? `At the top of your Agentes list.${onlyYours}`
+                  : `Keep it at the top of your Agentes list.${onlyYours}`}
             </ItemDescription>
           </ItemContent>
           <ItemActions>
@@ -247,8 +247,8 @@ export function ManageSection({
               {assigned
                 ? "An admin assigned it to you. You can't hide it."
                 : agent.hidden
-                  ? `Under Hidden on your Bots list.${onlyYours}`
-                  : `Take it off your Bots list.${onlyYours}`}
+                  ? `Under Hidden on your Agentes list.${onlyYours}`
+                  : `Take it off your Agentes list.${onlyYours}`}
             </ItemDescription>
           </ItemContent>
           <ItemActions>

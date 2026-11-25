@@ -345,7 +345,7 @@ function Topbar({
         aria-label="Breadcrumb"
         className="flex min-w-0 flex-1 items-center gap-[13px] text-[13px] text-(--opendots-crumb) max-md:gap-[7px]"
       >
-        <span className="shrink-0 max-md:hidden">Bots</span>
+        <span className="shrink-0 max-md:hidden">Agentes</span>
         <span aria-hidden className="shrink-0 max-md:hidden">
           /
         </span>

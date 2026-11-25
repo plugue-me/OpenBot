@@ -202,7 +202,7 @@ export function SharingSections({ agent }: { agent: AgentProfile }) {
       ) : null}
       {me?.role === "admin" && published ? (
         <PageSection
-          description="Pins this Bot at the top of every group member's Bots list. Use * for the whole team."
+          description="Pins this Agente at the top of every group member's Agentes list. Use * for the whole team."
           title="Assign to groups"
         >
           <Assignments bot={published} />
@@ -435,7 +435,7 @@ function AssignDialog({ bot, onClose }: { bot: TeamBot; onClose: () => void }) {
         <DialogHeader>
           <DialogTitle>Assign {bot.name} to a group</DialogTitle>
           <DialogDescription>
-            It's pinned at the top of every member's Bots list.
+            It's pinned at the top of every member's Agentes list.
           </DialogDescription>
         </DialogHeader>
         <DialogBody className="mt-4">

@@ -23,6 +23,7 @@ import {
   NotConnected,
   useBrokeredAccount,
 } from "@/components/plugins/brokered-account-row";
+import { PersonalApiKey } from "@/components/plugins/personal-api-key";
 import { SkippedToolsNotice } from "@/components/plugins/skipped-tools-notice";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -687,7 +688,7 @@ export function PluginPage({
               <ItemContent>
                 <ItemTitle>Always on</ItemTitle>
                 <ItemDescription>
-                  Every Bot can use it to schedule its own work.
+                  Every Agente can use it to schedule its own work.
                 </ItemDescription>
               </ItemContent>
             </Item>
@@ -696,8 +697,8 @@ export function PluginPage({
               <ItemContent>
                 <ItemTitle>Add {title}</ItemTitle>
                 <ItemDescription>
-                  Connect it to give your Bots its tools. Bots can read with it
-                  right away, and ask you before they change anything.
+                  Connect it to give your Agentes its tools. Agentes can read
+                  with it right away, and ask you before they change anything.
                 </ItemDescription>
               </ItemContent>
               <ItemActions>
@@ -720,10 +721,10 @@ export function PluginPage({
                 </ItemTitle>
                 <ItemDescription>
                   {personal
-                    ? "Your Bots can use its tools. Turning this off removes it and every Bot's access to its tools."
+                    ? "Your Agentes can use its tools. Turning this off removes it and every Agente's access to its tools."
                     : server
-                      ? "Bots can be given its tools. Turning this off removes it and every Bot's access to its tools."
-                      : "No Bot can reach this vendor. Turn it on to set it up and give Bots its tools."}
+                      ? "Agentes can be given its tools. Turning this off removes it and every Agente's access to its tools."
+                      : "No Agente can reach this vendor. Turn it on to set it up and give Agentes its tools."}
                 </ItemDescription>
               </ItemContent>
               <ItemActions>
@@ -811,18 +812,20 @@ export function PluginPage({
               <Separator />
               <Item size="sm">
                 <ItemContent>
-                  <ItemTitle>Bot owners can give it to their Bots</ItemTitle>
+                  <ItemTitle>
+                    Agente owners can give it to their Agentes
+                  </ItemTitle>
                   <ItemDescription>
                     {server.ownerGrants !== "any"
-                      ? "Only an admin can give it to a Bot."
+                      ? "Only an admin can give it to a Agente."
                       : shared
-                        ? "Bot owners who give it to their Bots let those Bots use the team account."
-                        : "People can let Bots they own use it, on the account of whoever is asking."}
+                        ? "Agente owners who give it to their Agentes let those Agentes use the team account."
+                        : "People can let Agentes they own use it, on the account of whoever is asking."}
                   </ItemDescription>
                 </ItemContent>
                 <ItemActions>
                   <Switch
-                    aria-label={`Let Bot owners give ${title} to their Bots`}
+                    aria-label={`Let Agente owners give ${title} to their Agentes`}
                     checked={server.ownerGrants === "any"}
                     disabled={ownerGrants.isPending}
                     onCheckedChange={(next) => {
@@ -862,19 +865,19 @@ export function PluginPage({
             /* The personal edition has one person, so each sentence speaks to them and names nobody else. */
             auth === "user-oauth"
               ? personal
-                ? `Connect your ${title} account through OpenBot. OpenBot registers an OAuth client, and your Bots see only what you can see.`
-                : "This vendor answers as whoever is asking. The deployment registers an OAuth client, and each person connects their own account. A Bot only sees what that person can see."
+                ? `Connect your ${title} account through OpenBot. OpenBot registers an OAuth client, and your Agentes see only what you can see.`
+                : "This vendor answers as whoever is asking. The deployment registers an OAuth client, and each person connects their own account. A Agente only sees what that person can see."
               : auth === "builtin"
                 ? `Built into ${paths.deploymentName}. There is no vendor to reach and no credential to keep. ${personal ? "A call runs as you." : "A call runs as whoever asked."}`
                 : auth === "brokered"
                   ? /* The row below says how, at length. This says whose account it is, which is the part that decides what an admin has to do here — which is nothing. */
                     brokeredConnectionDescription(provider, brokeredApp)
                   : auth === "person-entra"
-                    ? "This server answers as whoever is asking. Each call carries a token Microsoft Entra issues for that person, so a Bot only sees what they can see."
+                    ? "This server answers as whoever is asking. Each call carries a token Microsoft Entra issues for that person, so a Agente only sees what they can see."
                     : openByUrl
-                      ? `${title} answers without an account, so ${personal ? "your Bots use" : "Bots use"} it as it is. Add a key only if ${title} gives you one.`
+                      ? `${title} answers without an account, so ${personal ? "your Agentes use" : "Agentes use"} it as it is. Add a key only if ${title} gives you one.`
                       : personal
-                        ? `What OpenBot sends to ${title}. Your Bots all use it.`
+                        ? `What OpenBot sends to ${title}. Your Agentes all use it.`
                         : `What ${paths.deploymentName} sends to the vendor. One credential for everybody.`
           }
           title="Connection"
@@ -975,6 +978,10 @@ export function PluginPage({
                   </span>
                 </ItemActions>
               </Item>
+            ) : null}
+
+            {auth === "person-key" && server ? (
+              <PersonalApiKey serverId={server.id} />
             ) : null}
 
             {auth === "deployment-bearer" ? (
@@ -1094,7 +1101,7 @@ export function PluginPage({
                     <ItemContent>
                       <ItemTitle>Team account</ItemTitle>
                       <ItemDescription>
-                        {`${title} connects only as one shared account. Make it shared above, then connect the team account here and give it to Bots.`}
+                        {`${title} connects only as one shared account. Make it shared above, then connect the team account here and give it to Agentes.`}
                       </ItemDescription>
                     </ItemContent>
                   </Item>
@@ -1102,8 +1109,8 @@ export function PluginPage({
                   <BrokeredAccountRow
                     account={brokeredAccount}
                     edition={paths.edition}
-                    connectedDescription={`Connected${sharedConnection?.displayName ? ` as ${sharedConnection.displayName}` : ""}${sharedConnection?.connectedBy ? ` by ${sharedConnection.connectedBy}` : ""}. Every Bot with these tools acts as this account.`}
-                    disconnectedDescription="No team account is connected. Bots with these tools are refused."
+                    connectedDescription={`Connected${sharedConnection?.displayName ? ` as ${sharedConnection.displayName}` : ""}${sharedConnection?.connectedBy ? ` by ${sharedConnection.connectedBy}` : ""}. Every Agente with these tools acts as this account.`}
+                    disconnectedDescription="No team account is connected. Agentes with these tools are refused."
                     heading="Team account"
                     notice="Sign in as the team account, not your own."
                     provider={provider}
@@ -1119,14 +1126,14 @@ export function PluginPage({
                        every tool in the personal edition, as the OAuth row below says. */
                     connectedDescription={
                       personal
-                        ? `Connected. Your Bots use your ${title} as you. ${brokeredDisconnectNote(provider)}`
-                        : `Connected. A Bot with these tools uses your ${title} as you. ${brokeredDisconnectNote(provider)}`
+                        ? `Connected. Your Agentes use your ${title} as you. ${brokeredDisconnectNote(provider)}`
+                        : `Connected. A Agente with these tools uses your ${title} as you. ${brokeredDisconnectNote(provider)}`
                     }
                     /* One person: connecting is what lets their Bots use it, as the OAuth row
                        below says, and there is no setup it could be beside. */
                     disconnectedDescription={
                       personal
-                        ? `Connect your ${title} account so your Bots can use it.`
+                        ? `Connect your ${title} account so your Agentes can use it.`
                         : `Connect your own account to try this connector. ${reassurance}`
                     }
                     /* The half of the line above that is true whichever way this app connects.
@@ -1156,10 +1163,10 @@ export function PluginPage({
                       <ItemDescription>
                         {personal
                           ? youConnected
-                            ? `Connected. Your Bots use your ${title} as you.`
-                            : `Connect your ${title} account so your Bots can use it.`
+                            ? `Connected. Your Agentes use your ${title} as you.`
+                            : `Connect your ${title} account so your Agentes can use it.`
                           : youConnected
-                            ? `Connected. A Bot with these tools uses your ${title} as you. Everybody else connects their own.`
+                            ? `Connected. A Agente with these tools uses your ${title} as you. Everybody else connects their own.`
                             : `Connect your own account to try this connector. ${reassurance}`}
                       </ItemDescription>
                     </ItemContent>
@@ -1350,8 +1357,8 @@ export function PluginPage({
           description={
             personal
               ? // The setting by the name Settings > Approvals gives it, so a person can find it there.
-                `Every Bot can use these. While ${ASK_FIRST_TITLE} is on, a Bot asks you before it uses one that makes changes.`
-              : "A Bot only sees the tools it has been given. Each call is checked when it happens, so removing access applies from the next call."
+                `Every Agente can use these. While ${ASK_FIRST_TITLE} is on, a Agente asks you before it uses one that makes changes.`
+              : "A Agente only sees the tools it has been given. Each call is checked when it happens, so removing access applies from the next call."
           }
           title="Tools"
         >
@@ -1442,7 +1449,7 @@ export function PluginPage({
            */}
           {!personal && server.tools.length > 0 && bots.length > 0 ? (
             <>
-              <p className="mt-8 font-medium text-sm">By Bot</p>
+              <p className="mt-8 font-medium text-sm">By Agente</p>
               <PageRows>
                 {bots.map((bot, index) => (
                   <React.Fragment key={bot.id}>
@@ -1497,7 +1504,7 @@ export function PluginPage({
        */}
       {!personal && server && server.withdrawn.length > 0 ? (
         <PageSection
-          description="This vendor no longer lists these. No Bot sees them, and none can call them. The access is still saved, and comes back if the vendor lists the tool again. To remove it, use the Bot's own page."
+          description="This vendor no longer lists these. No Agente sees them, and none can call them. The access is still saved, and comes back if the vendor lists the tool again. To remove it, use the Agente's own page."
           title="Given but no longer listed"
         >
           <PageRows>

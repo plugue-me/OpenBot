@@ -67,7 +67,7 @@ export function BotOrb({
       role="img"
       aria-label={name}
       data-variant="live"
-      className="bot-orb-live inline-flex shrink-0 rounded-full"
+      className="agente-orb-live inline-flex shrink-0 rounded-full"
       style={{ height: size, width: size }}
     >
       {/* Hidden so the Bot is announced once, by name. A waiting Bot idles: the next move is the

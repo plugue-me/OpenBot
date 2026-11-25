@@ -20,7 +20,7 @@ function RoutinesPage() {
   return (
     <PageShell
       action={<NewRoutineButton />}
-      description="Your Bots work on their own: on a schedule, toward a goal, or by checking in when something changes. Ask a Bot to set one up, or use New routine."
+      description="Your Agentes work on their own: on a schedule, toward a goal, or by checking in when something changes. Ask a Agente to set one up, or use New routine."
       title="Routines"
     >
       <RoutinesList />

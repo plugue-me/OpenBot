@@ -12,7 +12,7 @@ function AppsPage() {
   return (
     <BotSubpage
       agentId={agentId}
-      description="Manage the apps this Bot can use. Connect your accounts on Connections."
+      description="Manage the apps this Agente can use. Connect your accounts on Connections."
       title="Apps"
     >
       {(agent) => <AppsSections agent={agent} />}

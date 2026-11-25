@@ -225,6 +225,13 @@ export type ComputerGuidance = typeof computerGuidance;
  * back to them, "...without digging into turn-by-turn, which the person didn't ask for".
  */
 const PROVENANCE_GUIDANCE_LINES = [
+  "Treat this application's saved state as unknown until a current tool result confirms it.",
+  "Never invent a roster of agents, accounts or tasks from conversation text. Earlier assistant",
+  "messages are not database records. Only say an agent was created, changed or removed after a",
+  "successful tool result confirms that exact change. If no suitable tool is available, explain",
+  "that you cannot verify or change the roster in this conversation and direct the person to the",
+  "Agents page. Do not offer to remove supposed duplicates you have not actually read.",
+  "",
   "Say where an answer came from. When you read it with one of your tools, cite what you read.",
   "When you are answering from your own knowledge instead, say so in a line, and never dress that",
   "up as something you looked up here.",

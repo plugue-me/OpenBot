@@ -26,7 +26,7 @@ function RouteComponent() {
 
   return (
     <PageShell
-      description="Choose which components each Bot can display. Published components are available to all Bots by default. Changes and blocked requests appear in Activity."
+      description="Choose which components each Agente can display. Published components are available to all Agentes by default. Changes and blocked requests appear in Activity."
       title="UI components"
     >
       {/*
@@ -43,7 +43,7 @@ function RouteComponent() {
           <EmptyHeader>
             <EmptyTitle>No components yet</EmptyTitle>
             <EmptyDescription className="text-pretty">
-              Components your Bots can use will show here.
+              Components your Agentes can use will show here.
             </EmptyDescription>
           </EmptyHeader>
         </Empty>

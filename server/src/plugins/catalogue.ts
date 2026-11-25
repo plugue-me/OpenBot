@@ -1,3 +1,4 @@
+import { INTEGRATION_CATALOGUE } from "../integrations/catalogue";
 /**
  * The catalogue of MCP servers this deployment will talk to, and the rule that decides admissibility.
  *
@@ -39,6 +40,7 @@ import { currentEdition } from "../edition";
 import type { CuratedTransportKind } from "./transport";
 
 export type CatalogueAuth =
+  | { kind: "person-key" }
   /** Answers without any credential at all. */
   | { kind: "none" }
   /** One token, held by the deployment, used for everybody. */
@@ -227,6 +229,7 @@ const FIRECRAWL_READ_TOOLS = Object.freeze([
  * and gives every Bot all of its tools. See `personal-defaults.ts`.
  */
 export const CATALOGUE: readonly CatalogueEntry[] = Object.freeze([
+  ...INTEGRATION_CATALOGUE,
   {
     key: "parallel",
     title: "Parallel Search",
@@ -566,6 +569,11 @@ export function tokenHeaderFor(
  * working behind the screen.
  */
 export function offeredHere(entry: CatalogueEntry): boolean {
+  if (entry.transport === "integrations")
+    return Boolean(
+      process.env.PLUGUEME_INTEGRATION_URL &&
+        process.env.PLUGUEME_INTEGRATION_SECRET,
+    );
   return !entry.teamOnly || currentEdition() !== "personal";
 }
 

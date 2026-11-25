@@ -847,6 +847,35 @@ export function createStoreContext(options: PluginStoreOptions) {
       }
     }
 
+    if (access.credential === "person-key") {
+      if (!actorId)
+        throw new PluginRefusedError(
+          "This call has no authenticated owner.",
+          null,
+        );
+      const [held] = await database
+        .select({ credentialId: mcpUserCredentials.credentialId })
+        .from(mcpUserCredentials)
+        .where(
+          and(
+            eq(mcpUserCredentials.serverId, row.id),
+            eq(mcpUserCredentials.userId, actorId),
+          ),
+        )
+        .limit(1);
+      if (!held)
+        throw new PluginRefusedError(
+          "Connect your integration account first.",
+          null,
+        );
+      return {
+        token: await secretFor(
+          held.credentialId,
+          "Your integration key was revoked. Connect again.",
+        ),
+      };
+    }
+
     if (access.credential !== "person-oauth") {
       const token = row.credentialId
         ? await secretFor(

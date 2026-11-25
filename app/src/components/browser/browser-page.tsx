@@ -19,7 +19,7 @@ import { recordingOnItsWay, YourRecordings } from "./your-recordings";
 
 const TITLE = TEACH_A_BOT;
 const DESCRIPTION =
-  "Show your Bots how to do a task. Press Record, name the task, and do it once in the browser.";
+  "Show your Agentes how to do a task. Press Record, name the task, and do it once in the browser.";
 
 /**
  * The way from what was taught to what it became: the skills a Bot learned from recordings are on Skills,
@@ -31,7 +31,7 @@ function LearnedLink() {
       className="text-muted-foreground text-sm underline-offset-4 hover:text-foreground hover:underline"
       to="/skills"
     >
-      See what your Bots learned
+      See what your Agentes learned
     </Link>
   );
 }

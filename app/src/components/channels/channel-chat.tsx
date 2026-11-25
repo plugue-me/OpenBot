@@ -1396,7 +1396,7 @@ export function ChannelChat({
       turnsGoingAway(channel.id) > 0
     ) {
       throw new Error(
-        "This Bot is still working on something. Wait for it, or stop it first.",
+        "This Agente is still working on something. Wait for it, or stop it first.",
       );
     }
 
@@ -1807,8 +1807,8 @@ export function ChannelChat({
                     className="pb-2 text-sm text-muted-foreground"
                     role="status"
                   >
-                    This Bot was deleted. You can still read this conversation,
-                    but the Bot can't reply.
+                    This Agente was deleted. You can still read this
+                    conversation, but the Agente can't reply.
                   </p>
                 )}
               </>

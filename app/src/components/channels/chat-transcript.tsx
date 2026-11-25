@@ -930,7 +930,7 @@ function AnswererName({ botId }: { botId: string }) {
   if (!bots) return null;
   return (
     <MessageHeader className="text-xs font-medium text-muted-foreground">
-      {bots.find((bot) => bot.id === botId)?.name ?? "A Bot no longer here"}
+      {bots.find((bot) => bot.id === botId)?.name ?? "A Agente no longer here"}
     </MessageHeader>
   );
 }
@@ -1450,7 +1450,7 @@ function AttachmentLightbox({
  */
 function activityName(activityType: string): string {
   return activityType === "open-generative-ui"
-    ? "This Bot's generated interface"
+    ? "This Agente's generated interface"
     : activityType;
 }
 

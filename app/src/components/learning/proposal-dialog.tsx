@@ -47,7 +47,7 @@ function EvidenceList({ evidence }: { evidence: LearningEvidence[] | null }) {
                     {message.role === "user"
                       ? "Person: "
                       : message.role === "assistant"
-                        ? "Bot: "
+                        ? "Agente: "
                         : "Tool: "}
                   </span>
                   {message.content}
@@ -83,7 +83,7 @@ export function ProposalDialog<TKey extends QueryKey>({
   deciding,
   decided,
   error,
-  publishedNote = "Published. Bots on this container use it from their next conversation.",
+  publishedNote = "Published. Agentes on this container use it from their next conversation.",
   onClose,
 }: {
   load: UseQueryOptions<
@@ -189,7 +189,7 @@ export function ProposalDialog<TKey extends QueryKey>({
                 >
                   {status === "approved"
                     ? removal
-                      ? "Removed. Bots stop using it from their next conversation."
+                      ? "Removed. Agentes stop using it from their next conversation."
                       : publishedNote
                     : removal
                       ? "Rejected. The skill stays."

@@ -1534,7 +1534,7 @@ export function Composer({
   );
   const primaryAction = canStop ? (
     <Button
-      aria-label="Stop the Bot"
+      aria-label="Stop the Agente"
       className={actionClassName}
       data-slot="composer-stop"
       data-testid="composer-stop"
@@ -1551,7 +1551,7 @@ export function Composer({
         callAction.supported
           ? callAction.active
             ? "Show voice call"
-            : "Call this Bot"
+            : "Call this Agente"
           : "Voice calls need a microphone and a secure (HTTPS) connection"
       }
       className={actionClassName}

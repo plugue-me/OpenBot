@@ -35,7 +35,7 @@ function RouteComponent() {
   })).filter((section) => section.items.length);
   return (
     <PageShell
-      description="Manage settings that apply to everyone and every Bot in this deployment."
+      description="Manage settings that apply to everyone and every Agente in this deployment."
       title="Admin"
     >
       {sections.map((section) => (

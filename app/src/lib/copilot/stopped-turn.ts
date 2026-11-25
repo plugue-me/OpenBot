@@ -31,7 +31,7 @@ export function stoppedReason(reported: unknown): string {
         : "";
   const unreachable = backEndUnreachable(said);
   if (unreachable) return unreachable;
-  return said.trim() || "The Bot stopped without saying why.";
+  return said.trim() || "The Agente stopped without saying why.";
 }
 
 /**

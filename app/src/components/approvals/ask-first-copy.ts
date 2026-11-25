@@ -14,7 +14,7 @@
  */
 
 export const ALWAYS_ASKS =
-  "Bots ask for your approval before deleting, sending, sharing, posting, or paying in your apps or on websites. You can allow each one once, for a conversation, or always.";
+  "Agentes ask for your approval before deleting, sending, sharing, posting, or paying in your apps or on websites. You can allow each one once, for a conversation, or always.";
 
 /**
  * What asks with the switch off, said once on onboarding's Welcome, where the switch is offered: the
@@ -23,10 +23,10 @@ export const ALWAYS_ASKS =
  * own workspace does not ask.
  */
 export const ALWAYS_ASKS_SHORT =
-  "Bots ask before they delete, send, share, post, or pay in your apps or on websites.";
+  "Agentes ask before they delete, send, share, post, or pay in your apps or on websites.";
 
 export const HANDED_TO_YOU =
-  "Bots leave changing a password on a website for you to do yourself.";
+  "Agentes leave changing a password on a website for you to do yourself.";
 
 export const ASK_FIRST_TITLE = "Extra vigilant";
 

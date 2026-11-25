@@ -108,7 +108,7 @@ export async function supplySecret(
   } catch {
     return {
       ok: false,
-      error: "Couldn't reach the Bot's computer. Try again.",
+      error: "Couldn't reach the Agente's computer. Try again.",
     };
   }
 }

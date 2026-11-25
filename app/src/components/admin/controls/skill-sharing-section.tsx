@@ -15,7 +15,7 @@ import { ControlsSection } from "./controls-section";
 export function SkillSharingSection() {
   return (
     <ControlsSection
-      description="Each person's recordings teach Skills in their own Learning space, and those Skills reach the Bots that person uses. A shared Skill puts its person's recorded and narrated text in front of everybody's Bots."
+      description="Each person's recordings teach Skills in their own Learning space, and those Skills reach the Agentes that person uses. A shared Skill puts its person's recorded and narrated text in front of everybody's Agentes."
       title="Sharing"
     >
       {({ data, setSetting, saving }) => (
@@ -28,8 +28,8 @@ export function SkillSharingSection() {
               <ItemTitle>Skill sharing</ItemTitle>
               <ItemDescription className="line-clamp-none">
                 {data.settings.skillSharing
-                  ? "People may open their skills to every Bot on the Skills page."
-                  : "Off. Each person's Skills reach only the Bots they use, even Skills they opened before."}
+                  ? "People may open their skills to every Agente on the Skills page."
+                  : "Off. Each person's Skills reach only the Agentes they use, even Skills they opened before."}
               </ItemDescription>
             </ItemContent>
             <ItemActions>

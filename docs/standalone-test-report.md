@@ -1,5 +1,16 @@
 # Relatório de testes standalone
 
+## Integrações Community, terminologia e skin — 25/11/2026
+
+- Skin: store de preferências conectado ao composition root; GET/PATCH/persistência e preservação das demais preferências passaram (2 testes standalone, 36 assertions nesta seleção).
+- Executor: 2 testes, 37 assertions, incluindo descoberta em subprocesso real, todos os nove pacotes e entradas recusadas; sem IA paga.
+- REST remoto real com chave fictícia: passou pelo Plugueme/Vault/grants/executor/httpbin; após remoção da chave, chamada recusada. Repetido após pinning de IP/TLS para prevenir DNS rebinding; passou também pela imagem Docker final.
+- Regressão MCP personalizado + credenciais pessoais + standalone: 21 testes, 109 assertions.
+- Interface: 62 testes, 297 assertions em prompt, skin, navegação, roster, aprovações e ferramentas. Expectativas visíveis atualizadas para Agentes, preservando rotas/campos internos.
+- Imagem do executor construída/rodada; Compose de produção validado estruturalmente. Implantação completa de produção e contas OAuth de fornecedores ainda não validadas.
+- Backend/frontend typecheck e build web passaram durante a implementação; checagem final registrada no commit. Sem testes pagos.
+- Verificação do cadastro local em resposta à lista duplicada da conversa: não havia dev/qa no banco; nenhum agente removido. Reforçadas instruções de não tratar texto anterior do modelo como registro salvo e de só confirmar alterações após resultado real de ferramenta. Isso não constitui garantia de eliminar alucinações do modelo.
+
 ## MCP e aprovações — 25/11/2026
 
 - Nova integração MCP standalone: **6 pass, 40 assertions**, usando MCP SDK real, PostgreSQL dedicado de teste e LLMock local. Cadastro/discovery, Vault sem plaintext na resposta, grants, rejeição de endereços inseguros, execução autorizada, suspensão, aprovação única, negação, revogação e pausa antes da execução. Nenhuma chamada paga.

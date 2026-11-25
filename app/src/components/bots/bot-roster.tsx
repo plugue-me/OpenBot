@@ -64,14 +64,14 @@ export function BotRoster() {
   if (agents.isPending)
     return (
       <PageSection>
-        <LoadingRows label="Loading your Bots" media="avatar" />
+        <LoadingRows label="Loading your Agentes" media="avatar" />
       </PageSection>
     );
   // Only when nothing ever loaded: a failed background refetch keeps the roster it had.
   if (agents.data === undefined) {
     return (
       <p className="mt-6 text-destructive text-sm" role="alert">
-        Couldn't load your Bots. Reload the page.
+        Couldn't load your Agentes. Reload the page.
       </p>
     );
   }
@@ -86,7 +86,7 @@ export function BotRoster() {
       variant="outline"
     >
       <IconPlus />
-      New Bot
+      New Agente
     </Button>
   );
 
@@ -127,23 +127,23 @@ export function BotRoster() {
             <PageEmpty
               action={newBot}
               icon={IconBolt}
-              title={hiddenCount ? "No Bots on your list" : "No Bots yet"}
+              title={hiddenCount ? "No Agentes on your list" : "No Agentes yet"}
             >
               {hiddenCount
-                ? "The Bots you hid are below. Create a Bot for a specific job."
-                : "Create a Bot for a specific job."}
+                ? "The Agentes you hid are below. Create a Agente for a specific job."
+                : "Create a Agente for a specific job."}
             </PageEmpty>
           </PageSection>
         )
       ) : yours.length === 0 ? (
         <p className="mt-12 text-muted-foreground text-sm">
-          Create a Bot for a specific job.{" "}
+          Create a Agente for a specific job.{" "}
           <Link
             className="font-medium text-foreground underline underline-offset-4"
             search={{ new: true }}
             to="/bots"
           >
-            New Bot
+            New Agente
           </Link>
         </p>
       ) : null}
@@ -177,7 +177,7 @@ function HiddenSection({
           {open ? "Hide" : "Show"}
         </Button>
       }
-      description={`${agents.length} ${agents.length === 1 ? "Bot" : "Bots"} you hid.${personal ? "" : " Only your list changes."}`}
+      description={`${agents.length} ${agents.length === 1 ? "Agente" : "Agentes"} you hid.${personal ? "" : " Only your list changes."}`}
       title="Hidden"
     >
       {open ? <RosterRows agents={agents} byId={byId} /> : null}

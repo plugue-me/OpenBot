@@ -70,7 +70,7 @@ export function appAccessSentence(
   switch (access.state) {
     case "ready":
       if (owners)
-        return `Ready to use. This Bot uses its owner's ${name} account.`;
+        return `Ready to use. This Agente uses its owner's ${name} account.`;
       if (access.asksFirst)
         return `Ready to use with your own ${name} account. You'll be asked to allow it the first time.`;
       return "Ready to use.";
@@ -78,19 +78,19 @@ export function appAccessSentence(
       return `You haven't connected your ${name} account yet.`;
     case "reconnect":
       return owners
-        ? `This Bot uses its owner's ${name} account, which needs reconnecting. Only the Bot's owner can reconnect it.`
+        ? `This Agente uses its owner's ${name} account, which needs reconnecting. Only the Agente's owner can reconnect it.`
         : `Your ${name} connection needs reconnecting.`;
     case "shared_not_connected":
       return `Your organisation's ${name} account isn't connected yet. Only an admin can connect it.`;
     case "shared_not_approved":
-      return `This Bot reaches more people than an admin approved for your organisation's ${name} account. Only an admin can approve it.`;
+      return `This Agente reaches more people than an admin approved for your organisation's ${name} account. Only an admin can approve it.`;
     case "disabled":
       return disabledSentence(access, edition);
     case "not_granted":
-      return `This Bot hasn't been given ${name}. Only an admin can give it.`;
+      return `This Agente hasn't been given ${name}. Only an admin can give it.`;
     case "owner_grantable": {
       const yours = access.account === "personal" ? `your ${name}` : name;
-      const ask = `Let ${bot ?? "this Bot"} use ${yours}?`;
+      const ask = `Let ${bot ?? "this Agente"} use ${yours}?`;
       return access.needsConnect ? `${ask} Connect it first.` : ask;
     }
   }
@@ -206,7 +206,7 @@ function AdminAction({
   access: AppAccess;
 }) {
   const paths = useManagePaths();
-  const bot = useQuery(agentQueryOptions(agentId)).data?.name ?? "this Bot";
+  const bot = useQuery(agentQueryOptions(agentId)).data?.name ?? "this Agente";
   const approve = useMutation(approveBotAppMutationOptions(queryClient));
   const name = access.displayName;
 
@@ -309,7 +309,7 @@ function OwnerGiveAction({
   access: AppAccess;
   tab: ConnectInNewTab;
 }) {
-  const bot = useQuery(agentQueryOptions(agentId)).data?.name ?? "this Bot";
+  const bot = useQuery(agentQueryOptions(agentId)).data?.name ?? "this Agente";
   const give = useMutation(giveBotAppMutationOptions(queryClient));
   const { waiting, stopWaiting } = tab;
   const name = access.displayName;

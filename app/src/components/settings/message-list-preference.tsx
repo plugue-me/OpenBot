@@ -59,14 +59,14 @@ export function MessageListPreference() {
               <SelectValue>
                 {emphasis
                   ? emphasis === "agent"
-                    ? "Bot name"
+                    ? "Agente name"
                     : "Conversation title"
                   : "Loading…"}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="thread">Conversation title</SelectItem>
-              <SelectItem value="agent">Bot name</SelectItem>
+              <SelectItem value="agent">Agente name</SelectItem>
             </SelectContent>
           </Select>
         </ItemActions>

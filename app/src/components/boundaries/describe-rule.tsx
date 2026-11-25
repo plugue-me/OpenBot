@@ -110,14 +110,14 @@ export function DescribeRule({
   return (
     <DescribeField
       action="Write rule"
-      description="Say in a sentence what no Bot may do, and your model writes the rule. A second reading that never sees your words says what the rule does."
+      description="Say in a sentence what no Agente may do, and your model writes the rule. A second reading that never sees your words says what the rule does."
       id="rule-description-english"
       label="Describe the rule"
-      placeholder="Bots may not visit social media sites"
+      placeholder="Agentes may not visit social media sites"
       write={async (described) => {
         const translation = await translatePolicyRule(described);
         if (translation.effect === "allow")
-          return "That says what Bots may do. A rule here stops an action, so describe what no Bot may do.";
+          return "That says what Agentes may do. A rule here stops an action, so describe what no Agente may do.";
         onWritten({ ...translation, text: described });
         return null;
       }}

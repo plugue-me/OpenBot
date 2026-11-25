@@ -33,7 +33,7 @@ export const Route = createFileRoute("/_authed/admin/boundaries")({
 });
 
 const DESCRIPTION =
-  "Define actions that Bots must never take. OpenBot checks these rules before a Bot acts on its computer or in a connected app.";
+  "Define actions that Agentes must never take. OpenBot checks these rules before a Agente acts on its computer or in a connected app.";
 
 /**
  * The deployment's boundaries, read as a list of things Bots may never do.
@@ -80,7 +80,7 @@ function BoundariesPage() {
 
   return (
     <PageShell action={addRule} description={DESCRIPTION} title="Boundaries">
-      <PageSection title="Bots may never">
+      <PageSection title="Agentes may never">
         {policy.deny.length === 0 ? (
           <PageEmpty
             action={
@@ -98,7 +98,7 @@ function BoundariesPage() {
             icon={IconShieldX}
             title="No rules yet"
           >
-            Bots can do anything their own permissions allow.
+            Agentes can do anything their own permissions allow.
           </PageEmpty>
         ) : (
           <PageRows>
@@ -148,7 +148,7 @@ function BoundariesPage() {
               <ItemDescription>
                 {trial
                   ? "On. A matching action goes ahead and is recorded in Activity, so you can see what a rule catches before it stops anything."
-                  : "Off. A matching action is stopped, and the Bot is told which rule stopped it."}
+                  : "Off. A matching action is stopped, and the Agente is told which rule stopped it."}
               </ItemDescription>
             </ItemContent>
             <ItemActions>
@@ -195,7 +195,7 @@ function BoundariesPage() {
                 className={allowsEverythingElse ? undefined : "font-mono"}
               >
                 {allowsEverythingElse
-                  ? "Allowed. A Bot can do anything no rule above stops, within its own permissions."
+                  ? "Allowed. A Agente can do anything no rule above stops, within its own permissions."
                   : policy.allow.length === 0
                     ? "Nothing else is allowed. Every action is refused."
                     : `Only what these allow: ${policy.allow.join(" · ")}`}

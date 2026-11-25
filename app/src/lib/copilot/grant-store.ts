@@ -44,10 +44,10 @@ export function grantsFrom(query: {
 }
 
 export const NOT_AVAILABLE = (title: string) =>
-  `${title} is not available to this Bot at the moment. An administrator grants components per Bot, and can unpublish one for every Bot at once.`;
+  `${title} is not available to this Agente at the moment. An administrator grants components per Agente, and can unpublish one for every Agente at once.`;
 
 export const COULDNT_CHECK = (title: string) =>
-  `Couldn't check whether this Bot may show ${title}. Try again in a moment.`;
+  `Couldn't check whether this Agente may show ${title}. Try again in a moment.`;
 
 export type CardState = "draw" | "wait-for-grant" | { refused: string };
 

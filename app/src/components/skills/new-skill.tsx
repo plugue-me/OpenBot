@@ -22,7 +22,7 @@ export function NewSkill() {
         <h1 className="text-2xl font-semibold">New skill</h1>
         <p className="mt-1 text-sm text-muted-foreground">
           An instruction you start with <code>/</code>. Only you see it, and it
-          works on Bots you own.
+          works on Agentes you own.
         </p>
       </header>
 

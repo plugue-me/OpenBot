@@ -27,9 +27,9 @@ export function ActivityScreen() {
 export function NoBot() {
   return (
     <FuseEmpty
-      detail="Create one with New Bot on the Bots page."
+      detail="Create one with New Agente on the Agentes page."
       icon={IconListCheck}
-      title="No Bots yet"
+      title="No Agentes yet"
     />
   );
 }

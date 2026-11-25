@@ -81,7 +81,7 @@ export function FormCard(props: Record<string, unknown>) {
     return (
       <GalleryFrame title="Preparing your form…">
         <p className="text-sm text-muted-foreground">
-          The Bot is putting the questions together.
+          The Agente is putting the questions together.
         </p>
       </GalleryFrame>
     );
@@ -138,12 +138,12 @@ function InvalidForm({
     <GalleryFrame title="Form unavailable">
       <p role="alert" className="text-sm text-muted-foreground">
         {returned
-          ? "The form had invalid questions. The Bot can send a corrected form."
+          ? "The form had invalid questions. The Agente can send a corrected form."
           : "The form has invalid questions, so it can't be shown."}
       </p>
       {failed && (
         <Button className="mt-3" size="sm" onClick={() => void returnToBot()}>
-          Return to the Bot
+          Return to the Agente
         </Button>
       )}
     </GalleryFrame>
@@ -275,7 +275,7 @@ function FormEntry({
         >
           <p className="text-xs text-muted-foreground">
             Fields marked * are required. Your answers will be shared with the
-            Bot.
+            Agente.
           </p>
           {args.fields.map((field) => {
             const id = `${prefix}-${field.id}`;
@@ -386,7 +386,7 @@ export const GALLERY: GalleryComponent[] = [
     title: "Form",
     kind: "decision",
     summary:
-      "Asks you to fill in a short form. The Bot waits for your answers.",
+      "Asks you to fill in a short form. The Agente waits for your answers.",
     description:
       "Ask the person to fill in a short form and WAIT for their answers. Use when several related details are needed together. Provide up to eight labeled text, email, number, select, or textarea fields with unique IDs. Mark required fields and give options for selects. Never request passwords or secrets. The result has status submitted and values keyed by field ID; numbers are returned as numbers and blank optional fields are omitted.",
     parameters: FormCardArgs,

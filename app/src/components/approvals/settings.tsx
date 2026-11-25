@@ -116,13 +116,13 @@ export function ApprovalSettings() {
           ) : (
             <>
               {ALWAYS_ASKS} They also ask before every edit or command in a
-              folder on your own computer. {HANDED_TO_YOU} Bots can create,
+              folder on your own computer. {HANDED_TO_YOU} Agentes can create,
               edit, and delete files in their own workspace without asking,
               unless your settings or rules say so.
             </>
           )
         }
-        title="Before a Bot acts"
+        title="Before a Agente acts"
       >
         <PageRows>
           <Item size="sm">
@@ -160,9 +160,9 @@ export function ApprovalSettings() {
                     id="auto-review-description"
                   >
                     {enforced ? "An admin requires this. " : ""}
-                    Before a Bot does something that could affect your accounts
-                    or share information, OpenBot checks it against your request
-                    and your rules. If it can't tell, it asks you.
+                    Before a Agente does something that could affect your
+                    accounts or share information, OpenBot checks it against
+                    your request and your rules. If it can't tell, it asks you.
                   </ItemDescription>
                 </ItemContent>
                 <ItemActions>
@@ -216,10 +216,10 @@ export function ApprovalSettings() {
         description={
           <>
             The strictest matching rule wins. An "ask" rule beats an "allow"
-            rule.{personal ? " " : " Team rules are locked. "}Rules for one Bot
-            are on{" "}
+            rule.{personal ? " " : " Team rules are locked. "}Rules for one
+            Agente are on{" "}
             <Link className="underline underline-offset-4" to="/bots">
-              that Bot's page
+              that Agente's page
             </Link>
             .
             {rulesOff
@@ -227,7 +227,7 @@ export function ApprovalSettings() {
               : ""}
           </>
         }
-        title="Rules for every Bot"
+        title="Rules for every Agente"
       >
         {saved === 0 ? (
           <PageEmpty icon={IconChecklist} title="No rules yet" />
@@ -272,8 +272,8 @@ export function ApprovalSettings() {
       </PageSection>
       {agents.data !== undefined && otherBots.length > 0 ? (
         <PageSection
-          description="These don't match a Bot you can open. They still apply to any Bot they match. Remove the ones you don't want."
-          title="Rules for other Bots"
+          description="These don't match a Agente you can open. They still apply to any Agente they match. Remove the ones you don't want."
+          title="Rules for other Agentes"
         >
           <PageRows>
             {otherBots.map((rule, index) => (

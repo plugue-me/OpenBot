@@ -151,7 +151,7 @@ export function ProposedSkillCard({
 
       {values.tools.length > 0 ? (
         <p className="mt-2 text-muted-foreground text-xs">
-          Naming a tool doesn't give access. A Bot can only use these if it
+          Naming a tool doesn't give access. A Agente can only use these if it
           already has them.
         </p>
       ) : null}
@@ -203,7 +203,7 @@ function PutItOnABot({ slug }: { slug: string }) {
       search={{ edit: slug }}
       to="/skills"
     >
-      Put it on a Bot
+      Put it on a Agente
     </Link>
   );
 }
@@ -242,8 +242,8 @@ function Unwritable({
       title="Skill"
     >
       <p className="text-sm">
-        The Bot's draft wasn't a valid skill. Nothing was saved, and the Bot
-        knows what to fix.
+        The Agente's draft wasn't a valid skill. Nothing was saved, and the
+        Agente knows what to fix.
       </p>
     </GalleryFrame>
   );

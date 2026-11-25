@@ -30,8 +30,8 @@ export function SkippedToolsNotice({
         role="status"
       >
         {names.length === 1
-          ? "Your Bots can't use one action this app lists, because of how it's named: "
-          : `Your Bots can't use ${names.length} actions this app lists, because of how they're named: `}
+          ? "Your Agentes can't use one action this app lists, because of how it's named: "
+          : `Your Agentes can't use ${names.length} actions this app lists, because of how they're named: `}
         {words.join(", ")}.
       </p>
     );

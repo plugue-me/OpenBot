@@ -317,7 +317,9 @@ function RouteComponent() {
    * be connected at all, because there is no OAuth client to consent against.
    */
   const yours = (plugins.data?.catalogue ?? []).filter(
-    (entry) => entry.auth === "user-oauth" && added.has(entry.key),
+    (entry) =>
+      (entry.auth === "user-oauth" || entry.auth === "person-key") &&
+      added.has(entry.key),
   );
 
   /*
@@ -435,8 +437,8 @@ function RouteComponent() {
       className="@container"
       description={
         personal
-          ? "Add apps and connect your accounts so your Bots can use them."
-          : "Connect your accounts so Bots can use apps on your behalf."
+          ? "Add apps and connect your accounts so your Agentes can use them."
+          : "Connect your accounts so Agentes can use apps on your behalf."
       }
       title="Connections"
     >
@@ -613,7 +615,7 @@ function RouteComponent() {
                 <ItemDescription>
                   {personal
                     ? "Your saved logins and the keys your apps and models use."
-                    : "Website logins you saved when signing a Bot in."}
+                    : "Website logins you saved when signing a Agente in."}
                 </ItemDescription>
               </ItemContent>
               <ItemActions>

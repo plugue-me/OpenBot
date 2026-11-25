@@ -35,7 +35,7 @@ const SAVED_MARKER = "Saved.";
 
 export const skillCardAnswer = {
   saved: (slug: string) =>
-    `${SAVED_MARKER} /${slug} is now in the slash menu. It is on no Bot yet — putting it on one is done from the Skills page, so tell the person that is the remaining step.`,
+    `${SAVED_MARKER} /${slug} is now in the slash menu. It is on no Agente yet — putting it on one is done from the Skills page, so tell the person that is the remaining step.`,
   declined: () =>
     "The person did not save this skill. Ask what to change rather than saving it again unchanged.",
   /** A proposal the fields refuse, answered rather than shown as a question. See the card. */
@@ -89,13 +89,13 @@ export const proposedSkillSchema = z.object({
   instructions: z
     .string()
     .describe(
-      "The instruction the Bot follows when somebody invokes this skill, written as directions to the Bot in the imperative. Say what to do, in what order, what to do when a step turns up nothing, and what the answer should contain. Explain why a step matters rather than only naming it. Do not describe the skill in the third person, and do not address the person invoking it.",
+      "The instruction the Agente follows when somebody invokes this skill, written as directions to the Agente in the imperative. Say what to do, in what order, what to do when a step turns up nothing, and what the answer should contain. Explain why a step matters rather than only naming it. Do not describe the skill in the third person, and do not address the person invoking it.",
     ),
   tools: z
     .array(z.string())
     .optional()
     .describe(
-      "The tools the skill needs, as `serverId/toolName` refs from list_skill_tools. This is a declaration, not a grant: naming a tool cannot make it callable, and a skill naming a tool its Bot does not hold simply loads nothing. Omit for a skill that is only prose.",
+      "The tools the skill needs, as `serverId/toolName` refs from list_skill_tools. This is a declaration, not a grant: naming a tool cannot make it callable, and a skill naming a tool its Agente does not hold simply loads nothing. Omit for a skill that is only prose.",
     ),
 });
 
@@ -247,7 +247,7 @@ export function describeToolRefs(servers: readonly PluginServer[]): string {
   return [
     "Refs are `serverId/toolName`.",
     // The server resolves these against its catalogue, so a research skill outlives a provider swap.
-    "For public-web research, declare `@research/search` and `@research/fetch` instead of one provider's tools: they stand for search and page reading on whichever research connector the Bot holds.",
+    "For public-web research, declare `@research/search` and `@research/fetch` instead of one provider's tools: they stand for search and page reading on whichever research connector the Agente holds.",
     ...blocks,
   ].join("\n");
 }

@@ -58,7 +58,7 @@ export function NotifyPrompt() {
       </ItemMedia>
       <ItemContent>
         <ItemTitle className="text-pretty">
-          Get notified when your Bot finishes or needs your approval.
+          Get notified when your Agente finishes or needs your approval.
         </ItemTitle>
       </ItemContent>
       <ItemActions>

@@ -168,7 +168,7 @@ function RouteComponent() {
               onOpenChange={(open) => show(open ? "watch" : null)}
             />
             <Button
-              aria-label="This conversation's Bot"
+              aria-label="This conversation's Agente"
               aria-pressed={isSettingsOpen}
               className={isSettingsOpen ? "bg-foreground/5" : undefined}
               disabled={agentId === undefined}

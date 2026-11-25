@@ -86,7 +86,7 @@ function conversationName(channel: ChannelSummary): string {
 
 /** What Name says when an Only tell you would land on a check-in the Bot already has. */
 const SAME_CHECK_IN =
-  "This Bot already checks in on this. Give this one a different name, or change that one on its row.";
+  "This Agente already checks in on this. Give this one a different name, or change that one on its row.";
 
 /**
  * Whether an Only tell you called `title` (`checkInSubject`: its Name, else its instruction) is a
@@ -350,7 +350,7 @@ export function NewRoutinePage({
         linkProps: back,
         disabled: createFromPlan.isPending,
       }}
-      description="Pick a Bot, say what it should do, and choose when it starts."
+      description="Pick a Agente, say what it should do, and choose when it starts."
       title="New routine"
     >
       <form
@@ -365,7 +365,7 @@ export function NewRoutinePage({
             when it is done, and where it shows up. Each is one decision with room for its words. */}
         <PageSection
           className="mt-0"
-          description="Pick the Bot that does the work, and say what one run of it is."
+          description="Pick the Agente that does the work, and say what one run of it is."
           title="What it does"
         >
           <PageCard className="mt-4">
@@ -375,7 +375,7 @@ export function NewRoutinePage({
                   const isInvalid = field.name in shown;
                   return (
                     <Field data-invalid={isInvalid}>
-                      <FieldLabel htmlFor={field.name}>Bot</FieldLabel>
+                      <FieldLabel htmlFor={field.name}>Agente</FieldLabel>
                       <Select
                         disabled={saved}
                         items={botItems}
@@ -402,7 +402,7 @@ export function NewRoutinePage({
                           className="w-full"
                           id={field.name}
                         >
-                          <SelectValue placeholder="Choose a Bot" />
+                          <SelectValue placeholder="Choose a Agente" />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectGroup>
@@ -804,7 +804,7 @@ export function NewRoutinePage({
                                     </span>
                                     , your time ({timeZone}).
                                     {goalsAvailable
-                                      ? " For anything else, like every other Tuesday, ask the Bot in a conversation."
+                                      ? " For anything else, like every other Tuesday, ask the Agente in a conversation."
                                       : null}
                                   </FieldDescription>
                                 )}

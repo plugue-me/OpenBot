@@ -33,7 +33,7 @@ export function SharedAppNotice({
       <div className="space-y-1 text-sm">
         {apps.map((app) => (
           <p key={app.serverId}>
-            Saving also lets everyone who can use this Bot use the shared{" "}
+            Saving also lets everyone who can use this Agente use the shared{" "}
             {app.title} account.
           </p>
         ))}
@@ -54,8 +54,8 @@ export function SharedAppNotice({
         ) : app.covered ? null : (
           <div className="flex flex-wrap items-center gap-2" key={app.serverId}>
             <p className="text-amber-700 dark:text-amber-400">
-              This Bot can't use the shared {app.title} account until an admin
-              approves who can use the Bot.
+              This Agente can't use the shared {app.title} account until an
+              admin approves who can use the Agente.
             </p>
             <Button
               aria-label={`Request approval for ${app.title}`}

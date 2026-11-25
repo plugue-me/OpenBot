@@ -7,11 +7,11 @@
 
 /** What Isolated means. */
 export const ISOLATED_EXPLAINED =
-  "Runs in its own computer. Nothing it does can reach your other Bots' files or logins. Costs more to run.";
+  "Runs in its own computer. Nothing it does can reach your other Agentes' files or logins. Costs more to run.";
 
 /** Added for a public Bot, whose one computer is everybody's. */
 export const ISOLATED_PUBLIC =
-  "Everyone who uses this Bot shares that computer.";
+  "Everyone who uses this Agente shares that computer.";
 
 /**
  * Said on an isolated Bot's Visibility row. Its one computer is shared by everybody who uses it, so a public one shares
@@ -27,19 +27,19 @@ export const ISOLATED_MAKING_PUBLIC =
 
 /** Why it cannot be ticked on this deployment. */
 export const ISOLATION_UNAVAILABLE =
-  "This OpenBot can't give a Bot a computer of its own.";
+  "This OpenBot can't give a Agente a computer of its own.";
 
 /** Why it cannot be ticked by this person. */
 export const ISOLATION_NOT_ALLOWED =
-  "Your admin turned off Isolated Bots for you.";
+  "Your admin turned off Isolated Agentes for you.";
 
 /** An isolated Bot whose owner lost the switch, which keeps running on their shared computer. */
 export const ISOLATION_WITHDRAWN =
-  "Your admin turned off Isolated Bots, so this Bot runs on your computer.";
+  "Your admin turned off Isolated Agentes, so this Agente runs on your computer.";
 
 /** An isolated Bot on a deployment that can no longer make it a computer of its own. */
 export const ISOLATION_GONE =
-  "This OpenBot can't give a Bot a computer of its own, so this Bot runs on your computer.";
+  "This OpenBot can't give a Agente a computer of its own, so this Agente runs on your computer.";
 
 /** The whole explanation for a Bot of this visibility. */
 export function isolatedExplained(isPublic: boolean): string {

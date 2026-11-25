@@ -105,7 +105,7 @@ function Sources({ basis, sources, asOf: when }: Provenance) {
     <p className="mt-3 text-xs text-muted-foreground">
       {unchecked ? (
         <span className="text-amber-700 dark:text-amber-400">
-          From the Bot's own knowledge. Not checked against a source.
+          From the Agente's own knowledge. Not checked against a source.
         </span>
       ) : null}
       {named.length > 0 ? (

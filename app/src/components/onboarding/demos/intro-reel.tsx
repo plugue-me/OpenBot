@@ -13,7 +13,7 @@ type Scene = { id: string; caption: string; draw: () => ReactNode };
 const ASK: Scene = {
   id: "welcome",
   caption:
-    "Ask in plain words. A Bot does the work and tells you when it's done.",
+    "Ask in plain words. A Agente does the work and tells you when it's done.",
   draw: () => <WelcomeDemo />,
 };
 /*
@@ -23,12 +23,12 @@ const ASK: Scene = {
  */
 const COMPUTER: Scene = {
   id: "computer",
-  caption: "Bots use a browser and files of their own, apart from yours.",
+  caption: "Agentes use a browser and files of their own, apart from yours.",
   draw: () => <ComputerDemo />,
 };
 const TEAM: Scene = {
   id: "team",
-  caption: "Pick a Bot for the job, or make your own.",
+  caption: "Pick a Agente for the job, or make your own.",
   draw: () => <TeamDemo />,
 };
 

@@ -100,7 +100,7 @@ function rulesToText(rules: EgressRule[]): string {
 
 function summarizePolicy(policy: NetworkPolicy | undefined): string {
   if (!policy)
-    return "No policy. Bot computers can reach anything the cluster allows";
+    return "No policy. Agente computers can reach anything the cluster allows";
   const count = policy.rules.length;
   return `${MODE_NAMES[policy.mode]} · ${count} ${count === 1 ? "rule" : "rules"}${policy.locked ? " · locked" : ""}`;
 }
@@ -110,7 +110,7 @@ export function InactiveComputersSection() {
   const [daysOpen, setDaysOpen] = useState(false);
   return (
     <ControlsSection
-      description="Stopping a computer ends its running Bots and keeps its disk. The Bot gets a fresh computer next session. To stop one person's computers, go to People."
+      description="Stopping a computer ends its running Agentes and keeps its disk. The Agente gets a fresh computer next session. To stop one person's computers, go to People."
       title="Idle computers"
     >
       {({ data, setSetting }) => (
@@ -158,7 +158,7 @@ export function NetworkSection() {
   >();
   return (
     <ControlsSection
-      description="Control where Bot computers can connect. Changes apply within seconds without a restart. Group policies override the organization’s policy unless it is locked."
+      description="Control where Agente computers can connect. Changes apply within seconds without a restart. Group policies override the organization’s policy unless it is locked."
       title="Network"
     >
       {({ data }) => {

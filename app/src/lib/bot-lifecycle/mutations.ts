@@ -11,7 +11,7 @@ import {
   type UpdateTransport,
 } from "./queries";
 
-const FALLBACK = "Bot operation failed";
+const FALLBACK = "Agente operation failed";
 
 /** Everything here moves badges, Activity and state together, so all of it is refetched. */
 function invalidateLifecycle(queryClient: QueryClient) {
@@ -54,7 +54,7 @@ export function resetBotMutationOptions(queryClient: QueryClient) {
       client(`${botPath(agentId)}/reset`, "deleted", {
         method: "POST",
         body: { confirm: true },
-        fallback: "Could not reset this Bot",
+        fallback: "Could not reset this Agente",
       }),
     onSuccess: async () => {
       await invalidateLifecycle(queryClient);

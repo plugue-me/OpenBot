@@ -38,10 +38,10 @@ export function TeamBotConsentCard({
           {chosen === "skip"
             ? "Skipped. Nothing of yours was used."
             : chosen === "allow_once"
-              ? "Allowed once. Ask the Bot to try again."
+              ? "Allowed once. Ask the Agente to try again."
               : chosen === "allow_all_team_bots"
-                ? "Always allowed for every Team Bot. Ask it to try again."
-                : "Always allowed for this Bot. Ask it to try again."}
+                ? "Always allowed for every Team Agente. Ask it to try again."
+                : "Always allowed for this Agente. Ask it to try again."}
         </p>
       ) : (
         <div className="flex flex-wrap gap-2">
@@ -58,7 +58,7 @@ export function TeamBotConsentCard({
             size="sm"
             variant="outline"
           >
-            Always allow for this Bot
+            Always allow for this Agente
           </Button>
           <Button
             disabled={answer.isPending}
@@ -66,7 +66,7 @@ export function TeamBotConsentCard({
             size="sm"
             variant="outline"
           >
-            Always allow for all Team Bots
+            Always allow for all Team Agentes
           </Button>
           <Button
             disabled={answer.isPending}

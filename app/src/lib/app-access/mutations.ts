@@ -122,7 +122,7 @@ export async function giveBotApp(variables: {
 }): Promise<{ granted: string[] }> {
   const response = await client(
     `/api/plugins/for/${encodeURIComponent(variables.agentId)}/apps/${encodeURIComponent(variables.app)}/give`,
-    { method: "POST", fallback: "Couldn't give that app to this Bot." },
+    { method: "POST", fallback: "Couldn't give that app to this Agente." },
   );
   return response.json();
 }

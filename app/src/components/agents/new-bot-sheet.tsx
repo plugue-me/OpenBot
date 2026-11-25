@@ -374,7 +374,7 @@ function NewBotFlow({ onCreated }: { onCreated: (agentId: string) => void }) {
   if (createdId) {
     return (
       <MotionConfig reducedMotion="user">
-        <SheetTitle className="sr-only">New Bot</SheetTitle>
+        <SheetTitle className="sr-only">New Agente</SheetTitle>
         <CreatedView name={name.trim()} />
       </MotionConfig>
     );
@@ -424,7 +424,7 @@ function NewBotFlow({ onCreated }: { onCreated: (agentId: string) => void }) {
               />
             </motion.div>
             <SheetTitle className="text-2xl font-semibold tracking-tight">
-              New Bot
+              New Agente
             </SheetTitle>
           </div>
 
@@ -470,7 +470,7 @@ function NewBotFlow({ onCreated }: { onCreated: (agentId: string) => void }) {
                 {!builtInAvailable && (
                   <p className="mt-3 text-sm text-muted-foreground">
                     An admin must enable built-in hosting before you can run a
-                    Bot here.
+                    Agente here.
                   </p>
                 )}
               </>
@@ -546,7 +546,7 @@ function NewBotFlow({ onCreated }: { onCreated: (agentId: string) => void }) {
                 : createAgent.isPending
                   ? "Creating…"
                   : step === "endpoint" || (step === "about" && !custom)
-                    ? "Create Bot"
+                    ? "Create Agente"
                     : "Continue"}
             </Button>
           )}
@@ -806,7 +806,7 @@ function EveryAppList({ turnedOn }: { turnedOn: UseQueryResult<PluginsPage> }) {
     <FieldSet>
       <FieldLegend variant="label">Apps it can use</FieldLegend>
       <FieldDescription>
-        Every Bot can use every app you turn on in Connections.
+        Every Agente can use every app you turn on in Connections.
       </FieldDescription>
       {turnedOn.error ? (
         <p className="text-destructive text-sm" role="alert">

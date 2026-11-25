@@ -19,7 +19,7 @@
 | Memória compartilhada/conhecimento | Pendente | Definir ACL e escopo corporativo sem vazar memória pessoal |
 | Skills manuais | Pendente | Store/grants/importação existentes; separar Learning |
 | Upload/geração/download de arquivos | Pendente | Anexos e computador existentes; endpoints/workspaces não conectados |
-| MCP remoto/OAuth/discovery/grants | Parcial | Cadastro, discovery, Vault, grants e execução em funcionário interno validados na composição real com MCP local; rotas OAuth originais e testes preservados, sem validar login em fornecedor real. Sem brokers ou callback de ferramentas em agentes remotos |
+| MCP remoto/OAuth/discovery/grants | Parcial | Camada abstrata adicional com 38 ações de nove pacotes Community, Meta Ads/REST próprios e API Key pessoal. REST real validado;  Cadastro, discovery, Vault, grants e execução em funcionário interno validados na composição real com MCP local; rotas OAuth originais e testes preservados, sem validar login em fornecedor real. Sem brokers ou callback de ferramentas em agentes remotos |
 | Vault criptografado/rotação/revogação | Parcial | Gravação real anterior e resposta sem plaintext; validar ciclo completo |
 | Aprovações humanas/políticas | Parcial | Aprovar uma vez, negar, revogar ferramenta e pausar antes da execução validados; resultado e retomada duráveis. Auto-review, computador e governança administrativa avançada indisponíveis |
 | Browser/terminal/computador isolado | Pendente | Fontes recuperadas; construir/testar imagens próprias |
@@ -30,7 +30,7 @@
 | Consumo por funcionário/limites financeiros | Pendente | Schema model_usage existe; limite de saída não equivale a orçamento |
 | Logs/auditoria | Parcial | Stores originais usados; cobertura de execução/delegação ainda incompleta |
 | Capacidades centrais/estados de indisponibilidade | Implementada | Registro compartilhado + API + guard de rotas + navegação; testes desta etapa em execução |
-| Identidade visual central | Parcial | Tenant brand/config/tokens existentes; identidade final não aprovada |
+| Identidade visual central | Parcial | Skin com persistência corrigida e rótulos Agentes aplicados;  Tenant brand/config/tokens existentes; identidade final não aprovada |
 | Docker próprio/implantação VPS/HTTPS | Pendente | Compose de banco local não é distribuição de produção |
 | Backup/restauração | Pendente | Nenhuma restauração limpa validada |
 | Testes/typecheck | Parcial | Produção passou no marco anterior; typecheck global de testes possui erros conhecidos |

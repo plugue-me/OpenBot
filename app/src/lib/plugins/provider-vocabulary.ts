@@ -99,11 +99,11 @@ export function directoryDescriptions(edition: Edition = "team"): {
 } {
   return edition === "personal"
     ? {
-        page: "Add an app and connect your account so your Bots can use it.",
+        page: "Add an app and connect your account so your Agentes can use it.",
         search: "Search by name. OpenBot hasn't reviewed these apps.",
       }
     : {
-        page: "Add an app to make its tools available to Bots. Each person still connects their own account before a Bot reads anything.",
+        page: "Add an app to make its tools available to Agentes. Each person still connects their own account before a Agente reads anything.",
         search: "Search by name. Nobody here has reviewed these apps.",
       };
 }
@@ -197,8 +197,8 @@ export function brokeredReach(
   if (!personal) {
     return {
       description: takesKey
-        ? "Each person connects their own account with a key from the app, and a Bot sees only what that person can see."
-        : "This deployment holds one key for every app like this. Each person connects their own account, and a Bot sees only what that person can see. There is no token to paste.",
+        ? "Each person connects their own account with a key from the app, and a Agente sees only what that person can see."
+        : "This deployment holds one key for every app like this. Each person connects their own account, and a Agente sees only what that person can see. There is no token to paste.",
       badge,
     };
   }
@@ -208,7 +208,7 @@ export function brokeredReach(
       kind === "consent"
         ? `You sign in to ${title} in your browser. OpenBot never sees your password.`
         : kind === "fields"
-          ? `You connect with a key from your ${title} account. Your Bots use it as you.`
+          ? `You connect with a key from your ${title} account. Your Agentes use it as you.`
           : "There's nothing to sign in to.",
     badge,
   };

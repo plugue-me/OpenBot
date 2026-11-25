@@ -110,7 +110,7 @@ export function pingNotice(
   if (once.length === 0)
     return {
       title: "Something needs you",
-      body: "Open Bots to see what's waiting.",
+      body: "Open Agentes to see what's waiting.",
     };
   const lines = once.slice(0, PING_LISTED).map((item) => {
     const bot = botName(item.agentId);

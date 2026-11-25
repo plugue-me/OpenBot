@@ -132,7 +132,7 @@ export const proactiveSuggestionsQueryOptions = () =>
     queryKey: proactiveKeys.suggestions,
     queryFn: (): Promise<ProactiveSuggestion[]> =>
       client("/api/proactive/suggestions", "suggestions", {
-        fallback: "Couldn't load what your Bots found",
+        fallback: "Couldn't load what your Agentes found",
       }),
     refetchInterval: 30_000,
   });

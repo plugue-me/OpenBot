@@ -196,7 +196,7 @@ function YourApps({ agent }: { agent: AgentProfile }) {
           icon={IconApps}
           title="No apps to give yet"
         >
-          Connect an app to let your Bots use it.
+          Connect an app to let your Agentes use it.
         </PageEmpty>
       ) : (
         <PageRows>
@@ -218,7 +218,7 @@ function YourApps({ agent }: { agent: AgentProfile }) {
                     <ItemTitle>{app.displayName}</ItemTitle>
                     <ItemDescription>
                       {locked
-                        ? "An admin gave it to this Bot."
+                        ? "An admin gave it to this Agente."
                         : granted
                           ? `${agent.name} can use ${yours}.`
                           : `${agent.name} can't use ${yours}.`}
@@ -269,7 +269,7 @@ function YourSkills({ agentId }: { agentId: string }) {
   const carried = new Set((held.data?.skills ?? []).map((skill) => skill.slug));
   return (
     <PageSection
-      description="Turn on a skill to use it with this Bot. Type / in a conversation to run it."
+      description="Turn on a skill to use it with this Agente. Type / in a conversation to run it."
       title="Your skills"
     >
       {grant.error ? (
@@ -384,7 +384,7 @@ function Granted({
   if (!plugins.data) {
     return (
       <p className="mt-6 text-destructive text-sm" role="alert">
-        Couldn't load what this Bot can use. Reload the page.
+        Couldn't load what this Agente can use. Reload the page.
       </p>
     );
   }
@@ -408,8 +408,8 @@ function Granted({
     <PageSection
       description={
         kind === "apps"
-          ? "Review the apps this Bot can use, and check which are ready for you. It can't use apps outside this list."
-          : "These are the skills this Bot can use. It can't use skills outside this list."
+          ? "Review the apps this Agente can use, and check which are ready for you. It can't use apps outside this list."
+          : "These are the skills this Agente can use. It can't use skills outside this list."
       }
       title={kind === "apps" ? "Apps it can use" : "Skills it has"}
     >
@@ -422,7 +422,7 @@ function Granted({
         <PageEmpty icon={IconBox} title="No skills yet">
           {mine
             ? "Turn one on under Your skills, or write one on the Skills page."
-            : "The Bot's owner or an admin gives it skills."}
+            : "The Agente's owner or an admin gives it skills."}
         </PageEmpty>
       ) : count === 0 ? (
         <PageEmpty icon={IconApps} title="No apps yet">
@@ -435,9 +435,9 @@ function Granted({
               Connect one on <Link to="/connections">Connections</Link>.
             </>
           ) : mine ? (
-            "Turn one on under Your apps, or ask an admin. Until then this Bot can only talk with you."
+            "Turn one on under Your apps, or ask an admin. Until then this Agente can only talk with you."
           ) : (
-            "An admin has to add them. Until then this Bot can only talk with you."
+            "An admin has to add them. Until then this Agente can only talk with you."
           )}
         </PageEmpty>
       ) : (
@@ -564,7 +564,7 @@ function ManageLink({
   const paths = useManagePaths();
   return (
     <Button
-      aria-label={`Manage ${title} on this Bot`}
+      aria-label={`Manage ${title} on this Agente`}
       render={<Link {...paths.pluginBot(appKey, agentId)} />}
       size="icon-sm"
       variant="ghost"

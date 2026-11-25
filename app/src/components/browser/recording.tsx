@@ -550,7 +550,7 @@ export function RecordingBar({
           <PopoverTitle>Record a task</PopoverTitle>
           <PopoverDescription>
             {recording.waiting ??
-              "Do it once in this browser, and your Bots learn to do it."}
+              "Do it once in this browser, and your Agentes learn to do it."}
           </PopoverDescription>
         </PopoverHeader>
         <form

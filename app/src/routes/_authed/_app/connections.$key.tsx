@@ -453,7 +453,7 @@ function AppConnectionPage({ startConnect }: { startConnect: boolean }) {
               <ItemContent>
                 <ItemTitle>Team account</ItemTitle>
                 <ItemDescription>
-                  Shared by your organisation. Bots act as the team account.
+                  Shared by your organisation. Agentes act as the team account.
                 </ItemDescription>
               </ItemContent>
             </Item>
@@ -497,7 +497,7 @@ function AppConnectionPage({ startConnect }: { startConnect: boolean }) {
       >
         <PageEmpty icon={IconUsers} title="Shared account only">
           An admin connects {server.title} once as a shared account and gives it
-          to Bots.
+          to Agentes.
         </PageEmpty>
       </PageShell>
     );
@@ -506,7 +506,7 @@ function AppConnectionPage({ startConnect }: { startConnect: boolean }) {
   if (brokered && server) {
     /* Bound once because the row below is told it twice — once inside the whole disconnected
        sentence and once on its own — and two copies of it would drift. */
-    const reassurance = "No Bot can use this as you.";
+    const reassurance = "No Agente can use this as you.";
     /* Where the next step is. Connect asks for the whole app on every broker. Where the broker also
        approves one action at a time, the action list underneath is the other way in, and the
        sentence names both. */
@@ -517,7 +517,7 @@ function AppConnectionPage({ startConnect }: { startConnect: boolean }) {
     return (
       <PageShell
         backButton={back}
-        description="Bots use this as you, and see only what you can see."
+        description="Agentes use this as you, and see only what you can see."
         title={server.title}
       >
         {notice ? (
@@ -547,7 +547,7 @@ function AppConnectionPage({ startConnect }: { startConnect: boolean }) {
               /* Said beside the button rather than after it: disconnecting ends the account at
                  Composio, so what it undoes is not the row here but the grant on your own mailbox,
                  and connecting again is a fresh consent. */
-              connectedDescription={`Bots you allow use your ${server.title} as you. Disconnecting removes their access everywhere.`}
+              connectedDescription={`Agentes you allow use your ${server.title} as you. Disconnecting removes their access everywhere.`}
               disconnectedDescription={`${reassurance} ${trip}`}
               /* What is true either way. The trip to Composio is not — an app whose key somebody
                  types never leaves this page — but which Bots can read this person's mail is the
@@ -597,7 +597,7 @@ function AppConnectionPage({ startConnect }: { startConnect: boolean }) {
     return (
       <PageShell backButton={back} title={app.title}>
         <PageEmpty icon={IconPlug} title="No account needed">
-          {`Bots use ${app.title} as it is, the same for everybody. It's at ${app.vendor}.`}
+          {`Agentes use ${app.title} as it is, the same for everybody. It's at ${app.vendor}.`}
         </PageEmpty>
       </PageShell>
     );
@@ -615,7 +615,7 @@ function AppConnectionPage({ startConnect }: { startConnect: boolean }) {
           title={app ? "Shared account" : "App not found"}
         >
           {app
-            ? "Bots use one shared account for this app, the same for everybody."
+            ? "Agentes use one shared account for this app, the same for everybody."
             : "OpenBot has no app by that name."}
         </PageEmpty>
       </PageShell>
@@ -646,8 +646,8 @@ function AppConnectionPage({ startConnect }: { startConnect: boolean }) {
                 {!enabled
                   ? "Not available yet. An admin has to turn this on first."
                   : connection
-                    ? "Bots you allow use this as you, and see only what you can see."
-                    : `No Bot can use this as you. Connecting takes you to ${app.vendor} to approve access.`}
+                    ? "Agentes you allow use this as you, and see only what you can see."
+                    : `No Agente can use this as you. Connecting takes you to ${app.vendor} to approve access.`}
               </ItemDescription>
             </ItemContent>
             <ItemActions>

@@ -45,10 +45,10 @@ function ComputerPage() {
     <PageShell
       description={
         personal
-          ? "Your Bots share one computer, where each keeps its own browser signed in. A command one Bot runs can still read another Bot's files. Choose folders they can read here, and connect the browsers you teach them in."
+          ? "Your Agentes share one computer, where each keeps its own browser signed in. A command one Agente runs can still read another Agente's files. Choose folders they can read here, and connect the browsers you teach them in."
           : desktop
-            ? "Connect the browsers you teach your Bots in, and see what OpenBot runs on this computer."
-            : "Connect the browsers you teach your Bots in."
+            ? "Connect the browsers you teach your Agentes in, and see what OpenBot runs on this computer."
+            : "Connect the browsers you teach your Agentes in."
       }
       title="Computer"
     >

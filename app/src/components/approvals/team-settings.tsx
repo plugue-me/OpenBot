@@ -203,7 +203,7 @@ export function TeamApprovalSettings() {
       ) : null}
       {settings ? (
         <PageSection
-          description="Bots ask before these. With Members choose, a member can allow one once, for a conversation, or always. Ask every time leaves only Allow once and Deny."
+          description="Agentes ask before these. With Members choose, a member can allow one once, for a conversation, or always. Ask every time leaves only Allow once and Deny."
           title="Actions that ask first"
         >
           <PageRows>
@@ -235,7 +235,7 @@ export function TeamApprovalSettings() {
         </PageSection>
       ) : null}
       <PageSection
-        description="These apply to every member's Bots. Members can't change them."
+        description="These apply to every member's Agentes. Members can't change them."
         title="Team rules"
       >
         {teamRules.length === 0 ? (
@@ -263,7 +263,7 @@ export function TeamApprovalSettings() {
             <ItemContent>
               <ItemTitle>Describe it in words</ItemTitle>
               <ItemDescription>
-                Say what Bots should do, and your model writes the rules.
+                Say what Agentes should do, and your model writes the rules.
               </ItemDescription>
             </ItemContent>
             <ItemActions>

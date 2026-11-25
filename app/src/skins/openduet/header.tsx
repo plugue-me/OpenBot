@@ -63,7 +63,7 @@ function useOpenConversation() {
 export function doingLine(busy: boolean, work: ChannelWork[]): string | null {
   const first = work[0];
   if (first?.kind === "handoff")
-    return `Asking ${first.botName ?? "another Bot"}`;
+    return `Asking ${first.botName ?? "another Agente"}`;
   if (first?.kind === "routine") return "Running a routine";
   return busy ? "Thinking" : null;
 }

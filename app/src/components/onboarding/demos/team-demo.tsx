@@ -70,7 +70,7 @@ export function TeamDemo() {
       beats={cards.length}
       className="flex flex-col gap-2.5 p-4 sm:p-6"
       kind="team"
-      label={`Bots you can work with: ${cards
+      label={`Agentes you can work with: ${cards
         .map(
           (card) => `${card.name} (${card.example ? "example" : "available"})`,
         )
@@ -120,7 +120,7 @@ export function TeamDemo() {
           <div className="flex min-w-0 items-center gap-3 rounded-xl border border-dashed border-foreground/25 p-3">
             <span className="size-11 shrink-0 rounded-full border border-dashed border-foreground/30" />
             <p className="text-sm truncate font-medium text-foreground/70">
-              Your own Bot
+              Your own Agente
             </p>
           </div>
         </>

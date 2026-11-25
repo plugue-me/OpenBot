@@ -79,7 +79,7 @@ const PERIODS: Record<Days, string> = {
 const SKIPPED_BECAUSE: Record<CheckInSkipReason, string> = {
   off_admin: "Turned off by an admin",
   off_person: "Turned off by the person",
-  paused: "Bot paused",
+  paused: "Agente paused",
   capped: "Over the daily limit",
   no_sources: "Nothing it could read",
   unreachable: "Conversation gone",
@@ -132,7 +132,7 @@ export function CheckInsPage() {
 
   return (
     <PageShell
-      description="People set their own Bots' routines and goals. Check-ins are set here, for everybody: Bots check the apps people connected and say when something needs them, at most once an hour, and never act without asking."
+      description="People set their own Agentes' routines and goals. Check-ins are set here, for everybody: Agentes check the apps people connected and say when something needs them, at most once an hour, and never act without asking."
       title="Routines"
     >
       {edition === "personal" ? (
@@ -193,8 +193,8 @@ function CheckInSettings({ data }: { data: EnterpriseOverview }) {
             <ItemTitle>Check-ins for everybody</ItemTitle>
             <ItemDescription>
               {on
-                ? "Bots check in for everybody."
-                : "Off. No Bot checks in for anybody."}
+                ? "Agentes check in for everybody."
+                : "Off. No Agente checks in for anybody."}
               {overrides > 0
                 ? ` ${plural(overrides, "role or group override", "role or group overrides")} change that for some people.`
                 : ""}
@@ -227,7 +227,7 @@ function CheckInSettings({ data }: { data: EnterpriseOverview }) {
           <ItemContent>
             <ItemTitle>Daily limit</ItemTitle>
             <ItemDescription>
-              {`Up to ${plural(data.settings.proactiveDailyRuns, "check-in", "check-ins")} a day per Bot for each person`}
+              {`Up to ${plural(data.settings.proactiveDailyRuns, "check-in", "check-ins")} a day per Agente for each person`}
             </ItemDescription>
           </ItemContent>
           <ItemActions>
@@ -304,7 +304,7 @@ function Activity({
                 <ItemTitle>Pings sent</ItemTitle>
                 <ItemDescription>
                   {metrics.data.pings.itemsPerPing === null
-                    ? "Each one folds a person's waiting items from every Bot into one message."
+                    ? "Each one folds a person's waiting items from every Agente into one message."
                     : `${metrics.data.pings.itemsPerPing.toFixed(1)} items in each, on average`}
                 </ItemDescription>
               </ItemContent>
@@ -317,7 +317,7 @@ function Activity({
           </PageRows>
           {metrics.data.bots.length === 0 ? (
             <PageEmpty icon={IconRadar} title="No check-ins yet">
-              A Bot starts checking in once somebody talks to it.
+              A Agente starts checking in once somebody talks to it.
             </PageEmpty>
           ) : (
             <PageRows>
@@ -437,7 +437,7 @@ function BotDialog({
             rows={[
               ["Started", bot.items.started],
               ["Hidden", bot.items.hidden],
-              ["Cleared by the Bot", bot.items.cleared],
+              ["Cleared by the Agente", bot.items.cleared],
               ["Still open", bot.items.open],
             ]}
             title="Items"
@@ -524,7 +524,7 @@ function DailyLimitDialog({
         </DialogHeader>
         <DialogBody className="mt-4 gap-2">
           <Label htmlFor="check-in-daily-limit">
-            Check-ins a day per Bot, for each person
+            Check-ins a day per Agente, for each person
           </Label>
           <Input
             id="check-in-daily-limit"

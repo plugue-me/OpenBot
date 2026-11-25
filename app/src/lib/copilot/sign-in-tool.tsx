@@ -207,7 +207,7 @@ function SignInCard({
               <DialogHeader>
                 <DialogTitle>Sign in to {site}</DialogTitle>
                 <DialogDescription>
-                  Goes to your Bot's browser, not into this conversation.
+                  Goes to your Agente's browser, not into this conversation.
                 </DialogDescription>
               </DialogHeader>
               <DialogBody className="mt-4 overflow-y-auto">

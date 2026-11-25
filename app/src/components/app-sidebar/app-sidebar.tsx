@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type * as React from "react";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { BrandName } from "@/components/edition/brand-name";
+import { useBeforeCommandNavigate } from "@/components/navigation/command-menu";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -41,7 +42,6 @@ import {
 import { useChannelEvents } from "@/lib/channels/use-channel-events";
 import { appConfig } from "@/lib/generated/application-config";
 import { EASE_OUT, ENTRANCE_SECONDS } from "@/lib/motion";
-import { useBeforeCommandNavigate } from "@/components/navigation/command-menu";
 import {
   isNavigationLink,
   type NavigationLink,
@@ -523,7 +523,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <EmptyHeader>
                         <EmptyTitle>No conversations yet</EmptyTitle>
                         <EmptyDescription className="text-pretty">
-                          Start a conversation with a Bot and it shows up here.
+                          Start a conversation with a Agente and it shows up
+                          here.
                         </EmptyDescription>
                       </EmptyHeader>
                     </Empty>

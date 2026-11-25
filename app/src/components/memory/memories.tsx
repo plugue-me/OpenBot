@@ -69,7 +69,9 @@ export function RememberFact() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Remember a fact</DialogTitle>
-            <DialogDescription>All your Bots will know it.</DialogDescription>
+            <DialogDescription>
+              All your Agentes will know it.
+            </DialogDescription>
           </DialogHeader>
           <DialogBody className="mt-4">
             {/* The submit button is in the footer and reaches this form by id, so DialogBody stays a
@@ -88,7 +90,7 @@ export function RememberFact() {
             >
               <Field>
                 <FieldLabel htmlFor={`${formId}-content`}>
-                  Something you want your Bots to know
+                  Something you want your Agentes to know
                 </FieldLabel>
                 <Textarea
                   id={`${formId}-content`}
@@ -139,7 +141,7 @@ export function MemoryList({
   const memories = useQuery(memoriesQueryOptions());
   const agents = useQuery(agentListQueryOptions());
   const botName = (id: string | null) =>
-    agents.data?.find((agent) => agent.id === id)?.name ?? "your Bot";
+    agents.data?.find((agent) => agent.id === id)?.name ?? "your Agente";
   return (
     <PageSection
       action={action}

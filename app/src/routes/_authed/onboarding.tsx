@@ -122,7 +122,7 @@ function welcomeStep(computer: boolean): OnboardingStep {
                 className="text-lg font-semibold text-pretty"
                 id="onboarding-permissions"
               >
-                Choose when Bots ask
+                Choose when Agentes ask
               </h2>
               <p className="text-pretty text-muted-foreground">
                 {ALWAYS_ASKS_SHORT}
@@ -135,7 +135,9 @@ function welcomeStep(computer: boolean): OnboardingStep {
           </section>
         }
       >
-        <p>Give work to Bots in plain words. They tell you when it's done.</p>
+        <p>
+          Give work to Agentes in plain words. They tell you when it's done.
+        </p>
       </StepIntro>
     ),
     demo: () => <IntroReel computer={computer} />,
@@ -173,7 +175,7 @@ function useBookDemoStep(): OnboardingStep {
       <StepIntro>
         <p>
           Bring {PRODUCT} to your whole team, on your own servers. Everyone
-          signs in with their work account and shares Bots in Slack and
+          signs in with their work account and shares Agentes in Slack and
           Microsoft Teams. Admins get the controls and audit trail your company
           needs.
         </p>

@@ -4,7 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { WaitingForYou } from "@/components/approvals/waiting";
 import { approvalInboxOptions } from "@/lib/approvals";
 import { waitingOnYou } from "./model";
-import { LinkRow, FuseEmpty, FuseSheet } from "./ui";
+import { FuseEmpty, FuseSheet, LinkRow } from "./ui";
 
 /**
  * The bell: what every Bot is waiting on the person for. The list is OpenBot's own `WaitingForYou`,
@@ -17,13 +17,13 @@ export function NotificationsSheet({ onClose }: { onClose: () => void }) {
   return (
     <FuseSheet
       onClose={onClose}
-      subtitle="Approvals and questions your Bots are waiting on."
+      subtitle="Approvals and questions your Agentes are waiting on."
       title="Needs you"
     >
       <div className="flex flex-col gap-3.5">
         {nothing ? (
           <FuseEmpty
-            detail="When a Bot needs your OK or an answer, it shows up here."
+            detail="When a Agente needs your OK or an answer, it shows up here."
             icon={IconBell}
             title="You're all caught up"
           />
@@ -31,7 +31,7 @@ export function NotificationsSheet({ onClose }: { onClose: () => void }) {
           <WaitingForYou />
         )}
         <LinkRow
-          detail="What your Bots may do without asking"
+          detail="What your Agentes may do without asking"
           icon={IconHandStop}
           render={<Link onClick={onClose} to="/settings/approvals" />}
           tint="lavender"

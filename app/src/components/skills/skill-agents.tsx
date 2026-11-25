@@ -36,10 +36,10 @@ export function SkillAgents({
 
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-sm font-medium">Bots</h2>
+      <h2 className="text-sm font-medium">Agentes</h2>
       {mine.length === 0 ? (
         <p className="text-muted-foreground text-xs">
-          You don't have a Bot of your own yet.
+          You don't have a Agente of your own yet.
         </p>
       ) : (
         <>
@@ -66,7 +66,7 @@ export function SkillAgents({
             })}
           </div>
           <p className="text-muted-foreground text-xs">
-            Bots you pick here offer <code>/{slug}</code> when you type{" "}
+            Agentes you pick here offer <code>/{slug}</code> when you type{" "}
             <code>/</code>.
           </p>
         </>

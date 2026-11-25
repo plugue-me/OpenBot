@@ -1,3 +1,4 @@
+import { humanise } from "@openbot/shared/tool-name";
 import {
   WHAT_IF_INITIATOR_WORDS,
   WHAT_IF_INITIATORS,
@@ -8,7 +9,6 @@ import {
   type WhatIfIntent,
   type WhatIfVocabulary,
 } from "@openbot/shared/what-if";
-import { humanise } from "@openbot/shared/tool-name";
 import { IconChevronDown } from "@tabler/icons-react";
 import { type ReactNode, useId, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -70,7 +70,7 @@ export function ActionChips({
       <MenuChip
         chip="bot"
         empty={!bot}
-        title="Bot"
+        title="Agente"
         value={bot?.name ?? "Choose"}
       >
         <DropdownMenuRadioGroup

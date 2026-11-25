@@ -190,11 +190,11 @@ export function PluginToolPage({
       </PageSection>
 
       <PageSection
-        description="A Bot can call this tool only while its switch is on. Turning it off applies from the next call."
-        title="Bots"
+        description="A Agente can call this tool only while its switch is on. Turning it off applies from the next call."
+        title="Agentes"
       >
         {bots.length === 0 ? (
-          <PageEmpty icon={IconBolt} title="No Bots yet">
+          <PageEmpty icon={IconBolt} title="No Agentes yet">
             Create one to give it this tool.
           </PageEmpty>
         ) : (
@@ -212,9 +212,9 @@ export function PluginToolPage({
                           ? canCallBack(bot)
                             ? `Can call this tool. Every call is still checked against boundaries and logged in ${paths.auditLabel}.`
                             : plugins.data?.builtInTools
-                              ? "Remote Bots cannot use these tools in this deployment."
-                              : "Allowed, but this Bot has no callback token. Every call is refused. Issue one on its page, or set AGENT_TOOL_TOKEN."
-                          : "Can't call this tool. The Bot never sees it."}
+                              ? "Remote Agentes cannot use these tools in this deployment."
+                              : "Allowed, but this Agente has no callback token. Every call is refused. Issue one on its page, or set AGENT_TOOL_TOKEN."
+                          : "Can't call this tool. The Agente never sees it."}
                       </ItemDescription>
                     </ItemContent>
                     <ItemActions>

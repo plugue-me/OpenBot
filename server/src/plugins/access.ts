@@ -36,6 +36,7 @@ import type { TransportKind } from "./transport";
 
 /** Whose credential a call goes out on. */
 export type CredentialSource =
+  | "person-key"
   /** One token the deployment holds, used for everybody. */
   | "deployment-token"
   /** The asking person's own OAuth grant, exchanged per call. */
@@ -106,6 +107,7 @@ const CREDENTIAL_BY_AUTH: Record<
   none: "none",
   "deployment-bearer": "deployment-token",
   "user-oauth": "person-oauth",
+  "person-key": "person-key",
   builtin: "none",
 };
 
@@ -130,6 +132,7 @@ const REACHED_AS_BY_AUTH: Record<
   none: "deployment",
   "deployment-bearer": "deployment",
   "user-oauth": "person",
+  "person-key": "person",
   builtin: "person",
 };
 
@@ -144,6 +147,7 @@ const OWN_CREDENTIAL_BY_AUTH: Record<CatalogueEntry["auth"]["kind"], boolean> =
     none: false,
     "deployment-bearer": false,
     "user-oauth": true,
+    "person-key": true,
     builtin: false,
   };
 

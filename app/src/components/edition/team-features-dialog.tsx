@@ -60,15 +60,15 @@ export const TEAM_FEATURE_GROUPS: readonly {
         icon: IconLogin2,
       },
       { title: "People, roles and admins", icon: IconUsers },
-      { title: "Bots shared with your whole team", icon: IconUsersGroup },
+      { title: "Agentes shared with your whole team", icon: IconUsersGroup },
       { title: "Learning shared across the team", icon: IconSchool },
     ],
   },
   {
-    title: "Where your Bots work",
+    title: "Where your Agentes work",
     features: [
-      { title: "Bots in Slack and Microsoft Teams", icon: IconMessages },
-      { title: "A computer for each Bot", icon: IconDeviceDesktop },
+      { title: "Agentes in Slack and Microsoft Teams", icon: IconMessages },
+      { title: "A computer for each Agente", icon: IconDeviceDesktop },
     ],
   },
   {
@@ -78,7 +78,7 @@ export const TEAM_FEATURE_GROUPS: readonly {
         title: "Controls over models, apps and networks",
         icon: IconAdjustments,
       },
-      { title: "Rules every Bot follows", icon: IconListCheck },
+      { title: "Rules every Agente follows", icon: IconListCheck },
       /*
        * Boundaries, team approval rules, auto-review guidance, permissions, the network allowlist
        * and one Bot's app actions are each described in words on their Admin screen, and each
@@ -311,7 +311,7 @@ export function BusinessComputerLink() {
       onClick={openTeamFeatures}
       type="button"
     >
-      Give each Bot its own computer with OpenBot for Business.
+      Give each Agente its own computer with OpenBot for Business.
     </button>
   );
 }

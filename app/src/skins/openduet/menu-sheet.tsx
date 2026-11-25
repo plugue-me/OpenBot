@@ -20,6 +20,12 @@ import { DeleteConversationDialog } from "@/components/channels/delete-conversat
 import { BrandName } from "@/components/edition/brand-name";
 import { NavigationTarget } from "@/components/edition/team-features-dialog";
 import {
+  COMMAND_MENU_KEYS,
+  CommandMenuKeys,
+  openCommandMenu,
+  useBeforeCommandNavigate,
+} from "@/components/navigation/command-menu";
+import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
@@ -44,12 +50,6 @@ import {
   channelListQueryOptions,
 } from "@/lib/channels/queries";
 import { appConfig } from "@/lib/generated/application-config";
-import {
-  COMMAND_MENU_KEYS,
-  CommandMenuKeys,
-  openCommandMenu,
-  useBeforeCommandNavigate,
-} from "@/components/navigation/command-menu";
 import { isNavigationLink, useNavigationItems } from "@/lib/navigation";
 import { relativeTime } from "@/lib/relative-time";
 import { useMessageListEmphasis } from "@/lib/settings/message-list";
@@ -167,7 +167,7 @@ export function MenuSheet({
             >
               <IconStack2 size={24} stroke={1.9} />
             </span>
-            <RowText line="Start a conversation with any Bot" name="Chat" />
+            <RowText line="Start a conversation with any Agente" name="Chat" />
           </Link>
           <button
             aria-keyshortcuts={COMMAND_MENU_KEYS}
@@ -185,7 +185,7 @@ export function MenuSheet({
               <IconSearch size={22} stroke={1.9} />
             </span>
             <RowText
-              line="Open any page, Bot or conversation"
+              line="Open any page, Agente or conversation"
               name="Command palette"
             />
             <CommandMenuKeys className="ml-auto max-md:hidden" />

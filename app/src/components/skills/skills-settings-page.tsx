@@ -216,7 +216,7 @@ export function SkillsSettingsPage({
     >
       <PageShell
         className="@container"
-        description="Skills are how your Bots do a task your way. Write one, teach a Bot by showing it, or review what OpenBot proposes."
+        description="Skills are how your Agentes do a task your way. Write one, teach a Agente by showing it, or review what OpenBot proposes."
         title="Skills"
       >
         {error ? (
@@ -260,7 +260,7 @@ export function SkillsSettingsPage({
          */}
         {!personal && everyBot.length > 0 ? (
           <PageSection
-            description="An admin writes these for everyone and picks which Bots use them."
+            description="An admin writes these for everyone and picks which Agentes use them."
             title="Workspace skills"
           >
             <PageRows>
@@ -297,7 +297,7 @@ export function SkillsSettingsPage({
                 <ItemContent>
                   <ItemTitle>Record a task</ItemTitle>
                   <ItemDescription>
-                    Show a Bot a task once in your browser, and OpenBot turns
+                    Show a Agente a task once in your browser, and OpenBot turns
                     the steps into a skill.
                   </ItemDescription>
                 </ItemContent>

@@ -36,7 +36,7 @@ export const NARRATION_ON = "Narration is on.";
 export const NARRATION_OFF = "Narration is off.";
 /** What narration is for, beside its switch in Record's popover. */
 export const NARRATION_EXPLAINED =
-  "Talk out loud while you do the task to explain your thinking. What you say becomes part of what your Bots learn.";
+  "Talk out loud while you do the task to explain your thinking. What you say becomes part of what your Agentes learn.";
 /** Said wherever narration is, on a computer with no microphone: before a recording too, so nobody narrates to nothing. */
 export const NARRATION_NO_MICROPHONE = "No microphone found. Narration is off.";
 

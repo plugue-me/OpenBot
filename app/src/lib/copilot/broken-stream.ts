@@ -38,4 +38,4 @@ export function isBrokenStream(error: unknown): boolean {
 
 /** Said when the turn could not be read back or carried on: never silence. */
 export const STREAM_BROKE =
-  "Part of this answer didn't come through. Open the conversation again, or ask the Bot to carry on.";
+  "Part of this answer didn't come through. Open the conversation again, or ask the Agente to carry on.";

@@ -35,7 +35,7 @@ export type SettingsGroup = "you" | "every-bot" | "openbot";
 export const SETTINGS_GROUPS: readonly { id: SettingsGroup; label: string }[] =
   [
     { id: "you", label: "You" },
-    { id: "every-bot", label: "Every Bot" },
+    { id: "every-bot", label: "Every Agente" },
     { id: "openbot", label: "OpenBot" },
   ];
 

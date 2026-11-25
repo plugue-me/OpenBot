@@ -220,14 +220,14 @@ export function ComputersPage({
 
   /** What a row carries, said once before its state. */
   const scopeOf = (computer: ComputerProfile): string => {
-    if (isOwnBrowser(computer)) return "Their own browser for Teach a Bot";
+    if (isOwnBrowser(computer)) return "Their own browser for Teach a Agente";
     if (computer.kind === "person") {
       return computer.botId
-        ? "This person's profile and folder for this Bot"
-        : "Runs every Bot this person uses";
+        ? "This person's profile and folder for this Agente"
+        : "Runs every Agente this person uses";
     }
     return isolation === "shared"
-      ? "This Bot's profile from before each person had their own"
+      ? "This Agente's profile from before each person had their own"
       : "Isolated: a computer of its own, shared by everyone who uses it";
   };
 
@@ -239,12 +239,12 @@ export function ComputersPage({
     if (!isOwnBrowser(computer))
       return computer.running
         ? since
-        : `${since}. It starts when the Bot next needs it.`;
+        : `${since}. It starts when the Agente next needs it.`;
     // In the team edition the row already says it is that person's browser for Teach a Bot.
     if (!personal) return since;
     return computer.running
-      ? `${since}. You record in it with Teach a Bot.`
-      : `${since}. It opens when you record with Teach a Bot.`;
+      ? `${since}. You record in it with Teach a Agente.`
+      : `${since}. It opens when you record with Teach a Agente.`;
   };
 
   const body = (
@@ -261,20 +261,20 @@ export function ComputersPage({
       {personal || agentId ? null : isolation === "shared" ? (
         <p className="mt-4 rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-sm">
           <span className="font-medium">
-            Every person's Bots run on one computer.
+            Every person's Agentes run on one computer.
           </span>{" "}
-          Each person keeps their own browser profile and folder for each Bot,
-          so logins aren't shared. A command one Bot runs can still read
-          another's files. Set <code>COMPUTER_SUPERVISOR_URL</code> to give each
-          person a computer of their own.
+          Each person keeps their own browser profile and folder for each
+          Agente, so logins aren't shared. A command one Agente runs can still
+          read another's files. Set <code>COMPUTER_SUPERVISOR_URL</code> to give
+          each person a computer of their own.
         </p>
       ) : isolation === "per-person" ? (
         <p className="mt-4 rounded-md border border-border bg-muted/40 px-3 py-2 text-muted-foreground text-sm">
-          Each person has their own computer, and every Bot they use runs on it,
-          public Bots made by other people included. Each Bot keeps its own
-          browser profile and folder there, but a command one Bot runs can reach
-          anything else on that person's computer. An isolated Bot has a
-          computer of its own.
+          Each person has their own computer, and every Agente they use runs on
+          it, public Agentes made by other people included. Each Agente keeps
+          its own browser profile and folder there, but a command one Agente
+          runs can reach anything else on that person's computer. An isolated
+          Agente has a computer of its own.
         </p>
       ) : null}
 
@@ -317,7 +317,7 @@ export function ComputersPage({
                 ? "Its browser"
                 : "Its computer"
               : personal
-                ? "Your Bots' browsers"
+                ? "Your Agentes' browsers"
                 : "Computers in this deployment"
           }
         >
@@ -340,8 +340,8 @@ export function ComputersPage({
               title={personal ? "No browsers yet" : "No computers yet"}
             >
               {personal
-                ? "One starts the first time a Bot opens a page."
-                : "One shows up the first time a Bot opens a page."}
+                ? "One starts the first time a Agente opens a page."
+                : "One shows up the first time a Agente opens a page."}
             </PageEmpty>
           ) : (
             <PageRows>
@@ -441,10 +441,10 @@ export function ComputersPage({
             </DialogTitle>
             <DialogDescription>
               {confirming?.kind === "person" && !confirming.botId
-                ? "Every Bot's profile on this person's computer is deleted. Each is signed out of every service and starts clean."
+                ? "Every Agente's profile on this person's computer is deleted. Each is signed out of every service and starts clean."
                 : confirming && isOwnBrowser(confirming)
                   ? "Its profile is deleted. The person is signed out of every site they signed in to in it."
-                  : "Its profile is deleted. The Bot is signed out of every service and starts clean."}{" "}
+                  : "Its profile is deleted. The Agente is signed out of every service and starts clean."}{" "}
               You can't undo this.
             </DialogDescription>
           </DialogHeader>
@@ -522,7 +522,7 @@ export function ComputersPage({
         <p className="mt-4 text-muted-foreground text-sm">
           <strong>Stop browser</strong> closes a browser and keeps its sign-ins.
           It starts again the next time it's needed. <strong>Reset</strong>{" "}
-          deletes a Bot's browser profile and signs it out of everything.{" "}
+          deletes a Agente's browser profile and signs it out of everything.{" "}
           {computers?.some(isOwnBrowser) ? (
             <>
               <strong>Clear browser data</strong> does the same for your OpenBot
@@ -538,9 +538,9 @@ export function ComputersPage({
       ) : (
         <p className="mt-4 text-muted-foreground text-sm">
           <strong>Stop</strong> closes the computer's browsers and keeps their
-          logins. It starts again the next time a Bot needs it.{" "}
-          <strong>Reset</strong> deletes the profiles and signs every Bot on it
-          out of everything. <strong>Update computer</strong> shows when a
+          logins. It starts again the next time a Agente needs it.{" "}
+          <strong>Reset</strong> deletes the profiles and signs every Agente on
+          it out of everything. <strong>Update computer</strong> shows when a
           computer runs an older image. It moves the computer to the new one and
           keeps its files and sign-ins. All three show in{" "}
           <Link className="underline" {...paths.audit()}>
@@ -557,8 +557,8 @@ export function ComputersPage({
     <PageShell
       description={
         personal
-          ? "Your Bots share one computer. Each Bot keeps its own browser profile there, which keeps it signed in. A command one Bot runs can still read another Bot's files."
-          : "Each person's computer, and each isolated Bot's. Every Bot keeps its own browser profile on it, which keeps that Bot signed in. Resetting a computer signs every Bot on it out of everything."
+          ? "Your Agentes share one computer. Each Agente keeps its own browser profile there, which keeps it signed in. A command one Agente runs can still read another Agente's files."
+          : "Each person's computer, and each isolated Agente's. Every Agente keeps its own browser profile on it, which keeps that Agente signed in. Resetting a computer signs every Agente on it out of everything."
       }
       title={personal ? "Computer" : "Computers"}
     >
@@ -619,7 +619,7 @@ function HostFoldersSection({
 
   return (
     <PageSection
-      description="Choose folders a Bot can read on this computer. The desktop app asks before each edit or command. Access ends when you stop OpenBot."
+      description="Choose folders a Agente can read on this computer. The desktop app asks before each edit or command. Access ends when you stop OpenBot."
       title="Folders on this computer"
     >
       {problem ? (
@@ -641,10 +641,10 @@ function HostFoldersSection({
       {loading ? null : !desktop ? (
         <PageEmpty icon={IconDeviceDesktop} title="Needs OpenBot Desktop">
           This OpenBot isn't running in the desktop app. Use OpenBot Desktop to
-          let Bots read folders on this computer.
+          let Agentes read folders on this computer.
         </PageEmpty>
       ) : botIds.length === 0 ? (
-        <PageEmpty icon={IconBolt} title="No Bots yet">
+        <PageEmpty icon={IconBolt} title="No Agentes yet">
           Create one, then choose its folders.
         </PageEmpty>
       ) : (
@@ -686,7 +686,7 @@ function HostFoldersSection({
       {desktop ? (
         <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-muted-foreground text-sm">
           <p>
-            Folders are read-only. When a Bot needs to write, the desktop app
+            Folders are read-only. When a Agente needs to write, the desktop app
             asks you first.
           </p>
           <div className="flex items-center gap-3">

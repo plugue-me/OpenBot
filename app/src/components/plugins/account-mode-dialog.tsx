@@ -80,7 +80,8 @@ export function AccountModeDialog({
         {target === "shared" ? (
           <div className="mt-4 space-y-3 text-sm">
             <p>
-              Everyone using a Bot with this app will act as this one account.
+              Everyone using a Agente with this app will act as this one
+              account.
             </p>
             {preview.data?.bots.length ? (
               <ul className="space-y-1">

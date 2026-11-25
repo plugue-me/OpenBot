@@ -15,7 +15,7 @@ import { type SkillFormValues, skillFormSchema } from "@/lib/skills/form";
 import { cn } from "@/lib/utils";
 
 const TOOLS_HINT =
-  "Using this skill loads these tools for that reply. It doesn't give access. A Bot only uses tools it already has.";
+  "Using this skill loads these tools for that reply. It doesn't give access. A Agente only uses tools it already has.";
 
 /**
  * The things a person decides about a skill: what they type, what it is called, what it is for,
@@ -192,8 +192,8 @@ export function SkillFields({
               <FieldError errors={field.state.meta.errors} />
             ) : sections ? null : (
               <FieldDescription>
-                What the Bot is told when you use the command. Write it as
-                instructions to the Bot.
+                What the Agente is told when you use the command. Write it as
+                instructions to the Agente.
               </FieldDescription>
             )}
           </Field>
@@ -254,7 +254,7 @@ export function SkillFields({
           </PageSection>
 
           <PageSection
-            description="What the Bot is told when someone uses this skill. Write it as instructions to the Bot."
+            description="What the Agente is told when someone uses this skill. Write it as instructions to the Agente."
             title="Instructions"
           >
             {/* The box alone: a card around one text box is a frame around a frame. */}

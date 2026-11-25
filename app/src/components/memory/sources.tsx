@@ -126,7 +126,7 @@ function AvailableMemorySources({ agentId: fixedBot }: { agentId?: string }) {
           Add source
         </Button>
       }
-      description="Apps you connected that this Bot can read show up here, and you can add more. Sources refresh every 15 minutes. Only this Bot sees what they hold."
+      description="Apps you connected that this Agente can read show up here, and you can add more. Sources refresh every 15 minutes. Only this Agente sees what they hold."
       title="App sources"
     >
       {sources.isPending ? null : sources.error ? (
@@ -153,7 +153,7 @@ function AvailableMemorySources({ agentId: fixedBot }: { agentId?: string }) {
           icon={IconPlugConnected}
           title="No sources yet"
         >
-          Apps this Bot can read from show up here.
+          Apps this Agente can read from show up here.
         </PageEmpty>
       ) : (
         <PageRows>
@@ -298,7 +298,7 @@ function AvailableMemorySources({ agentId: fixedBot }: { agentId?: string }) {
               <FieldGroup>
                 {fixedBot === undefined ? (
                   <Field>
-                    <FieldLabel htmlFor={`${id}-bot`}>Bot</FieldLabel>
+                    <FieldLabel htmlFor={`${id}-bot`}>Agente</FieldLabel>
                     <Select
                       items={bots.data?.map((bot) => ({
                         value: bot.id,
@@ -312,7 +312,7 @@ function AvailableMemorySources({ agentId: fixedBot }: { agentId?: string }) {
                       value={agentId || null}
                     >
                       <SelectTrigger className="w-full" id={`${id}-bot`}>
-                        <SelectValue placeholder="Choose a Bot" />
+                        <SelectValue placeholder="Choose a Agente" />
                       </SelectTrigger>
                       <SelectContent>
                         {bots.data?.map((bot) => (

@@ -209,8 +209,8 @@ function CredentialForm({ modelKey }: { modelKey: ModelKeyName | null }) {
                       {modelKey ? (
                         <FieldDescription>
                           {field.state.value === modelKey.provider
-                            ? `Your Bots run on ${PROVIDER_LABEL[modelKey.provider]} and will use this key.`
-                            : `Your Bots run on ${PROVIDER_LABEL[modelKey.provider]}, so they won't use this key.`}
+                            ? `Your Agentes run on ${PROVIDER_LABEL[modelKey.provider]} and will use this key.`
+                            : `Your Agentes run on ${PROVIDER_LABEL[modelKey.provider]}, so they won't use this key.`}
                         </FieldDescription>
                       ) : null}
                       <Select

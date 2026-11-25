@@ -36,7 +36,7 @@ import { queryClient } from "@/query-client";
  * to write a job description here and get it applied to every coworker at once.
  */
 const DESCRIPTION =
-  "Applies to every Bot in every conversation. A Bot's role says what it does. This says how you want it done, like your writing style.";
+  "Applies to every Agente in every conversation. A Agente's role says what it does. This says how you want it done, like your writing style.";
 
 /**
  * The standing instructions as a row on General: what they say, cut to two lines, and a dialog to write them. A free
@@ -60,7 +60,8 @@ export function StandingInstructionsRow() {
           <ItemDescription>
             {stored.error
               ? "Couldn't load your instructions."
-              : written || "None yet. Tell every Bot how you want things done."}
+              : written ||
+                "None yet. Tell every Agente how you want things done."}
           </ItemDescription>
         </ItemContent>
         <ItemActions>

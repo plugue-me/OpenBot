@@ -180,7 +180,7 @@ function HandedBack({ tool, args }: { tool: string; args: unknown }) {
     <section aria-label="Handed back" className="space-y-1">
       <p>
         It stopped before a step that needs your approval. If the step still
-        needs doing, the Bot asks you in this conversation.
+        needs doing, the Agente asks you in this conversation.
       </p>
       <p className="font-medium">
         {label}

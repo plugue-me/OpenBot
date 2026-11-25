@@ -42,7 +42,7 @@ export function DescribeAllowlist({
   return (
     <DescribeField
       action="Write list"
-      description="Say in a sentence where Bots may connect, and your model writes the list. A second reading that never sees your words says what becomes reachable."
+      description="Say in a sentence where Agentes may connect, and your model writes the list. A second reading that never sees your words says what becomes reachable."
       id="network-description-english"
       label="Describe the allowlist"
       placeholder="Only Salesforce and Google Workspace"
@@ -78,7 +78,7 @@ export function AllowlistReading({
       explanation={written.explanation}
       failed="Some entries aren't valid, so OpenBot won't save the list."
       heading="What becomes reachable"
-      passed="Every entry is valid. Bot computers can enforce this list."
+      passed="Every entry is valid. Agente computers can enforce this list."
       points={written.reachable}
       warning={written.warning}
     />
@@ -144,7 +144,7 @@ export function AllowlistPreview({
         <ReplayAnswer report={preview.data} />
       )}
       <FieldDescription>
-        Only page visits are recorded. Connections a Bot's computer makes in
+        Only page visits are recorded. Connections a Agente's computer makes in
         other ways, such as from its shell or a page's own requests, aren't
         recorded, so they aren't counted here.
       </FieldDescription>
@@ -156,15 +156,15 @@ function ReplayAnswer({ report }: { report: NetworkReplayReport }) {
   if (report.scanned === 0)
     return (
       <FieldDescription>
-        No page visits recorded yet. You'll see what this list blocks once Bots
-        have opened pages.
+        No page visits recorded yet. You'll see what this list blocks once
+        Agentes have opened pages.
       </FieldDescription>
     );
   if (report.covered === 0)
     return (
       <FieldDescription>
-        None of the last {report.scanned} page visits were by Bots this policy
-        applies to.
+        None of the last {report.scanned} page visits were by Agentes this
+        policy applies to.
       </FieldDescription>
     );
   const blocked = report.hosts.filter((host) => host.change === "block");
@@ -202,9 +202,9 @@ function visits(count: number): string {
 
 /** The headline: of the visits this policy covers, what it would block and let through. */
 function replayWords(report: NetworkReplayReport): string {
-  const of = `Of the last ${visits(report.covered)} by Bots this policy applies to,`;
+  const of = `Of the last ${visits(report.covered)} by Agentes this policy applies to,`;
   if (report.wouldBlock === 0 && report.wouldAllow === 0)
-    return `${of} this list changes none. It may still block pages Bots haven't opened yet.`;
+    return `${of} this list changes none. It may still block pages Agentes haven't opened yet.`;
   const block =
     report.wouldBlock > 0
       ? `would block ${report.wouldBlock} that ${report.wouldBlock === 1 ? "is" : "are"} allowed today`
@@ -232,7 +232,7 @@ function HostRows({ hosts }: { hosts: NetworkReplayHost[] }) {
         const by =
           others.length === 0
             ? first
-            : `${first} and ${others.length} more ${others.length === 1 ? "Bot" : "Bots"}`;
+            : `${first} and ${others.length} more ${others.length === 1 ? "Agente" : "Agentes"}`;
         return (
           <div key={`${host.change} ${host.host}`}>
             <Item size="sm">

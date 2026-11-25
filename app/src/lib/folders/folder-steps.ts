@@ -109,7 +109,7 @@ export function folderStepBody(
     return [
       names.length > 0
         ? `Folders it can read: ${names.join(", ")}.`
-        : "No folders are shared with this Bot.",
+        : "No folders are shared with this Agente.",
       ...(listing.connected ? [] : ["OpenBot Desktop isn't running."]),
     ].join(" ");
   }

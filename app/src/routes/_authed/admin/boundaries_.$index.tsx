@@ -122,7 +122,7 @@ function RuleDetail({ policy, rule }: { policy: ActionPolicy; rule: string }) {
       ) : null}
 
       <PageSection
-        description="Written in CEL. It is checked before every action a Bot takes."
+        description="Written in CEL. It is checked before every action a Agente takes."
         title="Rule"
       >
         <RuleEditor policy={policy} rule={rule} />
@@ -136,7 +136,7 @@ function RuleDetail({ policy, rule }: { policy: ActionPolicy; rule: string }) {
         ) : reach.data.scanned === 0 ? (
           <p className="mt-4 text-muted-foreground text-sm">
             No recorded actions yet. What this rule stops will show here once
-            Bots have acted.
+            Agentes have acted.
           </p>
         ) : (
           <>
@@ -157,7 +157,7 @@ function RuleDetail({ policy, rule }: { policy: ActionPolicy; rule: string }) {
       </PageSection>
 
       <PageSection
-        description="Bots can do this again from their next action."
+        description="Agentes can do this again from their next action."
         title="Remove"
       >
         <Button
@@ -174,7 +174,7 @@ function RuleDetail({ policy, rule }: { policy: ActionPolicy; rule: string }) {
           <DialogHeader>
             <DialogTitle>Remove “{label.name}”?</DialogTitle>
             <DialogDescription>
-              Every Bot can do this again from its next action.
+              Every Agente can do this again from its next action.
             </DialogDescription>
           </DialogHeader>
           {savePolicy.error ? (

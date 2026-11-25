@@ -63,7 +63,7 @@ export function agentComponentsQueryOptions(agentId: string | undefined) {
         (await client(
           `/api/components/for-agent/${encodeURIComponent(agentId ?? "")}`,
           "components",
-          { fallback: "This Bot's components could not be loaded." },
+          { fallback: "This Agente's components could not be loaded." },
         )) ?? []
       );
     },

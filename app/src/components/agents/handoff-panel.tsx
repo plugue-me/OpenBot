@@ -77,21 +77,21 @@ export function HandoffPanel({ agentId }: { agentId: string }) {
           </span>
         ) : null
       }
-      description="Choose which Bots this Bot can ask for help. Their answers appear in the same conversation under their own names. This does not change who can ask this Bot for help."
-      title="Bots it can ask"
+      description="Choose which Agentes this Agente can ask for help. Their answers appear in the same conversation under their own names. This does not change who can ask this Agente for help."
+      title="Agentes it can ask"
     >
       {/* Facts about the deployment rather than rows to act on, so said as sentences. */}
       {enabled ? null : (
         <PageEmpty icon={IconArrowsExchange} title="Handoffs are off">
-          An admin turned off handing work between Bots. These settings are
+          An admin turned off handing work between Agentes. These settings are
           kept, and they apply again once it's back on.
         </PageEmpty>
       )}
 
       {grantable ? null : (
         <PageEmpty icon={IconLock} title="Can't hand off work">
-          This Bot can't hand work to other Bots. Other Bots can still hand work
-          to it.
+          This Agente can't hand work to other Agentes. Other Agentes can still
+          hand work to it.
         </PageEmpty>
       )}
 
@@ -102,8 +102,8 @@ export function HandoffPanel({ agentId }: { agentId: string }) {
       ) : null}
 
       {grantable && total === 0 ? (
-        <PageEmpty icon={IconBolt} title="No other Bots yet">
-          When there are more, you can let this Bot ask them here.
+        <PageEmpty icon={IconBolt} title="No other Agentes yet">
+          When there are more, you can let this Agente ask them here.
         </PageEmpty>
       ) : null}
       {candidates.length > 0 ? (
@@ -128,13 +128,13 @@ export function HandoffPanel({ agentId }: { agentId: string }) {
                    */}
                   <ItemDescription>
                     {candidate.hidden
-                      ? `${candidate.title} · hidden from your Bots list`
+                      ? `${candidate.title} · hidden from your Agentes list`
                       : candidate.title}
                   </ItemDescription>
                 </ItemContent>
                 <ItemActions>
                   <Switch
-                    aria-label={`Let this Bot ask ${candidate.name}`}
+                    aria-label={`Let this Agente ask ${candidate.name}`}
                     checked={reachable.includes(candidate.id)}
                     disabled={!canGrant || setGrant.isPending}
                     onCheckedChange={(next: boolean) =>
@@ -154,7 +154,7 @@ export function HandoffPanel({ agentId }: { agentId: string }) {
 
       {canGrant ? null : (
         <PageEmpty icon={IconLock} title="Set by an admin">
-          An admin decides which Bots this one can ask.
+          An admin decides which Agentes this one can ask.
         </PageEmpty>
       )}
     </PageSection>

@@ -273,25 +273,25 @@ function ComponentDetail({
 
   const grantSummary =
     bots.length === 0
-      ? "No Bots yet"
+      ? "No Agentes yet"
       : granted.length === bots.length
-        ? `All ${bots.length} Bots`
+        ? `All ${bots.length} Agentes`
         : granted.length === 0
-          ? "No Bots"
-          : `${granted.length} of ${bots.length} Bots`;
+          ? "No Agentes"
+          : `${granted.length} of ${bots.length} Agentes`;
 
   const functionSummary =
     dataFunctions.length === 0
       ? "This deployment has no data functions"
       : held.length === 0
-        ? "Nothing. It shows only what the Bot passes it."
+        ? "Nothing. It shows only what the Agente passes it."
         : held.map((fn) => fn.name).join(", ");
 
   return (
     <PageShell
       backButton={BACK}
       description={
-        component.publishedDescription ?? "Not published. No Bot can see it."
+        component.publishedDescription ?? "Not published. No Agente can see it."
       }
       title={component.title}
     >
@@ -309,7 +309,7 @@ function ComponentDetail({
       </div>
 
       <PageSection
-        description="Describe this component and choose which Bots can display it."
+        description="Describe this component and choose which Agentes can display it."
         title="Configuration"
       >
         <PageRows>
@@ -342,8 +342,8 @@ function ComponentDetail({
               <ItemTitle>Published</ItemTitle>
               <ItemDescription>
                 {component.published
-                  ? "Bots can answer with it."
-                  : "No Bot can use it."}
+                  ? "Agentes can answer with it."
+                  : "No Agente can use it."}
                 {component.hasUnpublishedChanges
                   ? " The description has unpublished changes."
                   : null}
@@ -473,13 +473,13 @@ function ComponentDetail({
           <DialogHeader>
             <DialogTitle>Available to</DialogTitle>
             <DialogDescription>
-              Turn a Bot off and it never learns this component exists. Changes
-              apply right away.
+              Turn a Agente off and it never learns this component exists.
+              Changes apply right away.
             </DialogDescription>
           </DialogHeader>
           <DialogBody className="mt-4">
             {bots.length === 0 ? (
-              <p className="text-muted-foreground text-sm">No Bots yet.</p>
+              <p className="text-muted-foreground text-sm">No Agentes yet.</p>
             ) : (
               <div className="flex flex-col">
                 {bots.map((bot, index) => {
@@ -524,8 +524,8 @@ function ComponentDetail({
             <DialogDescription>
               The data this component can fetch to draw itself. This is separate
               from Available to. With all of these off, it shows only what the
-              Bot passes it. Every read shows in Activity. Changes apply right
-              away.
+              Agente passes it. Every read shows in Activity. Changes apply
+              right away.
             </DialogDescription>
           </DialogHeader>
           <DialogBody className="mt-4">

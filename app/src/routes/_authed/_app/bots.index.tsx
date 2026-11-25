@@ -58,16 +58,16 @@ function BotsPage() {
             variant="ghost"
           >
             <IconPlus />
-            New Bot
+            New Agente
           </Button>
         </div>
       }
       description={
         personal
-          ? "Your Bots for everyday work."
-          : "Manage your Bots and access those shared with you."
+          ? "Your Agentes for everyday work."
+          : "Manage your Agentes and access those shared with you."
       }
-      title="Bots"
+      title="Agentes"
     >
       <BotRoster />
       <WhatYourBotsLearn />
@@ -106,7 +106,7 @@ function WhatYourBotsLearn() {
   const skills = useProductFeature("skills");
   if (!memory && !skills) return null;
   return (
-    <PageSection title="What your Bots learn">
+    <PageSection title="What your Agentes learn">
       <PageRows>
         {memory ? (
           <>
@@ -117,7 +117,7 @@ function WhatYourBotsLearn() {
               <ItemContent>
                 <ItemTitle>Memory</ItemTitle>
                 <ItemDescription>
-                  Your Bots remember facts about you and your work here.
+                  Your Agentes remember facts about you and your work here.
                 </ItemDescription>
               </ItemContent>
               <ItemActions>
@@ -135,7 +135,7 @@ function WhatYourBotsLearn() {
             <ItemContent>
               <ItemTitle>Skills</ItemTitle>
               <ItemDescription>
-                Step-by-step instructions you wrote, taught or your Bots
+                Step-by-step instructions you wrote, taught or your Agentes
                 learned.
               </ItemDescription>
             </ItemContent>

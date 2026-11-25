@@ -5,12 +5,12 @@ describe("readTeamBotConsent", () => {
   test("reads the card from a consent refusal and nothing else", () => {
     expect(
       readTeamBotConsent(
-        `${TEAM_BOT_CONSENT_MARKER}{"botId":"agent_1","serverId":"gmail"} This Team Bot wants to use your own gmail account.`,
+        `${TEAM_BOT_CONSENT_MARKER}{"botId":"agent_1","serverId":"gmail"} This Team Agente wants to use your own gmail account.`,
       ),
     ).toEqual({
       botId: "agent_1",
       serverId: "gmail",
-      message: "This Team Bot wants to use your own gmail account.",
+      message: "This Team Agente wants to use your own gmail account.",
     });
     expect(readTeamBotConsent("That tool is not granted.")).toBeNull();
     expect(readTeamBotConsent(`${TEAM_BOT_CONSENT_MARKER}{broken`)).toBeNull();

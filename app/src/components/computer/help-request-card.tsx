@@ -160,15 +160,15 @@ export function HelpRequestCard({
                 aria-hidden="true"
                 className="mr-1 inline size-3.5 align-[-2px]"
               />
-              The Bot asked: “{asked}”
+              The Agente asked: “{asked}”
             </>
           ) : (
-            "The Bot asked you to take over its browser."
+            "The Agente asked you to take over its browser."
           )}
           {ended.detail ? ` ${ended.detail}` : null}
-          {handedBackHere ? " The Bot is carrying on." : null}
+          {handedBackHere ? " The Agente is carrying on." : null}
           {silent
-            ? " The Bot stopped here without saying what it does next."
+            ? " The Agente stopped here without saying what it does next."
             : null}
         </ItemDescription>
       </ItemContent>

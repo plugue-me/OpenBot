@@ -6,7 +6,7 @@
  * case that gets a number.
  */
 export function grantSummary(held: number, total: number): string {
-  if (held === 0) return "No Bots";
-  if (held === total) return total === 1 ? "1 Bot" : "All Bots";
-  return `${held} of ${total} Bots`;
+  if (held === 0) return "No Agentes";
+  if (held === total) return total === 1 ? "1 Agente" : "All Agentes";
+  return `${held} of ${total} Agentes`;
 }

@@ -188,7 +188,7 @@ export function browserCallFailed(result: string | undefined): boolean {
 
 /** What a step says, opened, when its Bot asked for a tool it doesn't have. */
 export const UNOFFERED_TOOL_SENTENCE =
-  "This Bot asked for a tool it doesn't have, so it carried on without it.";
+  "This Agente asked for a tool it doesn't have, so it carried on without it.";
 
 /**
  * Whether a call's answer is its runtime saying the Bot was never offered that tool.

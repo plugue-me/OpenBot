@@ -29,7 +29,7 @@ export function coverageWarning(
 ): string | null {
   if (app.classifiedCount === null) return null;
   if (app.actionCount > 0 && app.classifiedCount === 0) {
-    return "This provider hasn't said which of its actions only read, so each one is treated as a change. Bots ask before using it wherever changes need approval, and check-ins can't use it.";
+    return "This provider hasn't said which of its actions only read, so each one is treated as a change. Agentes ask before using it wherever changes need approval, and check-ins can't use it.";
   }
   return null;
 }
@@ -172,7 +172,7 @@ export function consentCopy(
   const asked = actions.find((action) => action.name === requested);
   const scopes = asked ? [...new Set(asked.scopes)].sort() : [];
   const grants =
-    "Which Bots may call an action is still set separately, and approving does not change it.";
+    "Which Agentes may call an action is still set separately, and approving does not change it.";
   if (!actions.some((action) => action.scopes.length > 0)) {
     const all = actions.length;
     return {

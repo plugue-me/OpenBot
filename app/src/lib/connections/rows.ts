@@ -67,7 +67,7 @@ export function isBrokeredGithub(
 
 export const IDENTITY_SUMMARIES = {
   github:
-    "Lets OpenBot recognise you on GitHub, so a repository's events can start your Bots' work.",
+    "Lets OpenBot recognise you on GitHub, so a repository's events can start your Agentes' work.",
   slack: "Lets OpenBot recognise you when you message it from Slack.",
 } as const;
 
@@ -76,7 +76,7 @@ export const IDENTITY_SUMMARIES = {
  * sentence was cut off mid-word. The full one stays on each connection's own page.
  */
 const IDENTITY_TILE_SUMMARIES = {
-  github: "Repository events can start Bots.",
+  github: "Repository events can start Agentes.",
   slack: "Message OpenBot from Slack.",
 } as const;
 
@@ -169,7 +169,7 @@ export function connectionRows(input: {
       (server): ConnectionRow => ({
         key: server.id,
         title: server.title,
-        summary: "Your organisation's account. Bots act as the team here.",
+        summary: "Your organisation's account. Agentes act as the team here.",
         state: "team",
         mark: { kind: "logo", logo: server.logo },
       }),
@@ -239,7 +239,7 @@ function personalAppRow(
     summary: entry.summary,
     mark: { kind: "catalogue", key: entry.key } as const,
   };
-  if (entry.auth === "user-oauth")
+  if (entry.auth === "user-oauth" || entry.auth === "person-key")
     return {
       ...base,
       state: input.connected.has(entry.key) ? "connected" : "available",

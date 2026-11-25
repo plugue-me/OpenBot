@@ -15,7 +15,6 @@ import {
 } from "@/components/layout/page-shell";
 import { LearnedSkillDialog } from "@/components/learning/learned-skill-dialog";
 import { ProposalDialog } from "@/components/learning/proposal-dialog";
-import { skillTitle } from "@/lib/learning/display";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -34,6 +33,7 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
+import { skillTitle } from "@/lib/learning/display";
 import {
   decideSharingMutationOptions,
   reviewPersonProposalMutationOptions,
@@ -61,9 +61,9 @@ const CHOICES: {
   },
   {
     value: "people",
-    title: "Each person, for their own Bots",
+    title: "Each person, for their own Agentes",
     description:
-      "Each person approves the skills learned from their own recordings. Those skills reach only that person's Bots until an admin shares them.",
+      "Each person approves the skills learned from their own recordings. Those skills reach only that person's Agentes until an admin shares them.",
   },
 ];
 
@@ -234,7 +234,7 @@ export function PeopleProposalsSection() {
   return (
     <PageSection
       title="From people's recordings"
-      description="Approve a skill to publish it to the Bots of the person who taught it."
+      description="Approve a skill to publish it to the Agentes of the person who taught it."
     >
       {people.isPending ? null : people.error ? (
         <p className="mt-4 text-destructive text-sm" role="alert">
@@ -307,7 +307,7 @@ export function PeopleProposalsSection() {
             review.reset();
           }}
           onDecide={(decision) => review.mutate({ ...open, decision })}
-          publishedNote="Published. Their Bots use it from their next conversation."
+          publishedNote="Published. Their Agentes use it from their next conversation."
         />
       ) : null}
     </PageSection>
@@ -356,7 +356,7 @@ export function SharingRequestsSection() {
   return (
     <PageSection
       title="Sharing requests"
-      description="Approve a request to open a skill to every Bot."
+      description="Approve a request to open a skill to every Agente."
     >
       {settings.error ? (
         <SettingsError message={settings.error.message} />

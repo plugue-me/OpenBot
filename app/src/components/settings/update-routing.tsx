@@ -46,16 +46,16 @@ const KIND_LABEL: Record<UpdateKind, { title: string; description: string }> = {
   },
   decision: {
     title: "Decisions",
-    description: "Approvals a Bot needs before it acts.",
+    description: "Approvals a Agente needs before it acts.",
   },
   question: {
     title: "Questions",
-    description: "Things a Bot asked you and is waiting on.",
+    description: "Things a Agente asked you and is waiting on.",
   },
   attention: {
     title: "Something needs you",
     description:
-      "What your Bots' check-ins found, at most once an hour, every Bot in one message.",
+      "What your Agentes' check-ins found, at most once an hour, every Agente in one message.",
   },
 };
 

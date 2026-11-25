@@ -1,0 +1,22 @@
+{
+  "name": "plugueme-integration-executor",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "bun src/server.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@activepieces/piece-gmail": "0.19.0",
+    "@activepieces/piece-google-calendar": "0.14.0",
+    "@activepieces/piece-google-drive": "0.14.1",
+    "@activepieces/piece-google-sheets": "0.21.0",
+    "@activepieces/piece-google-ads": "0.0.3",
+    "@activepieces/piece-facebook-pages": "0.4.3",
+    "@activepieces/piece-instagram-business": "1.1.2",
+    "@activepieces/piece-whatsapp": "1.0.1",
+    "@activepieces/piece-hubspot": "0.14.0"
+  }
+}

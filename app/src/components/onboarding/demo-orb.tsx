@@ -1,5 +1,5 @@
-import type { AIState } from "@/components/agents/orb/ai-core";
 import AgentOrb from "@/components/agents/orb/agent-orb";
+import type { AIState } from "@/components/agents/orb/ai-core";
 import { orbPalette } from "@/lib/orb-palette";
 
 /**
@@ -26,7 +26,7 @@ export function DemoOrb({
       aria-hidden="true"
       data-orb={seed ? "bot" : "openbot"}
       data-state={state}
-      className={`inline-flex shrink-0 rounded-full ${seed ? "bot-orb-live ring-1 ring-foreground/10" : ""}`}
+      className={`inline-flex shrink-0 rounded-full ${seed ? "agente-orb-live ring-1 ring-foreground/10" : ""}`}
       style={{ height: size, width: size }}
     >
       <AgentOrb

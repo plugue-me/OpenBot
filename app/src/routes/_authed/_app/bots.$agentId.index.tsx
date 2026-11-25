@@ -17,13 +17,13 @@ function BotProfilePage() {
   const toRoster = () => void navigate({ to: "/bots" });
   return (
     <PageShell
-      backButton={{ label: "Bots", linkProps: { to: "/bots" } }}
+      backButton={{ label: "Agentes", linkProps: { to: "/bots" } }}
       // No description: the Bot's own role, under its orb just below, says what this page is about.
-      title={agent.data?.name ?? "Bot"}
+      title={agent.data?.name ?? "Agente"}
     >
       {agent.isPending ? null : agent.error ? (
         <p className="mt-6 text-destructive text-sm" role="alert">
-          Couldn't open this Bot. It may not be shared with you.
+          Couldn't open this Agente. It may not be shared with you.
         </p>
       ) : (
         <BotProfile

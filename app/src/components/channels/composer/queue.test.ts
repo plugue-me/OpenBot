@@ -116,7 +116,7 @@ describe("submitting", () => {
     expect(joined.run?.agentId).toBeNull();
   });
 
-  test("a send while the Bot is working waits instead of running", () => {
+  test("a send while the Agente is working waits instead of running", () => {
     const result = reduceQueue([], {
       busy: true,
       draft: draft("no, the other one"),
@@ -162,7 +162,7 @@ describe("settling", () => {
     expect(result.queue).toEqual([]);
   });
 
-  test("stopping the Bot is what makes the correction run", () => {
+  test("stopping the Agente is what makes the correction run", () => {
     // The whole of stop-then-steer. Nothing below says "stop": pressing it ends the turn, and the
     // end of a turn is the only thing the drain is listening for.
     const queue = park([], "one", "stop reading, just summarise it");

@@ -1,3 +1,4 @@
+import { integrationTransport } from "../integrations/backend";
 import * as arcade from "./arcade";
 import * as builtinRoutines from "./builtin-routines";
 import * as composio from "./composio";
@@ -141,6 +142,7 @@ export type VendorTransport = {
  */
 export type TransportKind =
   | "mcp"
+  | "integrations"
   | "google-drive-rest"
   | "builtin-routines"
   | "composio"
@@ -174,6 +176,7 @@ const TRANSPORTS: Record<TransportKind, VendorTransport> = {
   "builtin-routines": builtinRoutines,
   composio,
   arcade,
+  integrations: integrationTransport,
 };
 
 /**

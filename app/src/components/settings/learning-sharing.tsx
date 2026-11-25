@@ -49,21 +49,21 @@ export const SHARING_CHOICES: {
   {
     mode: "closed",
     icon: IconLock,
-    title: "Only my Bots",
-    description: "Only the Bots you use draw on your skills.",
+    title: "Only my Agentes",
+    description: "Only the Agentes you use draw on your skills.",
   },
   {
     mode: "open",
     icon: IconUsersGroup,
-    title: "Everyone's Bots",
-    description: "Every Bot on OpenBot draws on all of your skills.",
+    title: "Everyone's Agentes",
+    description: "Every Agente on OpenBot draws on all of your skills.",
   },
   {
     mode: "choose",
     icon: IconListCheck,
     title: "The skills I choose",
     description:
-      "Every Bot draws on the skills you open below; your own Bots use all of them.",
+      "Every Agente draws on the skills you open below; your own Agentes use all of them.",
   },
 ];
 
@@ -73,9 +73,9 @@ export const SHARING_CHOICES: {
  */
 function choiceSentence(data: PersonalLearningSharing): string {
   if (data.sharingAllowed)
-    return "Your own Bots always use every skill learned from your recordings.";
+    return "Your own Agentes always use every skill learned from your recordings.";
   const off =
-    "An admin hasn't turned on sharing skills with every Bot, so only the Bots you use draw on yours.";
+    "An admin hasn't turned on sharing skills with every Agente, so only the Agentes you use draw on yours.";
   return data.mode === "closed"
     ? off
     : `${off} Your choice below applies again if an admin turns it on.`;
@@ -97,15 +97,15 @@ function emptySentence(
   if (data.skills === null)
     return "Couldn't read your Skills from the backend just now. Your choice above still applies to them.";
   return mode === "choose"
-    ? "No Skills learned from your recordings yet. Once there are, each one you open here reaches every Bot."
+    ? "No Skills learned from your recordings yet. Once there are, each one you open here reaches every Agente."
     : "No Skills learned from your recordings yet. Once there are, they show up here.";
 }
 
 /** What the Your Skills section says about who draws on them, in the mode chosen. */
 const SKILLS_DESCRIPTION: Record<LearningSharingMode, string> = {
-  closed: "Only the Bots you use draw on these skills.",
-  open: "Every Bot on OpenBot draws on these skills.",
-  choose: "Open a skill to let every Bot on OpenBot use it.",
+  closed: "Only the Agentes you use draw on these skills.",
+  open: "Every Agente on OpenBot draws on these skills.",
+  choose: "Open a skill to let every Agente on OpenBot use it.",
 };
 
 /** How a skill was made, beside its title on the Skills page's one list. */
@@ -200,7 +200,7 @@ export function LearningSharing({
         description={
           none
             ? undefined
-            : "Type / and a skill's name to give a Bot that instruction. Open one to read or change it."
+            : "Type / and a skill's name to give a Agente that instruction. Open one to read or change it."
         }
       >
         {none ? (
@@ -208,7 +208,7 @@ export function LearningSharing({
             <PageEmpty>
               {data.skills === null
                 ? emptySentence(data, mode, true)
-                : "No skills yet. Write one with New skill, or teach a Bot a task."}
+                : "No skills yet. Write one with New skill, or teach a Agente a task."}
             </PageEmpty>
           ) : null
         ) : (
@@ -257,7 +257,7 @@ export function LearningSharing({
   // Below the list: it is a choice about the learned skills in it.
   const choiceSection = (
     <PageSection
-      title="Who else's Bots use your skills"
+      title="Who else's Agentes use your skills"
       description={choiceSentence(data)}
     >
       <PageRows>
@@ -314,7 +314,7 @@ export function LearningSharing({
           learned.length > 0
             ? SKILLS_DESCRIPTION[data.sharingAllowed ? mode : "closed"]
             : written.length > 0
-              ? "Type / and a skill's name to give a Bot that instruction. Only you see yours."
+              ? "Type / and a skill's name to give a Agente that instruction. Only you see yours."
               : undefined
         }
       >
@@ -323,7 +323,7 @@ export function LearningSharing({
             <PageEmpty>
               {data.skills === null || data.unavailable === "off"
                 ? emptySentence(data, mode, false)
-                : "No skills yet. Write one with New skill, or teach a Bot a task."}
+                : "No skills yet. Write one with New skill, or teach a Agente a task."}
             </PageEmpty>
           ) : null
         ) : (
@@ -363,9 +363,9 @@ export function LearningSharing({
                               needsAdmin ||
                               (mode === "choose" &&
                                 !(open && data.sharingAllowed))
-                                ? "Only your Bots use it."
+                                ? "Only your Agentes use it."
                                 : mode === "choose"
-                                  ? "Every Bot may use it."
+                                  ? "Every Agente may use it."
                                   : null,
                               skill.description,
                             ]

@@ -25,8 +25,8 @@ export function TeamBotConsents() {
   if (personal) return null;
   return (
     <PageSection
-      description="A Bot shared with you uses its owner's apps. It uses yours only where you said yes in a conversation."
-      title="Shared Bots"
+      description="A Agente shared with you uses its owner's apps. It uses yours only where you said yes in a conversation."
+      title="Shared Agentes"
     >
       {clear.error ? (
         <p className="mt-4 text-destructive text-sm" role="alert">
@@ -36,11 +36,11 @@ export function TeamBotConsents() {
       <PageRows>
         <Item size="sm">
           <ItemContent>
-            <ItemTitle>Apps you let shared Bots use</ItemTitle>
+            <ItemTitle>Apps you let shared Agentes use</ItemTitle>
             <ItemDescription>
               {clear.isSuccess
-                ? "Reset. Each shared Bot will ask again."
-                : "Forget every answer, so each shared Bot asks again."}
+                ? "Reset. Each shared Agente will ask again."
+                : "Forget every answer, so each shared Agente asks again."}
             </ItemDescription>
           </ItemContent>
           <ItemActions>

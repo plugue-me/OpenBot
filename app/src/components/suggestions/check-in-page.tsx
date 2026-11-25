@@ -12,8 +12,8 @@ import {
   PageSection,
   PageShell,
 } from "@/components/layout/page-shell";
-import { routinesOf } from "@/components/routines/new-routine-page";
 import { DeleteRow } from "@/components/routines/delete-row";
+import { routinesOf } from "@/components/routines/new-routine-page";
 import {
   RoutineDetailMissing,
   useDeletedHere,
@@ -104,7 +104,7 @@ export function CheckInRoutePage({
   const botName =
     [...(bots.data ?? []), ...(hidden.data ?? [])].find(
       (bot) => bot.id === setting.agentId,
-    )?.name ?? "A Bot";
+    )?.name ?? "A Agente";
   return (
     <CheckInPage
       back={back}

@@ -26,7 +26,7 @@ export function RulePreview({
       ) : preview.data.scanned === 0 ? (
         <FieldDescription>
           No recorded actions to test against yet. You'll see what this rule
-          stops once Bots have acted.
+          stops once Agentes have acted.
         </FieldDescription>
       ) : (
         <div>

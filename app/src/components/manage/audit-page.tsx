@@ -29,6 +29,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { explainable, WhyButton } from "@/components/what-if/why-button";
 import { useBotNames } from "@/lib/agents/bot-names";
+import type { AuditAnswer, AuditFilterLabels } from "@/lib/audit/ask";
 import {
   CALLS_RECORDED_AS_CHANGES,
   COMPUTER_ACTION_EVENT_TYPES,
@@ -38,7 +39,6 @@ import {
   oneRowPerAction,
   REFUSED_EVENT_TYPES,
 } from "@/lib/audit/outcome";
-import type { AuditAnswer, AuditFilterLabels } from "@/lib/audit/ask";
 import {
   auditEventsQueryOptions,
   auditExportUrl,
@@ -137,7 +137,7 @@ const whyFor = (event: AuditEvent) =>
 
 /** What the page says under its title in Admin, where an admin reviews every Bot against policy. */
 const ADMIN_DESCRIPTION =
-  "Review Bot actions and actions blocked by this deployment’s policy.";
+  "Review Agente actions and actions blocked by this deployment’s policy.";
 
 /**
  * `children` are sections only the team edition's Admin adds below the page's own (the admin's
@@ -390,7 +390,7 @@ export function AuditPage({
                     {/* Beside the other filters, on the row that wraps: it narrows what is asked for. */}
                     {bot && !ask ? (
                       <Button
-                        aria-label={`Show every Bot, not only ${nameFor(bot)}`}
+                        aria-label={`Show every Agente, not only ${nameFor(bot)}`}
                         onClick={onClearBot}
                         size="sm"
                         variant="outline"

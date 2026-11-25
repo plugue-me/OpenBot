@@ -254,7 +254,7 @@ export function BotSettingsRows({ agent }: { agent: AgentProfile }) {
   if (!availableRows.length) return null;
 
   return (
-    <PageSection title="Settings for this Bot">
+    <PageSection title="Settings for this Agente">
       <PageRows>
         {availableRows.map(({ to, title, icon: Icon, summary }, index) => (
           <Fragment key={to}>

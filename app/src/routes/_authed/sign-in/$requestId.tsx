@@ -23,7 +23,7 @@ function SignInPage() {
       title={request.data ? `Sign in to ${request.data.origin}` : "Sign in"}
       description={
         request.data?.reason ??
-        "Your Bot needs to sign in to continue. What you type here goes to its browser, not the conversation."
+        "Your Agente needs to sign in to continue. What you type here goes to its browser, not the conversation."
       }
     >
       <SignInForm requestId={requestId} />

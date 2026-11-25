@@ -128,15 +128,15 @@ export function SkillPage({ slug }: { slug: string }) {
       <PageSection
         description={
           <>
-            Bots with their switch on offer {skill.title} when someone types{" "}
+            Agentes with their switch on offer {skill.title} when someone types{" "}
             <code>/</code>. It takes effect at once.
           </>
         }
-        title="Bots"
+        title="Agentes"
       >
         {bots.length === 0 ? (
-          <PageEmpty icon={IconBolt} title="No Bots yet">
-            Create a Bot to offer this skill.
+          <PageEmpty icon={IconBolt} title="No Agentes yet">
+            Create a Agente to offer this skill.
           </PageEmpty>
         ) : (
           <PageRows>
@@ -222,7 +222,7 @@ export function SkillPage({ slug }: { slug: string }) {
             <ItemContent>
               <ItemTitle>Delete</ItemTitle>
               <ItemDescription>
-                People can't run it any more, and no Bot offers it. You can't
+                People can't run it any more, and no Agente offers it. You can't
                 undo this.
               </ItemDescription>
             </ItemContent>
@@ -238,8 +238,8 @@ export function SkillPage({ slug }: { slug: string }) {
           <DialogHeader>
             <DialogTitle>Delete {skill.title}?</DialogTitle>
             <DialogDescription>
-              People can't run it any more, and no Bot offers it. You can't undo
-              this.
+              People can't run it any more, and no Agente offers it. You can't
+              undo this.
             </DialogDescription>
           </DialogHeader>
           {removeSkill.error ? (

@@ -223,7 +223,7 @@ export function VoiceCallWidget({
               title={
                 state.muted
                   ? "Unmute your microphone"
-                  : "Mute your microphone · you’ll still hear the Bot"
+                  : "Mute your microphone · you’ll still hear the Agente"
               }
               variant="secondary"
               size="icon"

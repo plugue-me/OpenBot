@@ -29,6 +29,7 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
+import { deploymentCapabilitiesQueryOptions } from "@/lib/deployment/queries";
 import { useManagePaths } from "@/lib/manage-paths";
 import {
   moreAppsRow,
@@ -112,8 +113,8 @@ function summaryFor(
 
   const bots = new Set(server.tools.flatMap((tool) => tool.grantedTo)).size;
   const tools = `${server.tools.length} ${server.tools.length === 1 ? "tool" : "tools"}`;
-  if (bots === 0) return `${tools} · no Bots`;
-  return `${tools} · ${bots} ${bots === 1 ? "Bot" : "Bots"}`;
+  if (bots === 0) return `${tools} · no Agentes`;
+  return `${tools} · ${bots} ${bots === 1 ? "Agente" : "Agentes"}`;
 }
 
 /**
@@ -126,6 +127,8 @@ export function PluginsListPage({
   children?: React.ReactNode;
 } = {}) {
   const paths = useManagePaths();
+  const standalone =
+    useQuery(deploymentCapabilitiesQueryOptions()).data?.standalone === true;
   const plugins = useQuery(pluginsPageQueryOptions());
   const connections = useQuery(connectionsQueryOptions());
   /*
@@ -161,7 +164,7 @@ export function PluginsListPage({
 
   return (
     <PageShell
-      description="Connect services for your company, then choose which Bots can use each service’s tools."
+      description="Connect services for your company, then choose which Agentes can use each service’s tools."
       title="Apps"
     >
       {/* Pending, error, empty, rows — pending first, so no sentence asserts anything mid-fetch. */}
@@ -178,7 +181,7 @@ export function PluginsListPage({
           <AccessRequestsSection />
 
           <PageSection
-            description="Added for everybody. Open one to set it up and choose which Bots get its tools."
+            description="Added for everybody. Open one to set it up and choose which Agentes get its tools."
             title="Connected"
           >
             {plugins.data?.servers.length === 0 ? (
@@ -250,7 +253,7 @@ export function PluginsListPage({
           </PageSection>
 
           <PageSection
-            description="Reviewed, first-party servers. Open one to add it."
+            description="Reviewed connectors and MCP servers. Open one to add it."
             title="Explore apps"
           >
             {explore.length === 0 ? (
@@ -292,58 +295,60 @@ export function PluginsListPage({
             )}
           </PageSection>
 
-          <PageSection
-            description={moreAppsSectionDescription(provider)}
-            title="More apps"
-          >
-            <PageRows>
-              {/*
-               * The row states the setting rather than hiding the feature. A deployment with no
-               * Composio key still says that Composio is a thing this build can do and names the
-               * variable that turns it on — a section that simply vanished would leave an
-               * administrator with nothing to search for, and nothing to tell them the handful of
-               * connectors above is not the whole story.
-               */}
-              {moreApps.linked ? (
-                <Item
-                  data-testid="plugin-directory"
-                  /* The ACTIVE provider's own directory, by the provider rather than a path
+          {!standalone ? (
+            <PageSection
+              description={moreAppsSectionDescription(provider)}
+              title="More apps"
+            >
+              <PageRows>
+                {/*
+                 * The row states the setting rather than hiding the feature. A deployment with no
+                 * Composio key still says that Composio is a thing this build can do and names the
+                 * variable that turns it on — a section that simply vanished would leave an
+                 * administrator with nothing to search for, and nothing to tell them the handful of
+                 * connectors above is not the whole story.
+                 */}
+                {moreApps.linked ? (
+                  <Item
+                    data-testid="plugin-directory"
+                    /* The ACTIVE provider's own directory, by the provider rather than a path
                      written here: a hard-coded path is the lowercase spelling of a vendor name,
                      which is how this row pointed every Arcade deployment at a screen that
                      redirected it straight back. `brokerDirectory` names only routes the
                      generated route tree has, so a path no route answers does not compile. */
-                  render={<Link {...paths.brokerDirectory(provider)} />}
-                  size="sm"
-                >
-                  <RowMark>
-                    <IconApps className="size-4" />
-                  </RowMark>
-                  <ItemContent>
-                    <ItemTitle>{moreApps.title}</ItemTitle>
-                    <ItemDescription>{moreApps.description}</ItemDescription>
-                  </ItemContent>
-                  <ItemActions>
-                    <IconChevronRight className="size-4 shrink-0 text-muted-foreground" />
-                  </ItemActions>
-                </Item>
-              ) : (
-                /* No chevron and no link: the row goes nowhere, because there is nowhere to go
+                    render={<Link {...paths.brokerDirectory(provider)} />}
+                    size="sm"
+                  >
+                    <RowMark>
+                      <IconApps className="size-4" />
+                    </RowMark>
+                    <ItemContent>
+                      <ItemTitle>{moreApps.title}</ItemTitle>
+                      <ItemDescription>{moreApps.description}</ItemDescription>
+                    </ItemContent>
+                    <ItemActions>
+                      <IconChevronRight className="size-4 shrink-0 text-muted-foreground" />
+                    </ItemActions>
+                  </Item>
+                ) : (
+                  /* No chevron and no link: the row goes nowhere, because there is nowhere to go
                    until the key is set. */
-                <Item data-testid="plugin-directory" size="sm">
-                  <RowMark>
-                    <IconApps className="size-4" />
-                  </RowMark>
-                  <ItemContent>
-                    <ItemTitle>{moreApps.title}</ItemTitle>
-                    <ItemDescription>{moreApps.description}</ItemDescription>
-                  </ItemContent>
-                </Item>
-              )}
-            </PageRows>
-          </PageSection>
+                  <Item data-testid="plugin-directory" size="sm">
+                    <RowMark>
+                      <IconApps className="size-4" />
+                    </RowMark>
+                    <ItemContent>
+                      <ItemTitle>{moreApps.title}</ItemTitle>
+                      <ItemDescription>{moreApps.description}</ItemDescription>
+                    </ItemContent>
+                  </Item>
+                )}
+              </PageRows>
+            </PageSection>
+          ) : null}
         </>
       )}
-      {children}
+      {!standalone ? children : null}
     </PageShell>
   );
 }

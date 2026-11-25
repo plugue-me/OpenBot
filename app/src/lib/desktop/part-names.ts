@@ -13,15 +13,15 @@ export type PartGroup = "bots" | "back-end";
 
 const BOTS: [RegExp, string][] = [
   // Identity for the Bots' computers in an earlier team install. Before `server`, which it ends with.
-  [/(^|-)spire-/, "Bot computer identity"],
-  [/(^|-)server-\d+$/, "App and Bots"],
+  [/(^|-)spire-/, "Agente computer identity"],
+  [/(^|-)server-\d+$/, "App and Agentes"],
   [/(^|-)worker-\d+$/, "Background jobs"],
   [/(^|-)postgres-\d+$/, "Database"],
   [/(^|-)migrate-\d+$/, "Database setup"],
-  [/(^|-)supervisor-\d+$/, "Bot computer manager"],
-  [/(^|-)(agent-)?computer(-|$)/, "Bot computer"],
+  [/(^|-)supervisor-\d+$/, "Agente computer manager"],
+  [/(^|-)(agent-)?computer(-|$)/, "Agente computer"],
   // A Bot of its own container, in an earlier team install: agent-langgraph, agent-bot.
-  [/(^|-)agent-[a-z0-9-]+-\d+$/, "Bot"],
+  [/(^|-)agent-[a-z0-9-]+-\d+$/, "Agente"],
 ];
 
 /**

@@ -7,8 +7,8 @@ import {
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   useCallback,
-  useEffect,
   useContext,
+  useEffect,
   useLayoutEffect,
   useMemo,
   useRef,
@@ -46,8 +46,8 @@ import {
   galleryManifest,
 } from "@/lib/copilot/gallery-registry";
 import {
-  cardState,
   COULDNT_CHECK,
+  cardState,
   createGrantStore,
   type GrantStore,
   grantsFrom,
@@ -470,7 +470,7 @@ export function makeDecisionRender(
 function RefusedDecision({
   title,
   respond,
-  reason = `${title} is not available to this Bot at the moment, so the person was not asked. An administrator grants components per Bot, and can unpublish one for every Bot at once.`,
+  reason = `${title} is not available to this Agente at the moment, so the person was not asked. An administrator grants components per Agente, and can unpublish one for every Agente at once.`,
 }: {
   title: string;
   respond?: (result: unknown) => Promise<void>;

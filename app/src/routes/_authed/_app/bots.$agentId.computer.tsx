@@ -16,7 +16,7 @@ function ComputerPage() {
   return (
     <BotSubpage
       agentId={agentId}
-      description="Choose the folders this Bot can read on this computer, and manage its browser."
+      description="Choose the folders this Agente can read on this computer, and manage its browser."
       title="Computer"
     >
       {(agent) => <ComputersPage agentId={agent.id} />}

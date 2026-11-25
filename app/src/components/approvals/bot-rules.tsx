@@ -48,7 +48,7 @@ export function BotApprovalRules({ agentId }: { agentId: string }) {
       description={
         <>
           The strictest matching rule wins. An "ask" rule beats an "allow" rule.
-          Rules for every Bot are in{" "}
+          Rules for every Agente are in{" "}
           <Link
             className="underline underline-offset-4"
             to="/settings/approvals"
@@ -69,7 +69,7 @@ export function BotApprovalRules({ agentId }: { agentId: string }) {
         </p>
       ) : null}
       {saved === 0 ? (
-        <PageEmpty icon={IconChecklist} title="No rules for this Bot" />
+        <PageEmpty icon={IconChecklist} title="No rules for this Agente" />
       ) : null}
       {saved > 0 || canAdd ? (
         <PageRows>

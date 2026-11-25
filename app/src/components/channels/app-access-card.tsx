@@ -121,7 +121,7 @@ function LiveAppAccessCard({
                 : carried || offer
                   ? `${name} is ready now.`
                   : prompt.reason !== "access"
-                    ? `${name} is ready now. Ask again and the Bot can use it.`
+                    ? `${name} is ready now. Ask again and the Agente can use it.`
                     : refusedSentence(access, prompt, bot, edition)}
             </p>
           ) : (

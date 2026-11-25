@@ -218,7 +218,7 @@ function BotGroup({
   note: string;
   children: ReactNode[];
 }) {
-  const name = bot?.name ?? "Your Bot";
+  const name = bot?.name ?? "Your Agente";
   return (
     <div
       // The page's own card: white on the off-white page, borderless in the dark, as PageRows is.
@@ -263,7 +263,7 @@ function FoundGroup({
   const shown = folded ? items.slice(0, FINDS_SHOWN) : items;
   const rows: ReactNode[] = shown.map((item) => (
     <SuggestionRow
-      botName={bot?.name ?? "Your Bot"}
+      botName={bot?.name ?? "Your Agente"}
       inGroup
       key={item.id}
       setting={settingOf(item.settingId)}

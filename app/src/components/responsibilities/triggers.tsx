@@ -92,7 +92,7 @@ const KIND_HELP: Record<TriggerKind, string> = {
     "In PagerDuty, Integrations → Generic Webhooks (v3): set the URL, then paste the secret shown on creation here.",
   email: "Send or forward mail to this address to start a run.",
   slack:
-    "Starts on Slack events this Bot receives. Messages sent before you added the trigger are ignored.",
+    "Starts on Slack events this Agente receives. Messages sent before you added the trigger are ignored.",
 };
 const VENDOR_SECRET: ReadonlySet<TriggerKind> = new Set([
   "linear",
@@ -100,7 +100,7 @@ const VENDOR_SECRET: ReadonlySet<TriggerKind> = new Set([
   "pagerduty",
 ]);
 const SLACK_MODE = {
-  mention: "The Bot is mentioned",
+  mention: "The Agente is mentioned",
   phrase: "A message contains a phrase",
   reaction: "A reaction is added",
   message: "Any message",
@@ -143,10 +143,10 @@ function describeFilter(config: TriggerConfig) {
   if (config.kind === "slack") {
     const where = config.channels.length
       ? `in ${config.channels.join(", ")}`
-      : "in every channel the Bot is in";
+      : "in every channel the Agente is in";
     const what =
       config.mode === "mention"
-        ? "when the Bot is mentioned"
+        ? "when the Agente is mentioned"
         : config.mode === "message"
           ? "on any message"
           : config.mode === "phrase"
@@ -642,7 +642,7 @@ function NewTriggerDialog({
                   )}
                   <Field>
                     <FieldLabel htmlFor={`${id}-channels`}>
-                      Channel IDs (blank: all the Bot is in)
+                      Channel IDs (blank: all the Agente is in)
                     </FieldLabel>
                     <Input
                       id={`${id}-channels`}

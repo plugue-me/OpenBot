@@ -18,7 +18,7 @@ import { ControlsSection } from "./controls-section";
 export function RecordingSection() {
   return (
     <ControlsSection
-      description="Set OTEL_EXPORTER_OTLP_ENDPOINT to stream audit events and Bot actions to your OpenTelemetry collector or SIEM. They are tagged openbot.surface."
+      description="Set OTEL_EXPORTER_OTLP_ENDPOINT to stream audit events and Agente actions to your OpenTelemetry collector or SIEM. They are tagged openbot.surface."
       title="Recording and export"
     >
       {({ data, setSetting, saving }) => (
@@ -32,7 +32,7 @@ export function RecordingSection() {
                 <ItemTitle>Action Recording</ItemTitle>
                 <ItemDescription>
                   {data.settings.actionRecording
-                    ? `Shell commands Bots run are recorded with secrets removed, and kept ${data.actionRecordRetentionDays} days.`
+                    ? `Shell commands Agentes run are recorded with secrets removed, and kept ${data.actionRecordRetentionDays} days.`
                     : "Off. Commands show in Activity only."}
                 </ItemDescription>
               </ItemContent>
@@ -98,7 +98,7 @@ function RecordedActions() {
               <ItemDescription>
                 {action.surface === "local"
                   ? "Member's machine"
-                  : `Bot ${action.botId ?? "?"}`}{" "}
+                  : `Agente ${action.botId ?? "?"}`}{" "}
                 · {action.outcome} ·{" "}
                 {new Date(action.createdAt).toLocaleString()}
               </ItemDescription>

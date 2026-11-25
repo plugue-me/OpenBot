@@ -62,7 +62,7 @@ export function GalleryPreview({
   if (shown.length === 0) {
     return (
       <p className="text-muted-foreground text-sm">
-        This Bot can't use any components yet. It answers in text.
+        This Agente can't use any components yet. It answers in text.
       </p>
     );
   }
@@ -117,7 +117,7 @@ function PreviewOf({ name }: { name: string }) {
      */
     return (
       <p className="text-muted-foreground text-sm">
-        Shows OpenBot's own records. There's nothing to show until a Bot asks
+        Shows OpenBot's own records. There's nothing to show until a Agente asks
         for it.
       </p>
     );

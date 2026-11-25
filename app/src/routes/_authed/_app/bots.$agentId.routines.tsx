@@ -14,7 +14,7 @@ function RoutinesPage() {
     <BotSubpage
       action={<NewRoutineButton agentId={agentId} />}
       agentId={agentId}
-      description="This Bot works on its own: on a schedule, toward a goal, or by checking in when something changes. Pause, run or delete one here."
+      description="This Agente works on its own: on a schedule, toward a goal, or by checking in when something changes. Pause, run or delete one here."
       title="Routines"
     >
       {(agent) => <RoutinesList agentId={agent.id} />}

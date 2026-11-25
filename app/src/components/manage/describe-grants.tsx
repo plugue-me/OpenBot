@@ -74,7 +74,7 @@ export function changeHeadline(changes: {
 }): string {
   const { added, removed } = changes;
   if (added.length === 0 && removed.length === 0)
-    return "This is what the Bot has now. There's nothing to save.";
+    return "This is what the Agente has now. There's nothing to save.";
   const parts = [
     removed.length > 0 ? `turns off ${plural(removed.length, "action")}` : null,
     added.length > 0 ? `turns on ${plural(added.length, "action")}` : null,

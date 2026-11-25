@@ -25,13 +25,13 @@ function MemoryPage() {
   return (
     <BotSubpage
       agentId={agentId}
-      description="Choose which apps this Bot learns from."
+      description="Choose which apps this Agente learns from."
       title="Memory"
     >
       {(agent) => (
         <>
           <p className="mt-6 text-muted-foreground text-sm">
-            What your Bots remember about you is on the{" "}
+            What your Agentes remember about you is on the{" "}
             <Link className="underline underline-offset-4" to="/memory">
               Memory
             </Link>{" "}

@@ -28,7 +28,7 @@ export function BotSubpage({
     <PageShell
       action={action}
       backButton={{
-        label: agent.data?.name ?? "Bot",
+        label: agent.data?.name ?? "Agente",
         linkProps: { params: { agentId }, to: "/bots/$agentId" },
       }}
       description={description}
@@ -36,7 +36,7 @@ export function BotSubpage({
     >
       {agent.isPending ? null : agent.error ? (
         <p className="mt-6 text-destructive text-sm" role="alert">
-          Couldn't open this Bot. It may not be shared with you.
+          Couldn't open this Agente. It may not be shared with you.
         </p>
       ) : (
         children(agent.data)

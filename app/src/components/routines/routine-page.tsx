@@ -268,7 +268,7 @@ export function RoutineRoutePage({
       back={back}
       bot={
         agentId === undefined
-          ? { id: routine.agentId, name: botName ?? "A Bot" }
+          ? { id: routine.agentId, name: botName ?? "A Agente" }
           : undefined
       }
       key={routine.id}
@@ -385,7 +385,7 @@ export function RoutinePage({
               <ItemTitle>Run now</ItemTitle>
               <ItemDescription>
                 {routine.enabled
-                  ? "Runs it now, for real. The Bot does the work and posts in the conversation."
+                  ? "Runs it now, for real. The Agente does the work and posts in the conversation."
                   : "This routine is paused. Turn it on first."}
               </ItemDescription>
             </ItemContent>
@@ -447,7 +447,7 @@ export function RoutinePage({
                 <ItemContent>
                   <ItemTitle>{bot.name}</ItemTitle>
                   <ItemDescription>
-                    See this Bot's other routines.
+                    See this Agente's other routines.
                   </ItemDescription>
                 </ItemContent>
                 <ItemActions>

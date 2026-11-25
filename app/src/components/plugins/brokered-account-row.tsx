@@ -851,7 +851,7 @@ function accountSentence(input: {
      * Neither screen's own sentence fits: both are about an account, and there is none to have.
      * Capitalised because this is the one position the name opens a sentence in.
      */
-    return `${title.charAt(0).toUpperCase()}${title.slice(1)} doesn't need an account. Bots that have it can use it as it is.`;
+    return `${title.charAt(0).toUpperCase()}${title.slice(1)} doesn't need an account. Agentes that have it can use it as it is.`;
   }
 
   if (account.kind === "fields") {
@@ -1190,7 +1190,7 @@ export function BrokeredAccountRow({
               ends, which was cut off mid-word beside the buttons. */}
           <ItemDescription className="line-clamp-none">
             {several
-              ? `You connected ${accounts.length} ${title} accounts. Bots use your default account unless you ask for another.`
+              ? `You connected ${accounts.length} ${title} accounts. Agentes use your default account unless you ask for another.`
               : accountSentence({
                   account,
                   connectedDescription,
@@ -1493,10 +1493,10 @@ function AccountListRow({
           <ItemTitle className="break-all">{label}</ItemTitle>
           <ItemDescription>
             {isDefault
-              ? "Default. Bots use this account unless you ask for another."
+              ? "Default. Agentes use this account unless you ask for another."
               : connectedAt
-                ? `Connected ${formatDate(connectedAt)}. Bots use it when you ask for it.`
-                : "Bots use it when you ask for it."}
+                ? `Connected ${formatDate(connectedAt)}. Agentes use it when you ask for it.`
+                : "Agentes use it when you ask for it."}
           </ItemDescription>
         </ItemContent>
         <ItemActions>

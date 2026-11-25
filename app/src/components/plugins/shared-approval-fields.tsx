@@ -9,8 +9,8 @@ export function sharedSectionSentence(
 ): string | null {
   if (!shared) return null;
   return effect === "write"
-    ? "Anyone who can use this Bot can do this as the shared account."
-    : "Anyone who can use this Bot can read what this account can read.";
+    ? "Anyone who can use this Agente can do this as the shared account."
+    : "Anyone who can use this Agente can read what this account can read.";
 }
 
 /**
@@ -42,7 +42,7 @@ export function SharedApprovalFields({
   return (
     <fieldset className="space-y-2 text-sm">
       <legend className="font-medium">
-        Who can use the shared account through this Bot
+        Who can use the shared account through this Agente
       </legend>
       {options.map((option) => (
         <label className="flex items-center gap-2" key={option.audience}>

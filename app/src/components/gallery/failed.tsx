@@ -2,11 +2,11 @@ import { GalleryFrame } from "./frame";
 
 /** Why: what the Bot sent is not something the component can draw. */
 export const UNREADABLE =
-  "The Bot sent data OpenBot couldn't read. Ask it to try again.";
+  "The Agente sent data OpenBot couldn't read. Ask it to try again.";
 
 /** Why, when the call failed and what it sent was fine. */
 export const WENT_WRONG =
-  "Something went wrong while showing it. Ask the Bot to try again.";
+  "Something went wrong while showing it. Ask the Agente to try again.";
 
 /**
  * A call that is over and left nothing to draw: it failed, or what the Bot sent can't be read.

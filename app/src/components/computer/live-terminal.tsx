@@ -256,8 +256,8 @@ export function LiveTerminal({
     <section
       aria-label={
         driving
-          ? "The Bot's terminal. You have control. Type here."
-          : "The Bot's terminal"
+          ? "The Agente's terminal. You have control. Type here."
+          : "The Agente's terminal"
       }
       className="h-full w-full"
       data-live={live ? "" : undefined}

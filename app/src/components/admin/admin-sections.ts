@@ -41,7 +41,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
       {
         title: primitive("routines").label,
         description:
-          "Turn check-ins on or off, limit them, and see how often people start what Bots raise.",
+          "Turn check-ins on or off, limit them, and see how often people start what Agentes raise.",
         icon: primitive("routines").icon,
         linkOptions: { to: "/admin/proactive" },
       },
@@ -71,14 +71,14 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
       {
         title: team.pluginsLabel,
         description:
-          "Connect services, choose which Bots can use them, and approve MCP servers.",
+          "Connect services, choose which Agentes can use them, and approve MCP servers.",
         icon: primitive("apps").icon,
         linkOptions: team.plugins(),
       },
       {
         title: "UI components",
         description:
-          "Manage custom components that Bots can display in conversations.",
+          "Manage custom components that Agentes can display in conversations.",
         icon: IconLayoutGrid,
         linkOptions: { to: "/admin/components" },
       },
@@ -96,7 +96,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
       {
         title: "Computers",
         description:
-          "Manage the computers that run Bot tools, when idle ones stop, and where they can connect.",
+          "Manage the computers that run Agente tools, when idle ones stop, and where they can connect.",
         icon: primitive("computer").icon,
         linkOptions: team.computers(),
       },
@@ -107,13 +107,14 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
     items: [
       {
         title: primitive("approvals").label,
-        description: "Choose which actions require approval for members’ Bots.",
+        description:
+          "Choose which actions require approval for members’ Agentes.",
         icon: primitive("approvals").icon,
         linkOptions: { to: "/admin/approvals" },
       },
       {
         title: "Boundaries",
-        description: "Define actions that no Bot may take.",
+        description: "Define actions that no Agente may take.",
         icon: IconShieldCheck,
         linkOptions: { to: "/admin/boundaries" },
       },
@@ -121,7 +122,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
         /* Which of the two above, or Permissions, decides an action: they are what it asks about. */
         title: "What would happen",
         description:
-          "Ask what OpenBot would do if a Bot took an action, and see which control decides.",
+          "Ask what OpenBot would do if a Agente took an action, and see which control decides.",
         icon: IconZoomQuestion,
         linkOptions: { to: "/admin/what-if" },
       },
@@ -133,7 +134,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
       {
         title: team.auditLabel,
         description:
-          "Review actions taken in OpenBot and who took them, and record Bots' commands.",
+          "Review actions taken in OpenBot and who took them, and record Agentes' commands.",
         icon: primitive("activity").icon,
         linkOptions: team.audit(),
       },
@@ -162,7 +163,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
       {
         title: "Permissions",
         description:
-          "Choose what people may do with Bots, for everybody and per role or group.",
+          "Choose what people may do with Agentes, for everybody and per role or group.",
         icon: IconLockAccess,
         linkOptions: { to: "/admin/permissions" },
       },
@@ -176,7 +177,7 @@ export const ADMIN_SECTIONS: readonly AdminSection[] = [
       {
         title: "Providers",
         description:
-          "See which provider serves your Bots' models, and choose which models they may use.",
+          "See which provider serves your Agentes' models, and choose which models they may use.",
         icon: IconBrain,
         linkOptions: { to: "/admin/providers" },
       },

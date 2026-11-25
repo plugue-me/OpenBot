@@ -66,9 +66,9 @@ function botLabels(
   bots: readonly AgentProfile[] | undefined,
   current: string,
 ): Record<string, string> {
-  const labels: Record<string, string> = { "*": "Every Bot" };
+  const labels: Record<string, string> = { "*": "Every Agente" };
   for (const bot of bots ?? []) labels[bot.id] = bot.name;
-  if (!(current in labels)) labels[current] = current || "No Bot";
+  if (!(current in labels)) labels[current] = current || "No Agente";
   return labels;
 }
 
@@ -159,7 +159,7 @@ export function RuleRowsEditor({
                     );
                   })}
                   <Field>
-                    <FieldLabel htmlFor={`${id}-botId`}>Bot</FieldLabel>
+                    <FieldLabel htmlFor={`${id}-botId`}>Agente</FieldLabel>
                     <LabelSelect
                       id={`${id}-botId`}
                       labels={botLabels(bots.data, rule.botId)}
@@ -295,7 +295,7 @@ export function mediaOf(toolRef: string): ReplayRow["media"] {
   if (toolRef.startsWith("host/"))
     return { icon: <IconFolder />, label: "Folder on a computer" };
   if (toolRef.startsWith("bot/"))
-    return { icon: <IconUsers />, label: "Work handed to another Bot" };
+    return { icon: <IconUsers />, label: "Work handed to another Agente" };
   if (toolRef.startsWith("openbot/"))
     return { icon: <IconLock />, label: "Private information" };
   return { icon: <IconPlug />, label: "App call" };
@@ -344,7 +344,7 @@ export function RulesBacktest({
       ) : preview.data.report.scanned === 0 ? (
         <FieldDescription>
           No checked actions to test against yet. You'll see what these rules
-          change once Bots have acted.
+          change once Agentes have acted.
         </FieldDescription>
       ) : (
         <div className="flex flex-col gap-3">

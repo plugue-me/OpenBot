@@ -121,7 +121,7 @@ const EFFECT_WORDS: Record<string, string> = {
 /** "for Expenses"; nothing until the names arrive, so a Bot is never named by its id. */
 function forBot(name: string): string | null {
   if (!name) return null;
-  return name === GONE_BOT ? "for a Bot no longer here" : `for ${name}`;
+  return name === GONE_BOT ? "for a Agente no longer here" : `for ${name}`;
 }
 
 /** A rule saved from a folder's card is on the id OpenBot gave that folder (`host-access/broker.ts`). */
@@ -186,7 +186,7 @@ export function RuleRow({
     rule.botId === "*"
       ? null
       : rule.botId.includes("*")
-        ? `for Bots matching ${rule.botId}`
+        ? `for Agentes matching ${rule.botId}`
         : forBot(botName(rule.botId)),
   ]
     .filter(Boolean)
@@ -298,7 +298,7 @@ export function RuleForm({
         <ItemContent>
           <ItemTitle>{label}</ItemTitle>
           <ItemDescription>
-            A tool or app, and what a Bot does before using it.
+            A tool or app, and what a Agente does before using it.
           </ItemDescription>
         </ItemContent>
         <ItemActions>
@@ -333,8 +333,10 @@ export function RuleForm({
                   `${TOOL_PATTERN_EXAMPLE}, computer_click, host/*`,
                 )}
                 {field("effect", "Kind of action", "* , write, read, delegate")}
-                {field("scope", "Target", "*, a site, a folder, a Bot name")}
-                {botField ? field("botId", "Bot", "* for every Bot") : null}
+                {field("scope", "Target", "*, a site, a folder, a Agente name")}
+                {botField
+                  ? field("botId", "Agente", "* for every Agente")
+                  : null}
                 <Field>
                   <FieldLabel htmlFor={`${id}-behaviour`}>Behaviour</FieldLabel>
                   <LabelSelect

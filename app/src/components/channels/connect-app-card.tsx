@@ -101,7 +101,7 @@ export function ConnectAppCard({
           <p className="text-sm" role="status">
             {carried || offer
               ? `${title} is connected.`
-              : `${title} is connected. Ask again and the Bot can use it.`}
+              : `${title} is connected. Ask again and the Agente can use it.`}
           </p>
           {offer ? (
             <Button onClick={offer} size="sm">

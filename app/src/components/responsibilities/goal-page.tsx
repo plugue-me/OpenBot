@@ -309,7 +309,7 @@ export function GoalPage({
                 <ItemContent>
                   <ItemTitle>Run now</ItemTitle>
                   <ItemDescription>
-                    Runs it now, for real. The Bot does the work and can post
+                    Runs it now, for real. The Agente does the work and can post
                     and take actions.
                   </ItemDescription>
                 </ItemContent>
@@ -656,7 +656,7 @@ function Runs({ goalId, channelId }: { goalId: string; channelId: string }) {
                     {run.waiting && (
                       <p>
                         Waiting for {run.waiting.kind}. Answer at the top of
-                        this Bot's page or in the conversation.
+                        this Agente's page or in the conversation.
                       </p>
                     )}
                     {run.error && (

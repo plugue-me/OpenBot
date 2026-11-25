@@ -7,7 +7,7 @@ export const openduet: Skin = {
   id: "openduet",
   name: "OpenDuet",
   description:
-    "Bots that keep you in the loop, in a column shaped like a phone.",
+    "Agentes that keep you in the loop, in a column shaped like a phone.",
   Frame: OpenDuetFrame,
   screens: { [TASKS_SCREEN]: TasksScreen },
 };

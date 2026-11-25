@@ -28,8 +28,8 @@ export function ProvidersPage() {
     <PageShell
       description={
         team
-          ? "See which provider serves your Bots' models, and choose which models people may pick. All changes appear in Activity."
-          : "See which provider serves your Bots' models and what they ran on."
+          ? "See which provider serves your Agentes' models, and choose which models people may pick. All changes appear in Activity."
+          : "See which provider serves your Agentes' models and what they ran on."
       }
       title="Providers"
     >

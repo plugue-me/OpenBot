@@ -133,8 +133,8 @@ export function crossFieldIssues(
 
 export const routineFormSchema = z
   .object({
-    agentId: z.string().min(1, "Choose a Bot."),
-    instruction: z.string().trim().min(1, "Say what the Bot should do."),
+    agentId: z.string().min(1, "Choose a Agente."),
+    instruction: z.string().trim().min(1, "Say what the Agente should do."),
     title: z.string().trim().max(100, "Keep the name under 100 characters."),
     repeat: z.enum(REPEATS),
     /** `HH:MM`, 24-hour, as `<input type="time">` writes it. */

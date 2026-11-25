@@ -218,7 +218,7 @@ export function LearningReview() {
     : canReview
       ? {
           title: "Waiting for your review",
-          description: "Approve a skill to publish it to your Bots.",
+          description: "Approve a skill to publish it to your Agentes.",
         }
       : {
           title: "Waiting for an admin",
@@ -264,7 +264,7 @@ export function LearningReview() {
             <ItemContent>
               <ItemTitle>Approve new skills automatically</ItemTitle>
               <ItemDescription>
-                New skills go to your Bots without waiting for your review.
+                New skills go to your Agentes without waiting for your review.
               </ItemDescription>
             </ItemContent>
             <ItemActions>
@@ -406,7 +406,7 @@ export function LearningReview() {
                   })
               : undefined
           }
-          publishedNote="Published. Your Bots use it from their next conversation."
+          publishedNote="Published. Your Agentes use it from their next conversation."
         />
       )}
     </PageSection>

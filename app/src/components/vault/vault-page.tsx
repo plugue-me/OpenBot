@@ -21,8 +21,8 @@ export function VaultPage() {
     <PageShell
       description={
         personal
-          ? "Your saved logins and keys are kept here. Bots never see them."
-          : "Your saved website logins are kept here. Bots never see them, and you approve each use."
+          ? "Your saved logins and keys are kept here. Agentes never see them."
+          : "Your saved website logins are kept here. Agentes never see them, and you approve each use."
       }
       title="Vault"
     >
@@ -32,7 +32,7 @@ export function VaultPage() {
        */}
       {personal ? (
         <PageSection
-          description="Website logins you saved when signing a Bot in. You approve each use."
+          description="Website logins you saved when signing a Agente in. You approve each use."
           title="Logins"
         >
           <SavedLogins />

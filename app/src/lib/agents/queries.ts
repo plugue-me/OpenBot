@@ -103,7 +103,7 @@ async function everyBot(hidden: boolean): Promise<AgentProfile[]> {
         limit: 100,
         ...(cursor ? { cursor } : {}),
       },
-      { fallback: "Couldn't load your Bots." },
+      { fallback: "Couldn't load your Agentes." },
     );
     bots.push(...page.bots);
     if (cursor) seen.add(cursor);
@@ -134,7 +134,7 @@ export function agentQueryOptions(agentId: string) {
     queryFn: async (): Promise<AgentProfile> =>
       (
         await getBot(ORGANIZATION_ID, agentId, {
-          fallback: "Couldn't load this Bot.",
+          fallback: "Couldn't load this Agente.",
         })
       ).bot,
   });
@@ -145,7 +145,7 @@ export function agentHandoffQueryOptions(agentId: string) {
     queryKey: agentKeys.handoff(agentId),
     queryFn: (): Promise<HandoffGrants> =>
       client(`${agentApiPath(agentId)}/handoff`, "handoff", {
-        fallback: "Could not load which Bots this one may ask",
+        fallback: "Could not load which Agentes this one may ask",
       }),
   });
 }

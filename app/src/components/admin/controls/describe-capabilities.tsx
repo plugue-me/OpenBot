@@ -224,7 +224,7 @@ function mediaOf(event: AuditEvent): ReplayRow["media"] {
   if (event.eventType.startsWith("delivery."))
     return { icon: <IconMessage />, label: "Messaging app" };
   if (event.eventType.startsWith("bot."))
-    return { icon: <IconRobot />, label: "Bot" };
+    return { icon: <IconRobot />, label: "Agente" };
   if (event.eventType.startsWith("approval."))
     return { icon: <IconChecklist />, label: "Approval rule" };
   return { icon: <IconPlug />, label: "App call" };

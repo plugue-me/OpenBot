@@ -52,7 +52,7 @@ const KNOWN: Partial<Record<Source, Record<string, string>>> = {
   },
   slack: {
     message: "When a Slack message arrives",
-    app_mention: "When someone mentions the Bot in Slack",
+    app_mention: "When someone mentions the Agente in Slack",
     reaction_added: "When someone reacts in Slack",
   },
   linear: {

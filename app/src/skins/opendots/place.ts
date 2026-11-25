@@ -100,14 +100,14 @@ export function parsePlace(
   if (bot) {
     return {
       section: "bots",
-      label: (name) => name ?? "Bot",
+      label: (name) => name ?? "Agente",
       detail: bot[2] ? (BOT_TABS[bot[2]] ?? bot[2]) : undefined,
       agentFromUrl: decodeURIComponent(bot[1]),
       ownsWatch: false,
     };
   }
   if (path === "/bots" || path === "/agents") {
-    return { section: "bots", label: "All Bots", ownsWatch: false };
+    return { section: "bots", label: "All Agentes", ownsWatch: false };
   }
   if (path === "/s/routines" || path === "/routines") {
     return { section: "routines", label: "Routines", ownsWatch: false };

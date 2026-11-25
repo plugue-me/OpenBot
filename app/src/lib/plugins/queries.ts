@@ -183,7 +183,7 @@ export type CatalogueItem = {
    * account and there is no token to type here. `builtin` is a first-party capability that runs
    * inside this deployment — there is nothing to connect and nothing to type.
    */
-  auth: "none" | "deployment-bearer" | "user-oauth" | "builtin";
+  auth: "none" | "deployment-bearer" | "user-oauth" | "person-key" | "builtin";
   /** True for a vendor that gives every customer their own hostname. */
   perInstance: boolean;
   /**
@@ -571,7 +571,7 @@ export function agentPluginsQueryOptions(agentId: string) {
     queryFn: async (): Promise<GrantedPlugins> => {
       const response = await client(
         `/api/plugins/for/${encodeURIComponent(agentId)}`,
-        { fallback: "Couldn't load this Bot's apps." },
+        { fallback: "Couldn't load this Agente's apps." },
       );
       return response.json();
     },

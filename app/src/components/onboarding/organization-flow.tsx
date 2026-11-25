@@ -54,7 +54,7 @@ const OUTCOMES: Node[] = [
     tone: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
   },
   {
-    label: "Team Bots",
+    label: "Team Agentes",
     icon: IconRobot,
     tone: "bg-amber-500/15 text-amber-600 dark:text-amber-400",
   },

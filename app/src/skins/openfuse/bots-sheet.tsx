@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 import { chooseBot } from "./chosen-bot";
 import { useFuse } from "./context";
 import { mainChannel, tabFor } from "./model";
-import { Divider, ErrorNotice, LinkRow, FuseSheet, fuseText } from "./ui";
+import { Divider, ErrorNotice, FuseSheet, fuseText, LinkRow } from "./ui";
 
 /**
  * Who sits at the centre of the frame. This look has one agent; OpenBot has a roster, so this is the
@@ -52,13 +52,13 @@ export function BotsSheet({ onClose }: { onClose: () => void }) {
     <FuseSheet
       onClose={onClose}
       subtitle={`Choose who is at the centre of ${appConfig.brand.productName}.`}
-      title="Your Bots"
+      title="Your Agentes"
     >
       <div className="flex flex-col gap-3.5">
         {agents.isPending ? null : agents.error ? (
-          <ErrorNotice error="Couldn't load your Bots. Reload the page." />
+          <ErrorNotice error="Couldn't load your Agentes. Reload the page." />
         ) : agents.data.length === 0 ? (
-          <p className={fuseText.muted}>You don't have a Bot yet.</p>
+          <p className={fuseText.muted}>You don't have a Agente yet.</p>
         ) : (
           <div className="flex flex-col">
             {agents.data.map((agent) => {
@@ -135,7 +135,7 @@ export function BotsSheet({ onClose }: { onClose: () => void }) {
             icon={IconBolt}
             render={<Link onClick={onClose} to="/bots" />}
             tint="plain"
-            title="All Bots"
+            title="All Agentes"
           />
           <LinkRow
             detail="Describe what it should do"
@@ -144,7 +144,7 @@ export function BotsSheet({ onClose }: { onClose: () => void }) {
               <Link onClick={onClose} search={{ new: true }} to="/bots" />
             }
             tint="plain"
-            title="New Bot"
+            title="New Agente"
           />
         </div>
       </div>

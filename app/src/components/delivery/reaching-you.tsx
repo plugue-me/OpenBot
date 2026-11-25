@@ -233,7 +233,7 @@ export function ReachingYou({ agentId: fixedBot }: { agentId?: string }) {
         )}
       </PageSection>
       <PageSection
-        description="In a Slack or Teams channel that others can read, the Bot replies to you in a direct message."
+        description="In a Slack or Teams channel that others can read, the Agente replies to you in a direct message."
         title="Connect a conversation"
       >
         {reach.data ? (
@@ -399,7 +399,7 @@ function ConnectDialog({
           </Field>
           {fixedBot === undefined ? (
             <Field>
-              <FieldLabel htmlFor={`${formId}-bot`}>Bot</FieldLabel>
+              <FieldLabel htmlFor={`${formId}-bot`}>Agente</FieldLabel>
               <Select
                 items={Object.fromEntries(
                   (selected?.agentIds ?? []).map((id) => [id, botName(id)]),
@@ -410,7 +410,7 @@ function ConnectDialog({
                 value={pickedBot || null}
               >
                 <SelectTrigger className="w-full" id={`${formId}-bot`}>
-                  <SelectValue placeholder="Choose a Bot" />
+                  <SelectValue placeholder="Choose a Agente" />
                 </SelectTrigger>
                 <SelectContent>
                   {selected?.agentIds.map((id) => (
@@ -515,7 +515,8 @@ function ConnectDialog({
                   Send this message to the OpenBot app in a direct message in{" "}
                   {linked.platform === "teams" ? "Microsoft Teams" : "Slack"}{" "}
                   within {Math.ceil((linked.expiresAt - Date.now()) / 60_000)}{" "}
-                  minutes. It links that account to this conversation and Bot.
+                  minutes. It links that account to this conversation and
+                  Agente.
                 </ItemDescription>
                 <ItemTitle className="break-all font-mono">
                   {linked.command}

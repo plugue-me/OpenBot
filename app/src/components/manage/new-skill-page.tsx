@@ -29,8 +29,8 @@ export function NewSkillPage() {
       backButton={{ label: "Skills", linkProps: paths.skills() }}
       description={
         personal
-          ? "Write instructions a Bot follows when you pick the skill from the / menu. Your Bots offer it as soon as you save."
-          : "Write instructions a Bot follows when someone picks the skill from the / menu. After saving, choose which Bots offer it."
+          ? "Write instructions a Agente follows when you pick the skill from the / menu. Your Agentes offer it as soon as you save."
+          : "Write instructions a Agente follows when someone picks the skill from the / menu. After saving, choose which Agentes offer it."
       }
       title="New skill"
     >

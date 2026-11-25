@@ -23,6 +23,11 @@ import { ChannelAvatar } from "@/components/channels/avatar";
 import { DeleteConversationDialog } from "@/components/channels/delete-conversation-dialog";
 import { BrandName } from "@/components/edition/brand-name";
 import { navigationRender } from "@/components/edition/team-features-dialog";
+import {
+  COMMAND_MENU_KEYS,
+  openCommandMenu,
+  useBeforeCommandNavigate,
+} from "@/components/navigation/command-menu";
 import { Item, ItemContent, ItemTitle } from "@/components/ui/item";
 import { agentListQueryOptions } from "@/lib/agents/queries";
 import { signOutMutationOptions } from "@/lib/auth/mutations";
@@ -35,11 +40,6 @@ import {
   channelListQueryOptions,
 } from "@/lib/channels/queries";
 import { appConfig } from "@/lib/generated/application-config";
-import {
-  COMMAND_MENU_KEYS,
-  openCommandMenu,
-  useBeforeCommandNavigate,
-} from "@/components/navigation/command-menu";
 import { useNavigationItems } from "@/lib/navigation";
 import { relativeTime } from "@/lib/relative-time";
 import { cn } from "@/lib/utils";
@@ -49,11 +49,11 @@ import { MainChatLink, NewChatLink } from "./links";
 import {
   Divider,
   ErrorNotice,
-  LinkRow,
   FuseButton,
   FuseLinkButton,
   FuseSheet,
   fuseText,
+  LinkRow,
 } from "./ui";
 
 /**
@@ -74,7 +74,7 @@ export function MenuSheet({ onClose }: { onClose: () => void }) {
   const body = useRef<HTMLDivElement>(null);
   const searching = search.trim().length > 0;
   const shown = pinnedFirst(matchingChannels(channels.data, search));
-  const botName = bot?.name ?? "your Bot";
+  const botName = bot?.name ?? "your Agente";
 
   return (
     <FuseSheet
@@ -98,7 +98,7 @@ export function MenuSheet({ onClose }: { onClose: () => void }) {
           New chat
         </FuseLinkButton>
         <LinkRow
-          detail="Open any page, Bot or conversation"
+          detail="Open any page, Agente or conversation"
           icon={IconSearch}
           render={
             <button
@@ -160,7 +160,7 @@ export function MenuSheet({ onClose }: { onClose: () => void }) {
           searching={searching}
         />
         <p className={fuseText.small}>
-          A conversation stays with the Bots in it. Pin one to keep it at the
+          A conversation stays with the Agentes in it. Pin one to keep it at the
           top.
         </p>
         <Divider className="my-1.5" />

@@ -297,7 +297,7 @@ function AllActivityItem({
         <ItemDescription>
           {activity
             ? activitySummary(activity)
-            : "Couldn't load this Bot's activity."}
+            : "Couldn't load this Agente's activity."}
         </ItemDescription>
       </ItemContent>
       <ItemActions>
@@ -391,7 +391,7 @@ export function BotActivitySections({ agentId }: { agentId: string }) {
     return (
       <PageSection title="Activity">
         <p className="mt-4 text-destructive text-sm" role="alert">
-          Couldn't load this Bot's activity. Reload the page.
+          Couldn't load this Agente's activity. Reload the page.
         </p>
       </PageSection>
     );
@@ -488,7 +488,7 @@ function BotActionsSection({ agentId }: { agentId: string }) {
             <IconListDetails />
           </ItemMedia>
           <ItemContent>
-            <ItemTitle>Every action this Bot took</ItemTitle>
+            <ItemTitle>Every action this Agente took</ItemTitle>
             <ItemDescription>
               See the files, pages and apps it used, and which were allowed,
               blocked or didn't happen.

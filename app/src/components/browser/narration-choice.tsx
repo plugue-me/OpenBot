@@ -104,7 +104,7 @@ export function NarrationChoiceDialog({
           <DialogTitle>Narrate while you record?</DialogTitle>
           <DialogDescription>
             Talk through the task as you do it, and the recording keeps what you
-            say as text, so your Bots learn why you did each step.
+            say as text, so your Agentes learn why you did each step.
           </DialogDescription>
         </DialogHeader>
         <DialogBody className="mt-4 text-muted-foreground text-sm">

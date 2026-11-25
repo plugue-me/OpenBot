@@ -12,7 +12,7 @@ function ApprovalsSettingsPage() {
   const groups = useProductFeature("groups");
   return (
     <PageShell
-      description="Choose when your Bots ask before they change things. Rules here apply to all of them."
+      description="Choose when your Agentes ask before they change things. Rules here apply to all of them."
       title="Approvals"
     >
       <ApprovalSettings />

@@ -24,7 +24,7 @@ export const ActivityReportProps = z.object({
   report: z
     .enum(["activity", "refusals"])
     .describe(
-      "Which report to show: 'activity' for how much each Bot has done, 'refusals' for what this deployment recently refused",
+      "Which report to show: 'activity' for how much each Agente has done, 'refusals' for what this deployment recently refused",
     ),
   title: z
     .string()
@@ -170,9 +170,9 @@ function ActivityChart({
   const rows = data?.rows ?? [];
   if (rows.length === 0) {
     return (
-      <GalleryFrame title={title ?? "Bot activity"}>
+      <GalleryFrame title={title ?? "Agente activity"}>
         <p className="text-sm text-muted-foreground">
-          No Bot has done anything in the last {data?.days ?? 7} days.
+          No Agente has done anything in the last {data?.days ?? 7} days.
         </p>
       </GalleryFrame>
     );
@@ -199,7 +199,7 @@ function ActivityChart({
         ) : undefined
       }
       caption={`Counted from OpenBot's audit trail, last ${data.days} days`}
-      title={title ?? "Bot activity"}
+      title={title ?? "Agente activity"}
     >
       <ul className="flex flex-col gap-2">
         {rows.map((row, index) => (
@@ -305,9 +305,9 @@ export const GALLERY: GalleryComponent[] = [
     title: TITLE,
     kind: "card",
     summary:
-      "Shows what your Bots have been doing and what was refused, read from OpenBot's own records.",
+      "Shows what your Agentes have been doing and what was refused, read from OpenBot's own records.",
     description:
-      "Show what this deployment has actually been doing, read from its own records rather than from anything you know. Use for 'what have the Bots been up to' and 'what has been refused'. You choose the report and the period; the figures are read for you and you will not see them.",
+      "Show what this deployment has actually been doing, read from its own records rather than from anything you know. Use for 'what have the Agentes been up to' and 'what has been refused'. You choose the report and the period; the figures are read for you and you will not see them.",
     parameters: ActivityReportProps,
     Component: ActivityReportCard as GalleryComponent["Component"],
     confirmation:

@@ -1,0 +1,47 @@
+{
+  "gmail": {
+    "read": [
+      "gmail_get_profile",
+      "gmail_get_message",
+      "gmail_search_email",
+      "gmail_list_labels"
+    ],
+    "write": ["gmail_create_label", "gmail_archive_message"]
+  },
+  "google-calendar": {
+    "read": [
+      "google_calendar_get_event",
+      "google_calendar_list_events",
+      "google_calendar_list_calendars"
+    ],
+    "write": ["google_calendar_create_event", "google_calendar_delete_event"]
+  },
+  "google-drive": {
+    "read": ["drive_get_file", "drive_list_files", "drive_get_about"],
+    "write": ["drive_create_folder", "drive_trash_file"]
+  },
+  "google-sheets": {
+    "read": ["sheets_get_spreadsheet", "sheets_get_values"],
+    "write": ["sheets_update_values", "sheets_append_values"]
+  },
+  "google-ads": {
+    "read": ["searchRecords", "retrieveReport"],
+    "write": []
+  },
+  "facebook-pages": {
+    "read": ["list_managed_pages", "get_page_details", "get_page_posts"],
+    "write": ["create_page_post"]
+  },
+  "instagram-business": {
+    "read": ["get_profile", "list_media", "get_media"],
+    "write": ["create_comment", "reply_to_comment"]
+  },
+  "whatsapp": {
+    "read": ["get_business_profile", "list_phone_numbers"],
+    "write": ["sendMessage", "send_template"]
+  },
+  "hubspot": {
+    "read": ["get-contact", "get-company", "list_owners"],
+    "write": []
+  }
+}

@@ -66,7 +66,7 @@ export function AgentProfile({
   if (agent.error || !agent.data) {
     return (
       <p className="p-8 text-sm text-destructive" role="alert">
-        Couldn't load this Bot.
+        Couldn't load this Agente.
       </p>
     );
   }

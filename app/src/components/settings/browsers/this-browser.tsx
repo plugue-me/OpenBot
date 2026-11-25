@@ -251,6 +251,6 @@ function describe(
     case "failed":
       return attempt.message;
     default:
-      return "Installed. Connect it to record tasks for your Bots.";
+      return "Installed. Connect it to record tasks for your Agentes.";
   }
 }

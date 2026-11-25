@@ -165,7 +165,7 @@ export function botAppsQueryOptions(agentId: string) {
     queryKey: appAccessKeys.bot(agentId),
     queryFn: (): Promise<AppAccess[]> =>
       client(`/api/plugins/for/${encodeURIComponent(agentId)}/apps`, "apps", {
-        fallback: "This Bot's apps could not be loaded.",
+        fallback: "This Agente's apps could not be loaded.",
       }),
   });
 }
@@ -181,7 +181,7 @@ export function botAppQueryOptions(agentId: string, app: string) {
       client(
         `/api/plugins/for/${encodeURIComponent(agentId)}/apps/${encodeURIComponent(app)}`,
         "app",
-        { fallback: `What ${app} is for this Bot could not be loaded.` },
+        { fallback: `What ${app} is for this Agente could not be loaded.` },
       ),
   });
 }

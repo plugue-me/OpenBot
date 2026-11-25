@@ -27,32 +27,32 @@ const CHOICE_WORDS: Record<
 > = {
   allow_once: {
     label: "Allow once",
-    description: "The Bot does it this time. You're asked again next time.",
+    description: "The Agente does it this time. You're asked again next time.",
     done: "Allowed once",
     tone: "positive",
   },
   allow_conversation: {
     label: "Allow for this conversation",
     description:
-      "The Bot does it now, and again in this conversation without asking.",
+      "The Agente does it now, and again in this conversation without asking.",
     done: "Allowed for this conversation",
     tone: "positive",
   },
   allow_always: {
     label: "Always allow here",
-    description: "The Bot does it now, and here without asking from now on.",
+    description: "The Agente does it now, and here without asking from now on.",
     done: "Always allowed",
     tone: "positive",
   },
   deny: {
     label: "Deny",
-    description: "The Bot doesn't do it, and is told you said no.",
+    description: "The Agente doesn't do it, and is told you said no.",
     done: "Denied",
     tone: "negative",
   },
   handled: {
     label: "I did it myself",
-    description: "You've done it, so the Bot carries on from there.",
+    description: "You've done it, so the Agente carries on from there.",
     done: "Done by you",
     tone: "positive",
   },

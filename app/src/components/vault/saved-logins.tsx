@@ -36,7 +36,7 @@ export function SavedLogins() {
         </PageEmpty>
       ) : logins.data.logins.length === 0 ? (
         <PageEmpty icon={IconKey} title="No saved logins yet">
-          Choose Save to Vault when you sign a Bot in to a website.
+          Choose Save to Vault when you sign a Agente in to a website.
         </PageEmpty>
       ) : (
         <PageRows>

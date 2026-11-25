@@ -37,7 +37,7 @@ export function teamBotsQueryOptions() {
     queryKey: teamBotKeys.all,
     queryFn: async (): Promise<TeamBotsData> => {
       const response = await client("/api/team-bots", {
-        fallback: "Team Bots could not be loaded.",
+        fallback: "Team Agentes could not be loaded.",
       });
       return (await response.json()) as TeamBotsData;
     },
@@ -71,7 +71,7 @@ export function publishTeamBotMutationOptions(queryClient: QueryClient) {
       await client(path(botId, "/publication"), {
         method: "PUT",
         body,
-        fallback: "The Bot could not be published.",
+        fallback: "The Agente could not be published.",
       });
     },
     /* Publishing can widen who reaches a shared app, so the request inbox may now hold a
@@ -89,7 +89,7 @@ export function unpublishTeamBotMutationOptions(queryClient: QueryClient) {
     mutationFn: async (botId: string) => {
       await client(path(botId, "/publication"), {
         method: "DELETE",
-        fallback: "The Bot could not be unpublished.",
+        fallback: "The Agente could not be unpublished.",
       });
     },
     onSettled: () => refresh(queryClient),

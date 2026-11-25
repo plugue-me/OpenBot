@@ -1,0 +1,6839 @@
+{
+  "sourceCommit": "98c6c8e9750a6c38bff94913b1a3ee192e4f2065",
+  "records": [
+    {
+      "connector": "gmail",
+      "version": "0.19.0",
+      "sourceLicense": "MIT (root license, Community path)",
+      "availableActions": [
+        {
+          "name": "send_email",
+          "props": {
+            "receiver": {
+              "type": "ARRAY",
+              "required": true
+            },
+            "cc": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "bcc": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "subject": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "body_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "body": {
+              "type": "RICH_TEXT",
+              "required": true
+            },
+            "reply_to": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "sender_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "from": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "attachments": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "in_reply_to": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "draft": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "request_approval_in_mail",
+          "props": {
+            "receiver": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "cc": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "bcc": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "subject": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "body_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "body": {
+              "type": "RICH_TEXT",
+              "required": true
+            },
+            "reply_to": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "sender_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "from": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "attachments": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "in_reply_to": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "reply_to_email",
+          "props": {
+            "message_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "reply_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "body_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "body": {
+              "type": "RICH_TEXT",
+              "required": true
+            },
+            "sender_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "attachment": {
+              "type": "FILE",
+              "required": false
+            },
+            "attachment_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create_draft_reply",
+          "props": {
+            "message_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "reply_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "body_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "body": {
+              "type": "RICH_TEXT",
+              "required": false
+            },
+            "include_original_message": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "sender_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "attachment": {
+              "type": "FILE",
+              "required": false
+            },
+            "attachment_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_get_mail",
+          "props": {
+            "message_id": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_search_mail",
+          "props": {
+            "from": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "to": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "subject": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "content": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "has_attachment": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "attachment_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "label": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "category": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "after_date": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "before_date": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "include_spam_trash": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "max_results": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_send_email",
+          "props": {
+            "receiver": {
+              "type": "ARRAY",
+              "required": true
+            },
+            "cc": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "bcc": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "subject": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "body_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "body": {
+              "type": "RICH_TEXT",
+              "required": true
+            },
+            "reply_to": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "sender_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "from": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "attachments": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "in_reply_to": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "draft": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_reply_to_thread",
+          "props": {
+            "message_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "reply_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "body_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "body": {
+              "type": "RICH_TEXT",
+              "required": true
+            },
+            "sender_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "attachment": {
+              "type": "FILE",
+              "required": false
+            },
+            "attachment_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_get_message",
+          "props": {
+            "message_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_search_email",
+          "props": {
+            "from": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "to": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "subject": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "content": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "has_attachment": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "attachment_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "label": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "category": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "after_date": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "before_date": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "include_spam_trash": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "max_results": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_get_thread",
+          "props": {
+            "thread_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "format": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_create_draft",
+          "props": {
+            "receiver": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "cc": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "bcc": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "subject": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "body_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "body": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "sender_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "from": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "thread_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "attachments": {
+              "type": "ARRAY",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_update_draft",
+          "props": {
+            "draft_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "receiver": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "cc": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "bcc": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "subject": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "body_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "body": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "sender_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "from": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "thread_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "attachments": {
+              "type": "ARRAY",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_send_draft",
+          "props": {
+            "draft_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_get_draft",
+          "props": {
+            "draft_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_list_drafts",
+          "props": {
+            "query": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "max_results": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_delete_draft",
+          "props": {
+            "draft_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_list_threads",
+          "props": {
+            "query": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "label_ids": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "include_spam_trash": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "max_results": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_get_attachment",
+          "props": {
+            "message_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "attachment_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "file_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_forward_message",
+          "props": {
+            "message_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "receiver": {
+              "type": "ARRAY",
+              "required": true
+            },
+            "cc": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "bcc": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "note": {
+              "type": "LONG_TEXT",
+              "required": false
+            },
+            "sender_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_list_labels",
+          "props": {}
+        },
+        {
+          "name": "gmail_get_label",
+          "props": {
+            "label_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_get_profile",
+          "props": {}
+        },
+        {
+          "name": "gmail_list_history",
+          "props": {
+            "start_history_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "history_types": {
+              "type": "STATIC_MULTI_SELECT_DROPDOWN",
+              "required": false
+            },
+            "max_results": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_stop_watch",
+          "props": {}
+        },
+        {
+          "name": "gmail_create_label",
+          "props": {
+            "name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_add_label_to_email",
+          "props": {
+            "message_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "label": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_remove_label_from_email",
+          "props": {
+            "message_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "label": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_archive_email",
+          "props": {
+            "message_id": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_archive_message",
+          "props": {
+            "message_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_get_or_create_label",
+          "props": {
+            "name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_modify_labels",
+          "props": {
+            "message_ids": {
+              "type": "ARRAY",
+              "required": true
+            },
+            "add_label_ids": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "remove_label_ids": {
+              "type": "ARRAY",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_trash_message",
+          "props": {
+            "message_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_untrash_message",
+          "props": {
+            "message_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "gmail_update_label",
+          "props": {
+            "label_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "label_list_visibility": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "message_list_visibility": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "background_color": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "text_color": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "gmail_modify_thread_labels",
+          "props": {
+            "thread_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "add_label_ids": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "remove_label_ids": {
+              "type": "ARRAY",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "custom_api_call",
+          "props": {
+            "url": {
+              "type": "DYNAMIC",
+              "required": true
+            },
+            "method": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "headers": {
+              "type": "OBJECT",
+              "required": false
+            },
+            "queryParams": {
+              "type": "OBJECT",
+              "required": false
+            },
+            "body_type": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "body": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "response_is_binary": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "failsafe": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "timeout": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "followRedirects": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        }
+      ],
+      "enabledReadActions": [
+        "gmail_get_profile",
+        "gmail_get_message",
+        "gmail_search_email",
+        "gmail_list_labels"
+      ],
+      "enabledWriteActions": [
+        "gmail_create_label",
+        "gmail_archive_message"
+      ]
+    },
+    {
+      "connector": "google-calendar",
+      "version": "0.14.0",
+      "sourceLicense": "MIT (root license, Community path)",
+      "availableActions": [
+        {
+          "name": "google-calendar-add-attendees",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "eventId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "attendees": {
+              "type": "ARRAY",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "create_quick_event",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "text": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "send_updates": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create_google_calendar_event",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "start_date_time": {
+              "type": "DATE_TIME",
+              "required": true
+            },
+            "end_date_time": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "location": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "description": {
+              "type": "LONG_TEXT",
+              "required": false
+            },
+            "colorId": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "attendees": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "guests_can_modify": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "guests_can_invite_others": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "guests_can_see_other_guests": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "send_notifications": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "create_meet_link": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "google_calendar_get_events",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "event_types": {
+              "type": "STATIC_MULTI_SELECT_DROPDOWN",
+              "required": true
+            },
+            "search": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "start_date": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "end_date": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "singleEvents": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "update_event",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "eventId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "hint": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "start_date_time": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "end_date_time": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "location": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "description": {
+              "type": "LONG_TEXT",
+              "required": false
+            },
+            "colorId": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "attendees": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "guests_can_modify": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "guests_can_invite_others": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "guests_can_see_other_guests": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "delete_event",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "eventId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "google_calendar_find_busy_free_periods",
+          "props": {
+            "calendar_ids": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": true
+            },
+            "start_date": {
+              "type": "DATE_TIME",
+              "required": true
+            },
+            "end_date": {
+              "type": "DATE_TIME",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "google_calendar_get_event_by_id",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "event_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "max_attendees": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "time_zone": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "google_calendar_search_events_all_calendars",
+          "props": {
+            "query": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "start_date": {
+              "type": "DATE_TIME",
+              "required": true
+            },
+            "end_date": {
+              "type": "DATE_TIME",
+              "required": true
+            },
+            "single_events": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "google_calendar_find_free_slots",
+          "props": {
+            "calendar_ids": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": true
+            },
+            "start_date": {
+              "type": "DATE_TIME",
+              "required": true
+            },
+            "end_date": {
+              "type": "DATE_TIME",
+              "required": true
+            },
+            "min_duration_minutes": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "working_hours_start": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "working_hours_end": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "google_calendar_list_recurring_event_instances",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "event_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "time_min": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "time_max": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "show_deleted": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "max_results": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "google_calendar_move_event",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "event_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "destination_calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "send_updates": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "google_calendar_create_event",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "start_date_time": {
+              "type": "DATE_TIME",
+              "required": true
+            },
+            "end_date_time": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "location": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "description": {
+              "type": "LONG_TEXT",
+              "required": false
+            },
+            "colorId": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "attendees": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "guests_can_modify": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "guests_can_invite_others": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "guests_can_see_other_guests": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "send_notifications": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "create_meet_link": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "google_calendar_update_event",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "event_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "start_date_time": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "end_date_time": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "location": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "description": {
+              "type": "LONG_TEXT",
+              "required": false
+            },
+            "colorId": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "attendees": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "guests_can_modify": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "guests_can_invite_others": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "guests_can_see_other_guests": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "google_calendar_delete_event",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "event_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "google_calendar_get_event",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "event_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "max_attendees": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "time_zone": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "google_calendar_list_events",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "event_types": {
+              "type": "STATIC_MULTI_SELECT_DROPDOWN",
+              "required": true
+            },
+            "search": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "start_date": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "end_date": {
+              "type": "DATE_TIME",
+              "required": false
+            },
+            "singleEvents": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "google_calendar_find_busy_periods",
+          "props": {
+            "calendar_ids": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": true
+            },
+            "start_date": {
+              "type": "DATE_TIME",
+              "required": true
+            },
+            "end_date": {
+              "type": "DATE_TIME",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "google_calendar_remove_attendee",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "event_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "attendee_email": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "send_updates": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "google_calendar_import_event",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "ical_uid": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "summary": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "start_date_time": {
+              "type": "DATE_TIME",
+              "required": true
+            },
+            "end_date_time": {
+              "type": "DATE_TIME",
+              "required": true
+            },
+            "location": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "description": {
+              "type": "LONG_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "google_calendar_list_calendars",
+          "props": {}
+        },
+        {
+          "name": "google_calendar_get_calendar",
+          "props": {
+            "calendar_id": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "google_calendar_get_colors",
+          "props": {}
+        },
+        {
+          "name": "google_calendar_list_settings",
+          "props": {}
+        },
+        {
+          "name": "custom_api_call",
+          "props": {
+            "url": {
+              "type": "DYNAMIC",
+              "required": true
+            },
+            "method": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "headers": {
+              "type": "OBJECT",
+              "required": false
+            },
+            "queryParams": {
+              "type": "OBJECT",
+              "required": false
+            },
+            "body_type": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "body": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "response_is_binary": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "failsafe": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "timeout": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "followRedirects": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        }
+      ],
+      "enabledReadActions": [
+        "google_calendar_get_event",
+        "google_calendar_list_events",
+        "google_calendar_list_calendars"
+      ],
+      "enabledWriteActions": [
+        "google_calendar_create_event",
+        "google_calendar_delete_event"
+      ]
+    },
+    {
+      "connector": "google-drive",
+      "version": "0.14.1",
+      "sourceLicense": "MIT (root license, Community path)",
+      "availableActions": [
+        {
+          "name": "create_new_gdrive_folder",
+          "props": {
+            "folderName": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "parentFolder": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create_new_gdrive_file",
+          "props": {
+            "fileName": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "text": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "fileType": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "parentFolder": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "upload_gdrive_file",
+          "props": {
+            "fileName": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "file": {
+              "type": "FILE",
+              "required": true
+            },
+            "parentFolder": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "read-file",
+          "props": {
+            "fileId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "fileName": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get-file-or-folder-by-id",
+          "props": {
+            "id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "list-files",
+          "props": {
+            "folderId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "depthLevel": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "downloadFiles": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "includeTrashed": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "search-folder",
+          "props": {
+            "queryTerm": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "operator": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "query": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "type": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "parentFolder": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "duplicate_file",
+          "props": {
+            "fileId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "folderId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "mimeType": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "save_file_as_pdf",
+          "props": {
+            "documentId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "folderId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "update_permissions",
+          "props": {
+            "fileId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "user_email": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "permission_name": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "send_invitation_email": {
+              "type": "CHECKBOX",
+              "required": true
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "delete_permissions",
+          "props": {
+            "fileId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "user_email": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "permission_name": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "set_public_access",
+          "props": {
+            "fileId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "role": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "google-drive-move-file",
+          "props": {
+            "fileId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "folderId": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "delete_gdrive_file",
+          "props": {
+            "fileId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "trash_gdrive_file",
+          "props": {
+            "fileId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_export_folder_as_zip",
+          "props": {
+            "folderId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "googleDocsFormat": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "googleSheetsFormat": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "googleSlidesFormat": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "duplicatePathWarning": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "outputFileName": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "usePassword": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "passwordOptions": {
+              "type": "DYNAMIC",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_create_folder",
+          "props": {
+            "folder_name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "parent_folder_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_create_file_from_text",
+          "props": {
+            "file_name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "text": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "content_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "parent_folder_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_upload_file",
+          "props": {
+            "file_name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "file": {
+              "type": "FILE",
+              "required": true
+            },
+            "parent_folder_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_upload_from_url",
+          "props": {
+            "source_url": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "file_name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "mime_type": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "parent_folder_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_replace_file_content",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "file": {
+              "type": "FILE",
+              "required": true
+            },
+            "mime_type": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_download_file",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "destination_file_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_export_workspace_file",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "mime_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_get_file",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_list_files",
+          "props": {
+            "folder_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "include_trashed": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "depth_level": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "download_files": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_search_files",
+          "props": {
+            "query_term": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "operator": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "value": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "type": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "parent_folder_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "include_team_drives": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_copy_file",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "folder_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "convert_to": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_move_file",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "folder_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_update_file_metadata",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "description": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "starred": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_save_file_as_pdf",
+          "props": {
+            "document_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "folder_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_trash_file",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_untrash_file",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_delete_file",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_empty_trash",
+          "props": {
+            "drive_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_share_file",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "user_email": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "role": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "send_invitation_email": {
+              "type": "CHECKBOX",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_set_public_access",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "role": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_list_permissions",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_update_permission",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "user_email": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "new_role": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_remove_permission",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "user_email": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "role": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_list_shared_drives",
+          "props": {
+            "query": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "page_size": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_get_shared_drive",
+          "props": {
+            "drive_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_create_shared_drive",
+          "props": {
+            "name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_update_shared_drive",
+          "props": {
+            "drive_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_delete_shared_drive",
+          "props": {
+            "drive_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_create_comment",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "content": {
+              "type": "LONG_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_list_comments",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_create_reply",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "comment_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "content": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "action": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "drive_get_reply",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "comment_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "reply_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_list_replies",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "comment_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_update_reply",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "comment_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "reply_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "content": {
+              "type": "LONG_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_delete_reply",
+          "props": {
+            "file_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "comment_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "reply_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "drive_get_about",
+          "props": {}
+        },
+        {
+          "name": "custom_api_call",
+          "props": {
+            "url": {
+              "type": "DYNAMIC",
+              "required": true
+            },
+            "method": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "headers": {
+              "type": "OBJECT",
+              "required": false
+            },
+            "queryParams": {
+              "type": "OBJECT",
+              "required": false
+            },
+            "body_type": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "body": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "response_is_binary": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "failsafe": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "timeout": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "followRedirects": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        }
+      ],
+      "enabledReadActions": [
+        "drive_get_file",
+        "drive_list_files",
+        "drive_get_about"
+      ],
+      "enabledWriteActions": [
+        "drive_create_folder",
+        "drive_trash_file"
+      ]
+    },
+    {
+      "connector": "google-sheets",
+      "version": "0.21.0",
+      "sourceLicense": "MIT (root license, Community path)",
+      "availableActions": [
+        {
+          "name": "insert_row",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "first_row_headers": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "as_string": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "values": {
+              "type": "DYNAMIC",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "insert-row-at-top",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "first_row_headers": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "as_string": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "insertAfterRow": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "values": {
+              "type": "DYNAMIC",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "google-sheets-insert-multiple-rows",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "input_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "values": {
+              "type": "DYNAMIC",
+              "required": true
+            },
+            "overwrite": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "check_for_duplicate": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "check_for_duplicate_column": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "as_string": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "headerRow": {
+              "type": "NUMBER",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "update_row",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "row_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "empty_fields_info": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "first_row_headers": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "values": {
+              "type": "DYNAMIC",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "update-multiple-rows",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "empty_fields_info": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "values": {
+              "type": "DYNAMIC",
+              "required": true
+            },
+            "as_string": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "headerRow": {
+              "type": "NUMBER",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "delete_row",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "rowId": {
+              "type": "NUMBER",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "delete-multiple-rows",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "mode": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "startingRow": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "endingRow": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "rowNumbers": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "find_rows",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "columnName": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "searchValue": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "matchCase": {
+              "type": "CHECKBOX",
+              "required": true
+            },
+            "startingRow": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "numberOfRows": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "headerRow": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "useHeaderNames": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "find-or-create-row",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "columnName": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "searchValue": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "matchCase": {
+              "type": "CHECKBOX",
+              "required": true
+            },
+            "headerRow": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "useHeaderNames": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "first_row_headers": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "as_string": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "values": {
+              "type": "DYNAMIC",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "create-spreadsheet",
+          "props": {
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "folder": {
+              "type": "DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create-worksheet",
+          "props": {
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "headers": {
+              "type": "ARRAY",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "find-or-create-worksheet",
+          "props": {
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "headers": {
+              "type": "ARRAY",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "clear_sheet",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "is_first_row_headers": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "headerRow": {
+              "type": "NUMBER",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "clear-rows",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "startingRow": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "endingRow": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "delete-worksheet",
+          "props": {
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "rename-worksheet",
+          "props": {
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "newName": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "format-row",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "startingRow": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "endingRow": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "bgColor": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "textColor": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "bold": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "italic": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "strikethrough": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "find_row_by_num",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "rowNumber": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "headerRow": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "useHeaderNames": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get_next_rows",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "startRow": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "headerRow": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "useHeaderNames": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "memKey": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "groupSize": {
+              "type": "NUMBER",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "get-many-rows",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "first_row_headers": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "read-data-range",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "range": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "majorDimension": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "valueRenderOption": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "find_spreadsheets",
+          "props": {
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "spreadsheet_name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "exact_match": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "find-worksheet",
+          "props": {
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "exact_match": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "copy-worksheet",
+          "props": {
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "desinationSpeadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "create-column",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "columnName": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "columnIndex": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "export_sheet",
+          "props": {
+            "spreadsheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "sheetId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "includeTeamDrives": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "format": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "returnAsText": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_add_column",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "column_name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "column_index": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_add_multiple_rows",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "input_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "values": {
+              "type": "JSON",
+              "required": true
+            },
+            "overwrite": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "check_for_duplicate": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "duplicate_column": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "as_string": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "header_row": {
+              "type": "NUMBER",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_add_row_at_top",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "first_row_headers": {
+              "type": "CHECKBOX",
+              "required": true
+            },
+            "as_string": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "insert_after_row": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "values": {
+              "type": "JSON",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_add_row",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "first_row_headers": {
+              "type": "CHECKBOX",
+              "required": true
+            },
+            "as_string": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "values": {
+              "type": "JSON",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_add_worksheet",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "headers": {
+              "type": "ARRAY",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_append_dimension",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "dimension": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "length": {
+              "type": "NUMBER",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_append_values",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "worksheet_title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "range": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "values": {
+              "type": "JSON",
+              "required": true
+            },
+            "value_input_option": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_auto_resize_dimensions",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "dimension": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "start_index": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "end_index": {
+              "type": "NUMBER",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_clear_values",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "starting_row": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "ending_row": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_copy_worksheet",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "destination_spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_create_spreadsheet",
+          "props": {
+            "spreadsheet_title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "parent_folder_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_delete_dimension",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "dimension": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "start_index": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "end_index": {
+              "type": "NUMBER",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_delete_multiple_rows",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "mode": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "starting_row": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "ending_row": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "row_numbers": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_delete_row",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "row_id": {
+              "type": "NUMBER",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_delete_worksheet",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_export_worksheet",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "format": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "return_as_text": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_find_or_create_row",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "column_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "search_value": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "match_case": {
+              "type": "CHECKBOX",
+              "required": true
+            },
+            "header_row": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "use_header_names": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "first_row_headers": {
+              "type": "CHECKBOX",
+              "required": true
+            },
+            "as_string": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "values": {
+              "type": "JSON",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_find_or_create_worksheet",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "headers": {
+              "type": "ARRAY",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_find_rows",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "column_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "search_value": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "match_case": {
+              "type": "CHECKBOX",
+              "required": true
+            },
+            "starting_row": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "number_of_rows": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "header_row": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "use_header_names": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_find_worksheet",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "exact_match": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_format_cells",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "starting_row": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "ending_row": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "bg_color": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "text_color": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "bold": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "italic": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "strikethrough": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_get_all_rows",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "first_row_headers": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_get_next_rows",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "start_row": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "header_row": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "use_header_names": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "mem_key": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "group_size": {
+              "type": "NUMBER",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_get_row",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "row_number": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "header_row": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "use_header_names": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_get_spreadsheet",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "include_grid_data": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_get_values",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "worksheet_title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "range": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "major_dimension": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "value_render_option": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_insert_dimension",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "dimension": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "start_index": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "end_index": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "inherit_from_before": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_rename_worksheet",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "new_name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_search_spreadsheets",
+          "props": {
+            "spreadsheet_name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "exact_match": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_update_dimension_properties",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "dimension": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "start_index": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "end_index": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "pixel_size": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "hidden": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_update_multiple_rows",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "header_row": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "values": {
+              "type": "JSON",
+              "required": true
+            },
+            "as_string": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_update_row",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "row_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "first_row_headers": {
+              "type": "CHECKBOX",
+              "required": true
+            },
+            "values": {
+              "type": "JSON",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sheets_update_sheet_properties",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "sheet_id": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "frozen_row_count": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "frozen_column_count": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "tab_color": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "hidden": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "sheets_update_values",
+          "props": {
+            "spreadsheet_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "worksheet_title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "range": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "values": {
+              "type": "JSON",
+              "required": true
+            },
+            "value_input_option": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "major_dimension": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "custom_api_call",
+          "props": {
+            "url": {
+              "type": "DYNAMIC",
+              "required": true
+            },
+            "method": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "headers": {
+              "type": "OBJECT",
+              "required": false
+            },
+            "queryParams": {
+              "type": "OBJECT",
+              "required": false
+            },
+            "body_type": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "body": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "response_is_binary": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "failsafe": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "timeout": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "followRedirects": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        }
+      ],
+      "enabledReadActions": [
+        "sheets_get_spreadsheet",
+        "sheets_get_values"
+      ],
+      "enabledWriteActions": [
+        "sheets_update_values",
+        "sheets_append_values"
+      ]
+    },
+    {
+      "connector": "google-ads",
+      "version": "0.0.3",
+      "sourceLicense": "MIT (root license, Community path)",
+      "availableActions": [
+        {
+          "name": "createRecord",
+          "props": {
+            "customerId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "resourceType": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "record": {
+              "type": "JSON",
+              "required": true
+            },
+            "validateOnly": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "updateRecord",
+          "props": {
+            "customerId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "resourceType": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "identifier": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "record": {
+              "type": "JSON",
+              "required": true
+            },
+            "validateOnly": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "deleteRecord",
+          "props": {
+            "customerId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "resourceType": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "identifier": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "validateOnly": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "searchRecords",
+          "props": {
+            "customerId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "query": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "fetchAllPages": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "maxRows": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "pageToken": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "retrieveReport",
+          "props": {
+            "customerId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "resource": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "dateRange": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "startDate": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "endDate": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "segmentByDate": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "metrics": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "fields": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "where": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "orderBy": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "maxRows": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "query": {
+              "type": "LONG_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "addCustomerMatchData",
+          "props": {
+            "customerId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "userList": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "members": {
+              "type": "ARRAY",
+              "required": true
+            },
+            "adUserData": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "adPersonalization": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "acceptTerms": {
+              "type": "CHECKBOX",
+              "required": true
+            },
+            "waitForCompletion": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "removeCustomerMatchData",
+          "props": {
+            "customerId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "userList": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "members": {
+              "type": "ARRAY",
+              "required": true
+            },
+            "waitForCompletion": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "custom_api_call",
+          "props": {
+            "url": {
+              "type": "DYNAMIC",
+              "required": true
+            },
+            "method": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "headers": {
+              "type": "OBJECT",
+              "required": false
+            },
+            "queryParams": {
+              "type": "OBJECT",
+              "required": false
+            },
+            "body_type": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "body": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "response_is_binary": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "failsafe": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "timeout": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "followRedirects": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        }
+      ],
+      "enabledReadActions": [
+        "searchRecords",
+        "retrieveReport"
+      ],
+      "enabledWriteActions": []
+    },
+    {
+      "connector": "facebook-pages",
+      "version": "0.4.3",
+      "sourceLicense": "MIT (root license, Community path)",
+      "availableActions": [
+        {
+          "name": "create_post",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "message": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "link": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create_photo_post",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "photo": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "caption": {
+              "type": "LONG_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create_video_post",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "video": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "description": {
+              "type": "LONG_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "list_managed_pages",
+          "props": {
+            "limit": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "after": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get_page_details",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "fields": {
+              "type": "ARRAY",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create_page_post",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "message": {
+              "type": "LONG_TEXT",
+              "required": false
+            },
+            "link": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "scheduledPublishTime": {
+              "type": "DATE_TIME",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create_page_photo_post",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "photoUrl": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "caption": {
+              "type": "LONG_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create_page_video_post",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "videoUrl": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "description": {
+              "type": "LONG_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create_multi_photo_post",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "photoUrls": {
+              "type": "ARRAY",
+              "required": true
+            },
+            "message": {
+              "type": "LONG_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get_page_posts",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "limit": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "after": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get_post",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "postId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "fields": {
+              "type": "ARRAY",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "update_post",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "postId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "message": {
+              "type": "LONG_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "delete_post",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "postId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "get_scheduled_posts",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "limit": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "after": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "publish_scheduled_post",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "postId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "reschedule_post",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "postId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "scheduledPublishTime": {
+              "type": "DATE_TIME",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "get_page_photos",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "limit": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "after": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get_page_videos",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "limit": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "after": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get_post_reactions",
+          "props": {
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "objectId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "type": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        }
+      ],
+      "enabledReadActions": [
+        "list_managed_pages",
+        "get_page_details",
+        "get_page_posts"
+      ],
+      "enabledWriteActions": [
+        "create_page_post"
+      ]
+    },
+    {
+      "connector": "instagram-business",
+      "version": "1.1.2",
+      "sourceLicense": "MIT (root license, Community path)",
+      "availableActions": [
+        {
+          "name": "upload_photo",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "photo": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "caption": {
+              "type": "LONG_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "upload_reel",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "video": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "caption": {
+              "type": "LONG_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "publish_story",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "story_info": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "photo": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "video": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "publish_carousel",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "items": {
+              "type": "ARRAY",
+              "required": true
+            },
+            "caption": {
+              "type": "LONG_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get_profile",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "get_account_insights",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "metrics": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "period": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get_content_publishing_limit",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "list_media",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "limit": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "cursor": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get_media",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "media_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "get_media_insights",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "media_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "metrics": {
+              "type": "ARRAY",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "list_carousel_children",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "media_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "list_stories",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "list_tagged_media",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "limit": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "cursor": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "delete_media",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "media_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "delete_info": {
+              "type": "MARKDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "set_media_comments_enabled",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "media_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "enabled": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "list_media_comments",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "media_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "limit": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "cursor": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get_comment",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "comment_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "list_comment_replies",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "comment_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "create_comment",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "media_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "message": {
+              "type": "LONG_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "reply_to_comment",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "comment_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "message": {
+              "type": "LONG_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "set_comment_visibility",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "comment_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "hidden": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "delete_comment",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "comment_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "delete_info": {
+              "type": "MARKDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "list_conversations",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "limit": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "cursor": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "list_messages",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "conversation_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "send_message",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "window_info": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "recipient_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "text": {
+              "type": "LONG_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "send_media_message",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "window_info": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "recipient_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "media_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "url": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "send_private_reply",
+          "props": {
+            "page": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "reply_info": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "comment_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "text": {
+              "type": "LONG_TEXT",
+              "required": true
+            }
+          }
+        }
+      ],
+      "enabledReadActions": [
+        "get_profile",
+        "list_media",
+        "get_media"
+      ],
+      "enabledWriteActions": [
+        "create_comment",
+        "reply_to_comment"
+      ]
+    },
+    {
+      "connector": "whatsapp",
+      "version": "1.0.1",
+      "sourceLicense": "MIT (root license, Community path)",
+      "availableActions": [
+        {
+          "name": "sendMessage",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "to": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "text": {
+              "type": "LONG_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "sendMedia",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "to": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "type": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "media": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "caption": {
+              "type": "LONG_TEXT",
+              "required": false
+            },
+            "filename": {
+              "type": "LONG_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "send-template-message",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "to": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "message_template_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "message_template_fields": {
+              "type": "DYNAMIC",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "send_template",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "to": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "template_name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "language_code": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "body_parameters": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "header_parameters": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "button_url_parameters": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "reply_to_message_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "send_interactive_buttons",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "to": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "body": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "buttons": {
+              "type": "ARRAY",
+              "required": true
+            },
+            "header_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "header_text": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "header_media_url": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "footer": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "reply_to_message_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "send_interactive_list",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "to": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "body": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "button_text": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "section_title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "rows": {
+              "type": "ARRAY",
+              "required": true
+            },
+            "header_text": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "footer": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "reply_to_message_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "send_interactive_cta_url",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "to": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "body": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "button_text": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "url": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "header_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "header_text": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "header_media_url": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "footer": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "reply_to_message_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "send_location",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "to": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "latitude": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "longitude": {
+              "type": "NUMBER",
+              "required": true
+            },
+            "name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "address": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "reply_to_message_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "send_contact",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "to": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "formatted_name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "first_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "last_name": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "phones": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "emails": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "company": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "job_title": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "website": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "reply_to_message_id": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "send_reaction",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "to": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "message_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "emoji": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "mark_message_as_read",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "message_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "show_typing_indicator": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "upload_media",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "file": {
+              "type": "FILE",
+              "required": true
+            },
+            "mime_type": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "get_media_url",
+          "props": {
+            "media_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "download_media",
+          "props": {
+            "media_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "delete_media",
+          "props": {
+            "media_id": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "list_message_templates",
+          "props": {
+            "status": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "limit": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create_message_template",
+          "props": {
+            "name": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "language": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "category": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "components": {
+              "type": "JSON",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "edit_message_template",
+          "props": {
+            "message_template_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "components": {
+              "type": "JSON",
+              "required": true
+            },
+            "category": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "delete_message_template",
+          "props": {
+            "message_template_id": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "list_phone_numbers",
+          "props": {}
+        },
+        {
+          "name": "get_phone_number",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "get_business_profile",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "update_business_profile",
+          "props": {
+            "phone_number_id": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "about": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "address": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "description": {
+              "type": "LONG_TEXT",
+              "required": false
+            },
+            "email": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "websites": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "vertical": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            }
+          }
+        }
+      ],
+      "enabledReadActions": [
+        "get_business_profile",
+        "list_phone_numbers"
+      ],
+      "enabledWriteActions": [
+        "sendMessage",
+        "send_template"
+      ]
+    },
+    {
+      "connector": "hubspot",
+      "version": "0.14.0",
+      "sourceLicense": "MIT (root license, Community path)",
+      "availableActions": [
+        {
+          "name": "add_contact_to_list",
+          "props": {
+            "listId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "email": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "add-contact-to-workflow",
+          "props": {
+            "workflowId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "email": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "create-associations",
+          "props": {
+            "fromObjectId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "fromObjectType": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "toObjectType": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "associationType": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "toObjectIds": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "create-company",
+          "props": {
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create-contact",
+          "props": {
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create-blog-post",
+          "props": {
+            "contentGroupId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "authorId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "status": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "slug": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "title": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "body": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "meta": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "imageUrl": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "create-custome-object",
+          "props": {
+            "customObjectType": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "DYNAMIC",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create-deal",
+          "props": {
+            "dealname": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "pipelineId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "pipelineStageId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create-line-item",
+          "props": {
+            "productId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create-page",
+          "props": {
+            "pageType": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "pageTitle": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "internalPageName": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "templatePath": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "slug": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "language": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "metaDescription": {
+              "type": "LONG_TEXT",
+              "required": false
+            },
+            "state": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "headHtml": {
+              "type": "LONG_TEXT",
+              "required": false
+            },
+            "footerHtml": {
+              "type": "LONG_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create-or-update-contact",
+          "props": {
+            "email": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create-product",
+          "props": {
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create-ticket",
+          "props": {
+            "ticketName": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "pipelineId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "pipelineStageId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get-company",
+          "props": {
+            "companyId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get-contact",
+          "props": {
+            "contactId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get-custom-object",
+          "props": {
+            "customObjectType": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "customObjectId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "DYNAMIC",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get-deal",
+          "props": {
+            "dealId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get-line-item",
+          "props": {
+            "lineItemId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get-product",
+          "props": {
+            "productId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get-page",
+          "props": {
+            "pageType": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "get-ticket",
+          "props": {
+            "ticketId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "delete-page",
+          "props": {
+            "pageType": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "pageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "remove-associations",
+          "props": {
+            "fromObjectId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "fromObjectType": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "toObjectType": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "associationType": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "toObjectIds": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "remove-contact-from-list",
+          "props": {
+            "listId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "email": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "remove-email-subscription",
+          "props": {
+            "email": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "update-company",
+          "props": {
+            "companyId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "changesInfo": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "update-contact",
+          "props": {
+            "contactId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "changesInfo": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "update-custome-object",
+          "props": {
+            "customObjectType": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "customObjectId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "changesInfo": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "DYNAMIC",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "update-deal",
+          "props": {
+            "dealId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "changesInfo": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "dealname": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "pipelineId": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "pipelineStageId": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "update-line-item",
+          "props": {
+            "lineItemId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "changesInfo": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "productId": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "update-product",
+          "props": {
+            "productId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "changesInfo": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "update-ticket",
+          "props": {
+            "ticketId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "changesInfo": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "ticketName": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "pipelineId": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "pipelineStageId": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "objectProperties": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "upload-file",
+          "props": {
+            "folderId": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "fileName": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "accessLevel": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "file": {
+              "type": "FILE",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "find-associations",
+          "props": {
+            "fromObjectId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "fromObjectType": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "toObjectType": {
+              "type": "DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "find-company",
+          "props": {
+            "firstSearchPropertyName": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "firstSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "secondSearchPropertyName": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "secondSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "find-contact",
+          "props": {
+            "firstSearchPropertyName": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "firstSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "secondSearchPropertyName": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "secondSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "find-custom-object",
+          "props": {
+            "customObjectType": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "firstSearchPropertyName": {
+              "type": "DYNAMIC",
+              "required": true
+            },
+            "firstSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "secondSearchPropertyName": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "secondSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "DYNAMIC",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "find-deal",
+          "props": {
+            "firstSearchPropertyName": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "firstSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "secondSearchPropertyName": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "secondSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "find-line-item",
+          "props": {
+            "firstSearchPropertyName": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "firstSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "secondSearchPropertyName": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "secondSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "find-product",
+          "props": {
+            "firstSearchPropertyName": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "firstSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "secondSearchPropertyName": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "secondSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "find-ticket",
+          "props": {
+            "firstSearchPropertyName": {
+              "type": "DROPDOWN",
+              "required": true
+            },
+            "firstSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "secondSearchPropertyName": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "secondSearchPropertyValue": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "markdown": {
+              "type": "MARKDOWN",
+              "required": false
+            },
+            "additionalPropertiesToRetrieve": {
+              "type": "MULTI_SELECT_DROPDOWN",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get-owner-by-email",
+          "props": {
+            "email": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "list_pipelines",
+          "props": {
+            "objectType": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "list_pipeline_stages",
+          "props": {
+            "objectType": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "pipelineId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "list_static_lists",
+          "props": {
+            "query": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "count": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "offset": {
+              "type": "NUMBER",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "list_association_types",
+          "props": {
+            "fromObjectType": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "toObjectType": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "list_owners",
+          "props": {
+            "email": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "limit": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "after": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "list_object_properties",
+          "props": {
+            "objectType": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "customOnly": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create_note",
+          "props": {
+            "noteBody": {
+              "type": "LONG_TEXT",
+              "required": true
+            },
+            "associatedObjectType": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "associatedObjectId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "timestamp": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "create_task",
+          "props": {
+            "subject": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "associatedObjectType": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "associatedObjectId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "dueDate": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "body": {
+              "type": "LONG_TEXT",
+              "required": false
+            },
+            "status": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "priority": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "ownerId": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "search_objects",
+          "props": {
+            "objectType": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "filterGroups": {
+              "type": "JSON",
+              "required": false
+            },
+            "query": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "properties": {
+              "type": "ARRAY",
+              "required": false
+            },
+            "sortPropertyName": {
+              "type": "SHORT_TEXT",
+              "required": false
+            },
+            "sortDirection": {
+              "type": "STATIC_DROPDOWN",
+              "required": false
+            },
+            "limit": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "after": {
+              "type": "SHORT_TEXT",
+              "required": false
+            }
+          }
+        },
+        {
+          "name": "get-owner-by-id",
+          "props": {
+            "ownerId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "get-pipeline-stage-details",
+          "props": {
+            "objectType": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "pipelineId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            },
+            "stageId": {
+              "type": "SHORT_TEXT",
+              "required": true
+            }
+          }
+        },
+        {
+          "name": "custom_api_call",
+          "props": {
+            "url": {
+              "type": "DYNAMIC",
+              "required": true
+            },
+            "method": {
+              "type": "STATIC_DROPDOWN",
+              "required": true
+            },
+            "headers": {
+              "type": "OBJECT",
+              "required": false
+            },
+            "queryParams": {
+              "type": "OBJECT",
+              "required": false
+            },
+            "body_type": {
+              "type": "DROPDOWN",
+              "required": false
+            },
+            "body": {
+              "type": "DYNAMIC",
+              "required": false
+            },
+            "response_is_binary": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "failsafe": {
+              "type": "CHECKBOX",
+              "required": false
+            },
+            "timeout": {
+              "type": "NUMBER",
+              "required": false
+            },
+            "followRedirects": {
+              "type": "CHECKBOX",
+              "required": false
+            }
+          }
+        }
+      ],
+      "enabledReadActions": [
+        "get-contact",
+        "get-company",
+        "list_owners"
+      ],
+      "enabledWriteActions": []
+    }
+  ]
+}

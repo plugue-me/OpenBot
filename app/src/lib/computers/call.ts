@@ -124,7 +124,7 @@ export function failedComputerCall(
       reason:
         typeof body.error === "string"
           ? body.error
-          : "This action needs your approval in a chat with this Bot.",
+          : "This action needs your approval in a chat with this Agente.",
     };
   }
   return {

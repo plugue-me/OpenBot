@@ -70,7 +70,7 @@ export function AccessRequestsSection({ app }: { app?: string }) {
       description={
         app
           ? "People asking for this app. Approve does what they asked, right away."
-          : "People asking for an app to be turned on, given to a Bot, or connected. Approve does what they asked, right away."
+          : "People asking for an app to be turned on, given to a Agente, or connected. Approve does what they asked, right away."
       }
       title="Requests"
     >
@@ -88,7 +88,7 @@ export function AccessRequestsSection({ app }: { app?: string }) {
 
 /** What the request asks for, as the thing an administrator would do. */
 export function askedFor(request: AppAccessRequest): string {
-  const bot = request.botName ?? "a Bot";
+  const bot = request.botName ?? "a Agente";
   switch (request.kind) {
     case "enable":
       return `Turn on ${request.appTitle} for ${bot}`;
@@ -167,8 +167,8 @@ function AccessRequestRow({ request }: { request: AppAccessRequest }) {
 function GrantNote({ request }: { request: AppAccessRequest }) {
   const paths = useManagePaths();
   if (request.kind === "connect_shared" || !request.agentId) return null;
-  const bot = request.botName ?? "the Bot";
-  const where = `the Bot's page under ${request.appTitle}`;
+  const bot = request.botName ?? "the Agente";
+  const where = `the Agente's page under ${request.appTitle}`;
   const page =
     request.kind === "grant" ? (
       <Link {...paths.pluginBot(request.appKey, request.agentId)}>{where}</Link>

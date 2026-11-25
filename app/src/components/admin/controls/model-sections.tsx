@@ -88,7 +88,7 @@ export function ProviderSection() {
    */
   return (
     <PageSection
-      description="Built-in Bots and the framework picked at setup run on models from this provider."
+      description="Built-in Agentes and the framework picked at setup run on models from this provider."
       title="Connected"
     >
       {available.isPending ? null : available.error ? (
@@ -158,7 +158,7 @@ export function ModelChoiceSection() {
     <PageSection
       description={
         data.exposure === "all"
-          ? `People can pick any model your provider lists, and its thinking level, in each conversation. Bots run on ${data.default} until somebody picks another.`
+          ? `People can pick any model your provider lists, and its thinking level, in each conversation. Agentes run on ${data.default} until somebody picks another.`
           : `People pick among the models you allow below, and their thinking level, in each conversation. Until you allow one, every conversation runs on ${data.default}.`
       }
       title="In conversations"
@@ -208,7 +208,7 @@ export function ModelAllowlistSection() {
   const [open, setOpen] = useState(false);
   return (
     <ControlsSection
-      description="The models people may pick in each conversation. With Only allowed models on, a Bot on any other model is refused before it runs, and a remote Bot's own model is checked too."
+      description="The models people may pick in each conversation. With Only allowed models on, a Agente on any other model is refused before it runs, and a remote Agente's own model is checked too."
       title="Allowed models"
     >
       {({ data, setSetting, saving }) => {
@@ -224,8 +224,8 @@ export function ModelAllowlistSection() {
                   <ItemTitle>Only allowed models</ItemTitle>
                   <ItemDescription>
                     {modelAllowlist.enabled
-                      ? "Bots can only run on the models listed below."
-                      : "Off. Runs on other models, a remote Bot's own included, aren't refused."}
+                      ? "Agentes can only run on the models listed below."
+                      : "Off. Runs on other models, a remote Agente's own included, aren't refused."}
                   </ItemDescription>
                 </ItemContent>
                 <ItemActions>
@@ -443,7 +443,7 @@ export function AllowedModelsDialog({
           {defaultName && !selected.includes(defaultName) ? (
             <p className="text-muted-foreground text-xs">
               {defaultName} is the default and stays offered. With Only allowed
-              models on, a built-in Bot on it is refused unless you allow it.
+              models on, a built-in Agente on it is refused unless you allow it.
             </p>
           ) : null}
         </DialogBody>
@@ -489,7 +489,7 @@ export function ModelUsageSection({ team }: { team: boolean }) {
         </p>
       ) : usage.data.summary.length === 0 ? (
         <PageEmpty icon={IconChartBar} title="No recent runs">
-          Runs will appear here once a Bot answers.
+          Runs will appear here once a Agente answers.
         </PageEmpty>
       ) : (
         <PageRows>

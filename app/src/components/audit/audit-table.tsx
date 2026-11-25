@@ -90,7 +90,7 @@ const OUTCOME_LABEL: Record<AuditOutcome, string> = {
  */
 const FACETS = [
   { id: "mark", title: "Outcome" },
-  { id: "bot", title: "Bot" },
+  { id: "bot", title: "Agente" },
   { id: "startedBy", title: "Started by" },
 ] as const;
 
@@ -423,7 +423,7 @@ function auditColumns(
       id: "bot",
       accessorFn: (event) => botText(event, nameFor) || "None",
       filterFn: anyOf,
-      header: "Bot",
+      header: "Agente",
       cell: ({ row }) => (
         <WhoCell
           deployment={deployment}

@@ -91,7 +91,7 @@ function DescribeTeamRulesPage() {
   return (
     <PageShell
       backButton={BACK}
-      description="Say what Bots should do before an action, and your model writes the team rules. Nothing changes until you save them."
+      description="Say what Agentes should do before an action, and your model writes the team rules. Nothing changes until you save them."
       title="Describe team rules"
     >
       <form
@@ -119,10 +119,10 @@ function DescribeTeamRulesPage() {
           <FieldGroup>
             <DescribeField
               action="Write rules"
-              description="Say in a sentence what Bots should do, and your model writes rules from this OpenBot's apps and Bots. A second reading that never sees your words says what the rules do."
+              description="Say in a sentence what Agentes should do, and your model writes rules from this OpenBot's apps and Agentes. A second reading that never sees your words says what the rules do."
               id="team-rules-english"
               label="Describe the rules"
-              placeholder="Ask before any Bot sends email from Gmail"
+              placeholder="Ask before any Agente sends email from Gmail"
               write={async (described) => {
                 const translation = await translateApprovalRules(described);
                 save.reset();
@@ -147,7 +147,7 @@ function DescribeTeamRulesPage() {
                     : "These rules don't check, so OpenBot won't save them."
                 }
                 heading="What these rules do"
-                passed="Checks. Every rule matches tools and Bots this OpenBot has."
+                passed="Checks. Every rule matches tools and Agentes this OpenBot has."
                 warning={written.warning}
               />
             ) : null}
@@ -187,7 +187,7 @@ function DescribeTeamRulesPage() {
 function DescribeTeamRulesPageInEveryEdition() {
   return (
     <TeamPage
-      description="Say what Bots should do before an action, and your model writes the team rules. Nothing changes until you save them."
+      description="Say what Agentes should do before an action, and your model writes the team rules. Nothing changes until you save them."
       backButton={BACK}
       more={<YourOwnApprovals />}
       title="Describe team rules"

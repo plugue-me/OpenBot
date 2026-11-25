@@ -234,7 +234,7 @@ function GoalItem({
 }
 
 const EMPTY_BODY =
-  "Like “every weekday at 9, send me yesterday's new leads”. Or ask a Bot in a conversation.";
+  "Like “every weekday at 9, send me yesterday's new leads”. Or ask a Agente in a conversation.";
 
 /**
  * Every routine a Bot has, in one list: its routines, its goals, and its check-ins, each row the
@@ -336,7 +336,9 @@ export function RoutinesList({
           <PageEmpty
             action={<NewRoutineButton agentId={agentId} variant="outline" />}
             icon={IconClock}
-            title={agentId ? "No routines for this Bot yet" : "No routines yet"}
+            title={
+              agentId ? "No routines for this Agente yet" : "No routines yet"
+            }
           >
             {EMPTY_BODY}
           </PageEmpty>
@@ -350,7 +352,7 @@ export function RoutinesList({
                 <RoutineItem
                   botName={
                     showBot
-                      ? (bots.get(row.agentId)?.name ?? "A Bot")
+                      ? (bots.get(row.agentId)?.name ?? "A Agente")
                       : undefined
                   }
                   agentId={agentId}
@@ -360,7 +362,7 @@ export function RoutinesList({
                 <GoalItem
                   botName={
                     showBot
-                      ? (bots.get(row.agentId)?.name ?? "A Bot")
+                      ? (bots.get(row.agentId)?.name ?? "A Agente")
                       : undefined
                   }
                   agentId={agentId}
@@ -371,7 +373,7 @@ export function RoutinesList({
                 <SettingRow
                   agentId={agentId}
                   blocked={blocked}
-                  botName={bots.get(row.agentId)?.name ?? "A Bot"}
+                  botName={bots.get(row.agentId)?.name ?? "A Agente"}
                   label="Check-in"
                   setting={row.checkIn}
                   showBot={showBot}

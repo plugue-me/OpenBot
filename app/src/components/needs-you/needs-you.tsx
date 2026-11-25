@@ -41,7 +41,7 @@ export function useBotName() {
   return (agentId: string) =>
     bots.data?.find((bot) => bot.id === agentId)?.name ??
     attention.data?.find((bot) => bot.agentId === agentId)?.name ??
-    "Your Bot";
+    "Your Agente";
 }
 
 /**

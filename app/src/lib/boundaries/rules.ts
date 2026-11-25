@@ -20,24 +20,25 @@ export type RuleTemplate = RuleLabel & {
 export const RULE_TEMPLATES: RuleTemplate[] = [
   {
     name: "Never submit a form",
-    description: "Stops a Bot pressing a submit button, or Enter while typing.",
+    description:
+      "Stops a Agente pressing a submit button, or Enter while typing.",
     // The keypress clause is guarded by tool name so a click is only refused on a submit button.
     // Both tools that can press Enter are named: `computer_type` takes a `submit` flag that presses
     // it once the text is in, and a rule naming only `computer_key` left that door open. It asks for
     // the activation the gateway reads from the key, not `key == "Enter"`, so Shift+Enter, `\n` and
     // Space (which press a focused button) are refused as well.
     rule: '(intent == "activate" && contains(element.name, "submit")) || ((tool.name == "computer_key" || tool.name == "computer_type") && intent == "activate")',
-    cost: "Also stops the Bot pressing Enter or Space anywhere else. A form can submit from Enter in any field.",
+    cost: "Also stops the Agente pressing Enter or Space anywhere else. A form can submit from Enter in any field.",
   },
   {
     name: "Never type into a password field",
-    description: "Stops a Bot typing into a field labelled as a password.",
+    description: "Stops a Agente typing into a field labelled as a password.",
     rule: 'intent == "type" && contains(element.name, "password")',
     cost: "A password box with a different label isn't covered. The rule matches the label.",
   },
   {
     name: "Stay off social media",
-    description: "Stops a Bot opening Facebook or X.",
+    description: "Stops a Agente opening Facebook or X.",
     // Each site, or a name ending in a dot and the site. `contains(page.host, "x.com")` also stopped
     // dropbox.com and netflix.com. The dot is `[.]` because cel-js keeps backslashes as written, so
     // `\\.` would match a backslash and the rule would stop nothing.
@@ -67,14 +68,14 @@ export const RULE_ATTRIBUTES: { name: string; meaning: string }[] = [
     name: "intent",
     meaning: "What the action is for: activate, type or navigate.",
   },
-  { name: "bot.id", meaning: "The Bot taking the action." },
-  { name: "actor.id", meaning: "The person the Bot is acting for." },
+  { name: "bot.id", meaning: "The Agente taking the action." },
+  { name: "actor.id", meaning: "The person the Agente is acting for." },
   {
     name: "initiator.kind",
     meaning:
       "What started the run: person, routine or handoff. A scheduled run acts as its owner, so actor.id alone can't tell you.",
   },
-  { name: "page.url, page.host", meaning: "The page the Bot is on." },
+  { name: "page.url, page.host", meaning: "The page the Agente is on." },
   {
     name: "element.name, element.role",
     meaning: "The button, link or field being clicked or typed into.",

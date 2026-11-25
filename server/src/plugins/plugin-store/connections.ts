@@ -31,12 +31,12 @@ import {
   sharedAccountOnly,
   sharedAccountOnlySentence,
 } from "../deployment-clients";
-import { type AccountRef, filedUnderPerson } from "../shared-accounts";
 import {
   type RemoteTokenSet,
   registerRemoteClient,
   serializeTokenSet,
 } from "../remote-oauth";
+import { type AccountRef, filedUnderPerson } from "../shared-accounts";
 import type { StoreContext } from "./context";
 import {
   attemptNamed,
@@ -89,6 +89,94 @@ export function connectionMethods(context: StoreContext) {
      * this deployment issued itself is stored, revoked and recorded exactly like a pasted one.
      */
     registerOAuthClient: persistOAuthClient,
+
+    async removeKeyConnection(serverId: string, userId: string): Promise<void> {
+      const { entry } = await requireServer(serverId);
+      if (entry?.auth.kind !== "person-key")
+        throw new PluginRefusedError(
+          "This app does not use a personal API key.",
+          null,
+        );
+      const [held] = await database
+        .select({ credentialId: mcpUserCredentials.credentialId })
+        .from(mcpUserCredentials)
+        .where(
+          and(
+            eq(mcpUserCredentials.serverId, serverId),
+            eq(mcpUserCredentials.userId, userId),
+          ),
+        )
+        .limit(1);
+      if (!held) return;
+      await credentials.revoke(held.credentialId);
+      await database
+        .delete(mcpUserCredentials)
+        .where(
+          and(
+            eq(mcpUserCredentials.serverId, serverId),
+            eq(mcpUserCredentials.userId, userId),
+            eq(mcpUserCredentials.credentialId, held.credentialId),
+          ),
+        );
+      await recordAuditEvent(auditStore, {
+        eventType: "mcp.account_disconnected",
+        targetType: "mcp_server",
+        targetId: serverId,
+        actorUserId: userId,
+        payload: { server: serverId, vendorRevocationRequested: false },
+      });
+    },
+    async recordKeyConnection(input: {
+      serverId: string;
+      userId: string;
+      key: string;
+    }): Promise<void> {
+      const { entry } = await requireServer(input.serverId);
+      if (entry?.auth.kind !== "person-key")
+        throw new PluginRefusedError(
+          "This app does not accept a personal API key.",
+          null,
+        );
+      if (!input.key.trim() || input.key.length > 32_000)
+        throw new PluginRefusedError("A valid API key is required.", null);
+      if (entry.key === "integration-whatsapp") {
+        let value: { access_token?: unknown; businessAccountId?: unknown };
+        try {
+          value = JSON.parse(input.key);
+        } catch {
+          throw new PluginRefusedError(
+            "Use JSON with access_token and businessAccountId.",
+            null,
+          );
+        }
+        if (
+          !value ||
+          typeof value.access_token !== "string" ||
+          typeof value.businessAccountId !== "string"
+        )
+          throw new PluginRefusedError(
+            "Use JSON with access_token and businessAccountId.",
+            null,
+          );
+      }
+      const { replaced } = await swapUserCredential({
+        serverId: input.serverId,
+        userId: input.userId,
+        refreshToken: input.key,
+        scope: "api-key",
+      });
+      await recordAuditEvent(auditStore, {
+        eventType: "mcp.account_connected",
+        targetType: "mcp_server",
+        targetId: input.serverId,
+        actorUserId: input.userId,
+        payload: {
+          server: input.serverId,
+          method: "api-key",
+          reconnected: replaced,
+        },
+      });
+    },
 
     /**
      * The client to send somebody to the vendor with, registering one first if that is this

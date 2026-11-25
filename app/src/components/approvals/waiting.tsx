@@ -399,7 +399,7 @@ function AnswerDialog({
   const agents = useQuery(agentListQueryOptions());
   const asker = question.conversationBotId ?? question.botId;
   const bot = agents.data?.find((agent) => agent.id === asker);
-  const name = bot?.name ?? "Your Bot";
+  const name = bot?.name ?? "Your Agente";
   const ready = text.trim().length > 0 && !answer.isPending;
   const send = () => {
     if (!ready) return;

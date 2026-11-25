@@ -54,7 +54,7 @@ export function ComputerPane({
       </div>
       {agents.isPending ? null : !bot ? (
         <p className="px-[18px] py-3.5 text-[13px] text-(--opendots-muted)">
-          Create a Bot to give it a computer.
+          Create a Agente to give it a computer.
         </p>
       ) : (
         <div className="min-h-0 flex-1 overflow-y-auto">
@@ -68,7 +68,7 @@ export function ComputerPane({
                 value={bot.id}
               >
                 <SelectTrigger
-                  aria-label="Select Bot computer"
+                  aria-label="Select Agente computer"
                   className="h-7 border-0 bg-transparent px-1.5 text-[13px] text-foreground shadow-none dark:bg-transparent"
                   size="sm"
                 >

@@ -53,7 +53,7 @@ function OpenDotsPage({
 export function RoutinesScreen() {
   return (
     <OpenDotsPage
-      description="What your Bots do on a schedule. Ask a Bot to set one up. Pause, run or delete one here."
+      description="What your Agentes do on a schedule. Ask a Agente to set one up. Pause, run or delete one here."
       title="Routines"
     >
       <RoutinesList embedded />
@@ -72,7 +72,7 @@ export function MemoriesScreen() {
   return (
     <OpenDotsPage
       action={<RememberFact />}
-      description="What your Bots know about you."
+      description="What your Agentes know about you."
       title="Memories"
     >
       <MemoryList />

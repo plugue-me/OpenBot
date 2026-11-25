@@ -117,7 +117,7 @@ export function CheckInOfferCard({
         ? setting.sourceLink === link
         : (setting.subject ?? "").toLowerCase() === subject.toLowerCase()),
   );
-  const who = bot ?? "This Bot";
+  const who = bot ?? "This Agente";
 
   if (watching)
     return (

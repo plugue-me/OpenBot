@@ -23,7 +23,7 @@ function MemoryPage() {
   return (
     <PageShell
       className="@container"
-      description="Manage what your Bots remember about you. Facts you add are shared with all Bots; learned facts stay with the Bot that learned them."
+      description="Manage what your Agentes remember about you. Facts you add are shared with all Agentes; learned facts stay with the Agente that learned them."
       title="Memory"
     >
       <MemoryList action={<RememberFact />} />

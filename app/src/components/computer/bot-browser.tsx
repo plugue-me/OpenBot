@@ -1,6 +1,6 @@
 import type { BotBrowserApiState } from "@openbot/shared/bot-browser";
-import { IconLock, IconPlayerStop } from "@tabler/icons-react";
 import { RECORDER_COLLECTS_SHORT } from "@openbot/shared/recorder-disclosure";
+import { IconLock, IconPlayerStop } from "@tabler/icons-react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { type ReactNode, useId } from "react";
 import {
@@ -37,7 +37,6 @@ import {
 } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
 import { currentUserQueryOptions } from "@/lib/auth/queries";
-import { useComputerControl } from "@/lib/computers/use-control";
 import {
   botBrowserTabsMutationOptions,
   clearBotBrowserMutationOptions,
@@ -46,6 +45,7 @@ import {
   startBotBrowserRecordingMutationOptions,
   stopBotBrowserRecordingMutationOptions,
 } from "@/lib/bot-browser/mutations";
+import { useComputerControl } from "@/lib/computers/use-control";
 import { queryClient } from "@/query-client";
 
 /*
@@ -185,7 +185,7 @@ const recordingKey = (botId: string, recordingId: string) =>
 
 /** What the panel says when a recording of the person's ended without Stop, while they no longer hold the wheel. */
 const ENDED_WITH_THE_WHEEL =
-  "The recording ended when control went back to the Bot.";
+  "The recording ended when control went back to the Agente.";
 
 /**
  * Record and Stop for the Bot's browser, for the person holding the wheel, from the Recorder's report and the server's
@@ -229,7 +229,7 @@ function useBotRecording(
         ? "Someone else has control."
         : "Take control to record."
       : !state.open
-        ? "The Bot's browser isn't open."
+        ? "The Agente's browser isn't open."
         : null,
     start: startBotBrowserRecordingMutationOptions(queryClient, botId),
     stop: stopBotBrowserRecordingMutationOptions(queryClient, botId),
@@ -352,8 +352,8 @@ function RecordPanel({
     <section aria-label="Record a task">
       <h2 className="font-semibold text-sm">Record a task</h2>
       <p className="mt-1 text-pretty text-muted-foreground text-sm">
-        Do the task in the Bot's browser while you have control. Only what you
-        do is recorded, and it goes to your own Learning space.
+        Do the task in the Agente's browser while you have control. Only what
+        you do is recorded, and it goes to your own Learning space.
       </p>
       {/* What the Recorder keeps, said before Record, quieter than what to do. */}
       <p className="mt-2 text-pretty text-muted-foreground text-xs leading-relaxed">

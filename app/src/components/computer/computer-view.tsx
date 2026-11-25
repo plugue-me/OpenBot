@@ -157,7 +157,7 @@ function NothingToSee({
   settled,
   page,
   waiting,
-  owner = "the Bot's",
+  owner = "the Agente's",
 }: {
   problem: string | null;
   blankBrowser: boolean;
@@ -210,8 +210,8 @@ function NothingToSee({
           <span className="font-medium">Can't show the screen right now</span>
           <span>{problem}</span>
           <span>
-            The Bot may still be working. If this keeps happening, ask an admin
-            to check its Computer.
+            The Agente may still be working. If this keeps happening, ask an
+            admin to check its Computer.
           </span>
         </>
       ) : waiting === "starting" ? (
@@ -220,13 +220,13 @@ function NothingToSee({
         </span>
       ) : waiting === "asleep" ? (
         <span role="status">
-          {capitalise(owner)} computer is off. It starts when the Bot next uses
-          it.
+          {capitalise(owner)} computer is off. It starts when the Agente next
+          uses it.
         </span>
       ) : blankBrowser ? (
-        <span>Nothing is open in the Bot's browser right now.</span>
+        <span>Nothing is open in the Agente's browser right now.</span>
       ) : (
-        <span>Waiting for the Bot's screen…</span>
+        <span>Waiting for the Agente's screen…</span>
       )}
     </span>
   );
@@ -639,7 +639,7 @@ export function ComputerView({
    */
   const blankBrowser = !settled && shot ? isBlankBrowser(shot) : false;
 
-  const owner = name ? `${name}'s` : "the Bot's";
+  const owner = name ? `${name}'s` : "the Agente's";
   /**
    * The problem worth showing, which is not the same as the last one that happened.
    *
@@ -713,7 +713,7 @@ export function ComputerView({
   const polledScreen = showScreen ? (
     <img
       src={`data:image/png;base64,${drawn.base64}`}
-      alt="What the Bot is looking at"
+      alt="What the Agente is looking at"
       // Keep unexpected screenshot dimensions inside the reserved frame.
       className="absolute inset-0 h-full w-full object-contain opacity-100 transition-opacity duration-300 starting:opacity-0"
     />
@@ -806,7 +806,7 @@ export function ComputerView({
              */
             className="relative block w-full cursor-pointer bg-muted"
             style={frameStyle}
-            aria-label="Open the Bot's screen full size"
+            aria-label="Open the Agente's screen full size"
           >
             {polledScreen}
 
@@ -848,7 +848,7 @@ export function ComputerView({
                       : someoneElse
                         ? "Someone else has control."
                         : // Who holds the wheel, which is always true; whether it is acting right now, the page shows.
-                          `${name ?? "The Bot"} has control`}
+                          `${name ?? "The Agente"} has control`}
                 </span>
               </span>
               <ComputerControlButton
@@ -864,7 +864,7 @@ export function ComputerView({
         {!driving && !settled && control?.requested ? (
           <div className="flex items-start justify-between gap-3 border-t bg-amber-500/10 px-3 py-2 text-sm">
             <span>
-              <strong className="font-medium">The Bot needs you.</strong>{" "}
+              <strong className="font-medium">The Agente needs you.</strong>{" "}
               {reason}
             </span>
           </div>
@@ -885,8 +885,8 @@ export function ComputerView({
         {!settled && control?.transitioning ? (
           <p className="px-3 py-2 text-sm">
             {someoneElse
-              ? "Finishing the Bot's current action…"
-              : "Finishing the Bot's current action before giving you control…"}
+              ? "Finishing the Agente's current action…"
+              : "Finishing the Agente's current action before giving you control…"}
           </p>
         ) : null}
         {/*
@@ -896,11 +896,11 @@ export function ComputerView({
         {!settled && control?.recoveryRequired ? (
           <p className="px-3 py-2 text-sm">
             The Computer stopped while you had control. Take control to check
-            the page, then hand it back to the Bot.
+            the page, then hand it back to the Agente.
           </p>
         ) : !settled && control?.request?.status === "interrupted" ? (
           <p className="px-3 py-2 text-sm text-muted-foreground">
-            The Computer stopped before anyone took control. The Bot will ask
+            The Computer stopped before anyone took control. The Agente will ask
             again if it still needs you.
           </p>
         ) : null}
@@ -925,7 +925,7 @@ export function ComputerView({
             }}
           >
             <label className="block" htmlFor="openbot-secret">
-              <span className="font-medium">The Bot needs </span>
+              <span className="font-medium">The Agente needs </span>
               <span>{control.secretWanted}</span>
             </label>
             <div className="mt-1.5 flex gap-2">
@@ -937,7 +937,7 @@ export function ComputerView({
                 autoComplete="off"
                 autoCorrect="off"
                 spellCheck={false}
-                placeholder="Never shown to the Bot"
+                placeholder="Never shown to the Agente"
                 className="min-w-0 flex-1 rounded-md border bg-background px-2 py-1 text-sm"
               />
               <button
@@ -950,7 +950,7 @@ export function ComputerView({
             </div>
             <p className="mt-1 text-xs text-muted-foreground">
               This goes straight to the page. It isn't shown in the
-              conversation, and the Bot never sees it.
+              conversation, and the Agente never sees it.
             </p>
             {secretProblem ? (
               <p className="mt-1 text-xs text-destructive">{secretProblem}</p>
@@ -967,8 +967,9 @@ export function ComputerView({
         {!settled && driving && !control?.transitioning ? (
           <div className="flex flex-wrap items-center justify-between gap-2 border-t bg-amber-500/10 px-3 py-2">
             <span className="text-sm">
-              <strong className="font-medium">You have control.</strong> The Bot
-              waits until you hand it back. Open the screen to click and type.
+              <strong className="font-medium">You have control.</strong> The
+              Agente waits until you hand it back. Open the screen to click and
+              type.
             </span>
             <ComputerControlButton
               computerId={computerId}
@@ -999,7 +1000,7 @@ export function ComputerView({
            * (LiveScreen's autoFocus), as before.
            */}
           <DialogPrimitive.Popup
-            aria-label="The Bot's screen"
+            aria-label="The Agente's screen"
             initialFocus={closeButton}
             finalFocus={focusAfterClose}
             className={`fixed inset-0 z-50 flex flex-col overflow-y-auto outline-none ${settled ? "p-2 sm:p-8" : "p-2 sm:p-4"}`}
@@ -1046,7 +1047,7 @@ export function ComputerView({
                   type="button"
                   ref={closeButton}
                   onClick={() => setExpanded(false)}
-                  aria-label="Close the Bot's screen"
+                  aria-label="Close the Agente's screen"
                   title="Close (Esc)"
                   className="rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
@@ -1186,7 +1187,7 @@ export function ComputerView({
                       ) : control?.requested ? (
                         <span className="truncate text-muted-foreground lg:whitespace-normal">
                           <strong className="font-medium text-foreground">
-                            The Bot needs you.
+                            The Agente needs you.
                           </strong>{" "}
                           {reason}
                         </span>
@@ -1203,7 +1204,7 @@ export function ComputerView({
                   <BotRecordPanel botId={computerId} state={botBrowser.data} />
                 ) : botBrowser.error ? (
                   <p className="text-destructive text-sm" role="alert">
-                    Couldn't load the Bot's browser. Close this and open it
+                    Couldn't load the Agente's browser. Close this and open it
                     again.
                   </p>
                 ) : null}

@@ -145,7 +145,7 @@ export function LiveScreen({
   onProblem,
   onReconnecting,
   retryKey = 0,
-  label = "The Bot's screen. You have control. Click and type here.",
+  label = "The Agente's screen. You have control. Click and type here.",
   autoFocus = false,
   ref,
 }: Props) {
@@ -838,7 +838,7 @@ export function LiveScreen({
               tabIndex: 0,
             }
           : {})}
-        aria-label={driving ? label : "The Bot's screen, live"}
+        aria-label={driving ? label : "The Agente's screen, live"}
         data-connected={connected}
       />
       {inputProblem ? (

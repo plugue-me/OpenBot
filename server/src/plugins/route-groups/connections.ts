@@ -71,6 +71,47 @@ export function mountConnectionRoutes({
   appOfUrl,
   actorEmail,
 }: PluginRouteContext) {
+  routes.post("/servers/:id/api-key", requireUser, async (context) => {
+    const body = await context.req.json().catch(() => null);
+    if (
+      !body ||
+      typeof body.key !== "string" ||
+      Object.keys(body).some((key) => key !== "key")
+    )
+      return context.json({ error: "Supply only your API key." }, 400);
+    try {
+      await store.recordKeyConnection({
+        serverId: context.req.param("id"),
+        userId: context.var.actor.id,
+        key: body.key,
+      });
+      return context.json({ saved: true, verified: false });
+    } catch (error) {
+      return context.json(
+        {
+          error:
+            error instanceof PluginRefusedError
+              ? error.message
+              : "Could not save the connection.",
+        },
+        400,
+      );
+    }
+  });
+  routes.delete("/servers/:id/api-key", requireUser, async (context) => {
+    try {
+      await store.removeKeyConnection(
+        context.req.param("id"),
+        context.var.actor.id,
+      );
+      return context.json({ removed: true, vendorRevocationRequested: false });
+    } catch {
+      return context.json(
+        { error: "Could not remove the key. Try again." },
+        400,
+      );
+    }
+  });
   /**
    * Where a person's own connections are, and how to start a new one.
    *

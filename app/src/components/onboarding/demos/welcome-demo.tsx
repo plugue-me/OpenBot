@@ -55,7 +55,7 @@ export function WelcomeDemo() {
       beats={3}
       className="flex min-w-0 flex-col items-center gap-8 px-5 pt-12 pb-8 sm:px-8"
       kind="welcome"
-      label={`A message box where somebody asks a Bot: ${WELCOME_REQUEST}`}
+      label={`A message box where somebody asks a Agente: ${WELCOME_REQUEST}`}
       rest={0}
     >
       {({ beat, playing, reduced }) => (

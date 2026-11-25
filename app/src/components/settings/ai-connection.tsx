@@ -42,7 +42,7 @@ export function AiModelSection() {
   if (desktopShell() === null || !connection.data) return null;
   return (
     <PageSection
-      description="Choose the AI provider your Bots use and how OpenBot signs in to it."
+      description="Choose the AI provider your Agentes use and how OpenBot signs in to it."
       title="AI model"
     >
       <PageRows>
@@ -70,7 +70,7 @@ function AiConnectionRow({ connection }: { connection: DesktopAiConnection }) {
         <ItemContent>
           <ItemTitle>{described?.provider ?? "Not chosen yet"}</ItemTitle>
           <ItemDescription>
-            {described?.summary ?? "Choose the AI your Bots use."}
+            {described?.summary ?? "Choose the AI your Agentes use."}
           </ItemDescription>
         </ItemContent>
         <ItemActions>
@@ -83,8 +83,8 @@ function AiConnectionRow({ connection }: { connection: DesktopAiConnection }) {
             <DialogTitle>AI connection</DialogTitle>
             <DialogDescription>
               {described
-                ? `Your Bots use ${described.provider}. Your key or sign-in stays on this computer.`
-                : "Your Bots don't have an AI provider yet."}
+                ? `Your Agentes use ${described.provider}. Your key or sign-in stays on this computer.`
+                : "Your Agentes don't have an AI provider yet."}
             </DialogDescription>
           </DialogHeader>
           <DialogBody className="mt-4 flex flex-col gap-3 text-sm">

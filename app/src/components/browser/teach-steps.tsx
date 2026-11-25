@@ -88,8 +88,8 @@ export function TeachSteps({ state }: { state: BrowserApiState }) {
   if (shown === 1) {
     body = (
       <Slide
-        title="Do it once, and your Bots learn it"
-        description="Do a task in your browser as you always would. The Recorder follows each step, and your Bots learn to do it for you."
+        title="Do it once, and your Agentes learn it"
+        description="Do a task in your browser as you always would. The Recorder follows each step, and your Agentes learn to do it for you."
         action={<Button onClick={() => setStep(2)}>Continue</Button>}
       >
         <RecorderIllustration />
@@ -99,7 +99,7 @@ export function TeachSteps({ state }: { state: BrowserApiState }) {
     body = (
       <Slide
         title="Name the task"
-        description="Say what you're about to do. Your Bots use the name to know when to do it."
+        description="Say what you're about to do. Your Agentes use the name to know when to do it."
         onBack={() => setStep(1)}
         action={
           <Button disabled={!named} form="teach-a-bot-name" type="submit">
@@ -204,7 +204,7 @@ export function TeachSteps({ state }: { state: BrowserApiState }) {
         description={
           stopped.discarded
             ? "Nothing more is sent. Record the task again whenever you're ready."
-            : "Record another task, or the same one again, to teach your Bots more."
+            : "Record another task, or the same one again, to teach your Agentes more."
         }
         action={<Button onClick={() => setStep(2)}>Record another</Button>}
       >
@@ -216,7 +216,7 @@ export function TeachSteps({ state }: { state: BrowserApiState }) {
   }
 
   return (
-    <section aria-label="Teach a Bot" className="mt-6">
+    <section aria-label="Teach a Agente" className="mt-6">
       <div className="teach-stage relative flex min-h-[26rem] flex-col overflow-hidden rounded-2xl">
         <StepDots step={shown} />
         {body}

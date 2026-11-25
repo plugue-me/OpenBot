@@ -49,11 +49,11 @@ import { newId } from "../../../../lib/new-id";
  * profile links and reloads preserve the pending recipient without creating an empty channel.
  */
 /** What `GET /api/agents/:id` answers for a Bot this person cannot see. */
-const AGENT_NOT_FOUND = "Couldn't find that Bot.";
+const AGENT_NOT_FOUND = "Couldn't find that Agente.";
 
 /** Said when a draft holding files is sent to two or more Bots. */
 const GROUP_TAKES_NO_FILES =
-  "A conversation with more than one Bot can't take files yet. Remove them to send.";
+  "A conversation with more than one Agente can't take files yet. Remove them to send.";
 
 export const Route = createFileRoute("/_authed/_app/channel/new")({
   /*
@@ -169,7 +169,7 @@ function NewConversation({ composition }: { composition: string }) {
   const urlAgentDetailFailed = needsUrlAgentDetail && detailError && !fetched;
   const loadError =
     rosterError && profiles === undefined
-      ? "Couldn't load your Bots. Reload the page."
+      ? "Couldn't load your Agentes. Reload the page."
       : urlAgentDetailFailed
         ? /*
            * The server's 404 sentence (agents/routes.ts `mapStoreError`) means this person cannot see
@@ -177,8 +177,8 @@ function NewConversation({ composition }: { composition: string }) {
            * other failure is a load that can be retried, and says so.
            */
           detailFailure?.message === AGENT_NOT_FOUND
-          ? "This Bot isn't available to you. It may be unpublished or not shared with you."
-          : "Couldn't load that Bot. Reload the page."
+          ? "This Agente isn't available to you. It may be unpublished or not shared with you."
+          : "Couldn't load that Agente. Reload the page."
         : null;
   /** Bots picked in the To: field, in the order they will answer; the URL's Bot until one is picked. */
   const [picked, setPicked] = useState<AgentProfile[] | null>(null);
@@ -323,8 +323,8 @@ function NewConversation({ composition }: { composition: string }) {
               autoFocus={!chosen}
               placeholder={
                 selected.length
-                  ? "Add another Bot for a group…"
-                  : "Choose a Bot…"
+                  ? "Add another Agente for a group…"
+                  : "Choose a Agente…"
               }
             />
           </ComboboxChips>
@@ -344,11 +344,13 @@ function NewConversation({ composition }: { composition: string }) {
                 }}
               >
                 <AgentOrb size="24px" state="idle" />
-                <span className="font-medium">New Bot</span>
-                <span className="text-muted-foreground">Create a new Bot</span>
+                <span className="font-medium">New Agente</span>
+                <span className="text-muted-foreground">
+                  Create a new Agente
+                </span>
               </button>
             </div>
-            <ComboboxEmpty>No Bots found.</ComboboxEmpty>
+            <ComboboxEmpty>No Agentes found.</ComboboxEmpty>
             <ComboboxList className="min-h-0">
               {(item: AgentProfile) => (
                 <ComboboxItem key={item.id} value={item} className="h-10">
@@ -386,7 +388,7 @@ function NewConversation({ composition }: { composition: string }) {
             })
             .catch(() => {
               setError(
-                "Your Bot was created, but could not be selected. Choose it from the recipient list.",
+                "Your Agente was created, but could not be selected. Choose it from the recipient list.",
               );
             });
         }}
@@ -461,7 +463,7 @@ function NewConversation({ composition }: { composition: string }) {
               className="px-3.5 pb-2 text-sm text-muted-foreground"
               role="status"
             >
-              Choose a Bot first.
+              Choose a Agente first.
             </p>
           ) : null
         }

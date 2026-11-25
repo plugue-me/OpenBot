@@ -28,7 +28,7 @@ import { Route as AdminToolRoute } from "@/routes/_authed/admin/plugins/$key_.to
  * Each of them decides whether the connector exists from `plugins.data`, and `isPending` goes false
  * on a failed fetch exactly as it does on a successful one, so a request that never came back fell
  * through to "there is no such connector" — about a connector that may be added and granted right
- * now. The per-Bot grant screen beside them already tells the two apart (`plugins.data && !server`,
+ * now. The per-Agente grant screen beside them already tells the two apart (`plugins.data && !server`,
  * see `bot-app-grants-screen.test.tsx`); these are the three pages that did not.
  *
  * Only the plugins read fails here. The connections and roster reads answer, so each case is about
@@ -291,13 +291,13 @@ test("standalone built-in tool execution needs no callback token and does not im
           agents: [
             {
               id: "local",
-              name: "Local Bot",
+              name: "Local Agente",
               endpoint: null,
               hasCallbackToken: false,
             },
             {
               id: "remote",
-              name: "Remote Bot",
+              name: "Remote Agente",
               endpoint: "https://example.test/agent",
               hasCallbackToken: true,
             },
@@ -333,12 +333,12 @@ test("standalone built-in tool execution needs no callback token and does not im
     failingQueryClient(),
     `/admin/plugins/${APP_KEY}/tools/${TOOL_NAME}`,
   );
-  await view.findByText("Local Bot");
+  await view.findByText("Local Agente");
   expect(
     await view.findByText(/Can call this tool\. Every call is still checked/),
   ).toBeTruthy();
   expect(
-    view.getByText("Remote Bots cannot use these tools in this deployment."),
+    view.getByText("Remote Agentes cannot use these tools in this deployment."),
   ).toBeTruthy();
   expect(view.queryByText(/Issue one on its page/)).toBeNull();
 });

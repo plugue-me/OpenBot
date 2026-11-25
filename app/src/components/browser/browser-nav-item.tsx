@@ -6,7 +6,7 @@ import type { RecorderStore } from "@/lib/recorder/bridge";
 import { elapsed, RecordingMark, useSecondsSince } from "./recording";
 
 /** What the page and the Skills page call the place where a person teaches their Bots a task. */
-export const TEACH_A_BOT = "Teach a Bot";
+export const TEACH_A_BOT = "Teach a Agente";
 
 /** The one toast that says the Recorder's store page opened. */
 const STORE_TOAST = "browser-store-opened";

@@ -206,7 +206,7 @@ function IntelligenceSection({
   const memory = totalMemory(status.intelligenceContainers);
   return (
     <PageSection
-      description="These keep your Bots' conversations and skills. OpenBot needs them while it runs."
+      description="These keep your Agentes' conversations and skills. OpenBot needs them while it runs."
       title="OpenBot's services"
     >
       <PageRows>

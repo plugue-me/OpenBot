@@ -257,7 +257,7 @@ export function ActivityLog({ computerId }: { computerId: string }) {
   if (entries.length === 0) {
     return (
       <p className="text-muted-foreground text-sm">
-        Nothing yet. Pages the Bot opens, commands it runs and files it reads
+        Nothing yet. Pages the Agente opens, commands it runs and files it reads
         appear here.
       </p>
     );

@@ -1,12 +1,11 @@
-import { TelemetryAssistantMessage } from "@/components/channels/telemetry-assistant-message";
 import { CopilotChat } from "@copilotkit/react-core/v2";
 import { IconPlus } from "@tabler/icons-react";
 import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { ConversationApprovals } from "@/components/approvals/inline-approval";
+import { TelemetryAssistantMessage } from "@/components/channels/telemetry-assistant-message";
 import { ComputerChatControls } from "@/components/computer/computer-controls";
 import { ComputerViewPanel } from "@/components/computer/computer-panel";
-import { useOpenComputerOnRequest } from "@/lib/computers/panel-view";
 import { DetailPanel } from "@/components/layout/detail-panel";
 import { SidebarToggleBar } from "@/components/layout/sidebar-toggle";
 import { Button } from "@/components/ui/button";
@@ -17,6 +16,7 @@ import {
   agentListQueryOptions,
 } from "@/lib/agents/queries";
 import { tryClient } from "@/lib/client";
+import { useOpenComputerOnRequest } from "@/lib/computers/panel-view";
 import { useActiveBot } from "@/lib/copilot/active-bot";
 import { useBotActivity } from "@/lib/copilot/bot-activity";
 import { useBotThread } from "@/lib/copilot/bot-thread";
@@ -71,10 +71,10 @@ async function loadExplicitBot(agentId: string): Promise<BotDetailLookup> {
     `/api/agents/${encodeURIComponent(agentId)}`,
   );
   if (response.status === 404) return { status: "missing" };
-  if (!response.ok) throw new Error("Couldn't load this Bot.");
+  if (!response.ok) throw new Error("Couldn't load this Agente.");
 
   const body: unknown = await response.json().catch(() => null);
-  if (!isAgentEnvelope(body)) throw new Error("Couldn't load this Bot.");
+  if (!isAgentEnvelope(body)) throw new Error("Couldn't load this Agente.");
   return { bot: body.agent, status: "found" };
 }
 
@@ -110,7 +110,7 @@ function RouteComponent() {
     return (
       <div className="flex h-screen items-center justify-center p-6">
         <p className="text-destructive text-sm" role="alert">
-          Couldn't load your Bots. Reload the page.
+          Couldn't load your Agentes. Reload the page.
         </p>
       </div>
     );
@@ -119,7 +119,7 @@ function RouteComponent() {
     return (
       <div className="flex h-screen items-center justify-center p-6">
         <p className="text-destructive text-sm" role="alert">
-          Couldn't load this Bot. Reload the page.
+          Couldn't load this Agente. Reload the page.
         </p>
       </div>
     );
@@ -129,8 +129,8 @@ function RouteComponent() {
       <div className="flex h-screen items-center justify-center p-6">
         <p className="text-muted-foreground text-sm">
           {agent
-            ? `There's no Bot called "${agent}".`
-            : "There are no Bots yet."}
+            ? `There's no Agente called "${agent}".`
+            : "There are no Agentes yet."}
         </p>
       </div>
     );
@@ -225,7 +225,8 @@ function BotChat({ agentId, name }: { agentId: string; name: string }) {
             data-testid="bot-chat-history-unavailable"
             role="alert"
           >
-            Couldn't load earlier messages. The Bot is answering without them.
+            Couldn't load earlier messages. The Agente is answering without
+            them.
           </p>
         ) : null}
         {/*

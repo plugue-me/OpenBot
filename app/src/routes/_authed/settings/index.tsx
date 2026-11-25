@@ -45,7 +45,7 @@ function RouteComponent() {
    */
   return (
     <PageShell
-      description="Set your name, how OpenBot looks, and the instructions every Bot follows."
+      description="Set your name, how OpenBot looks, and the instructions every Agente follows."
       title="General"
     >
       {/*

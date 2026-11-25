@@ -69,7 +69,7 @@ export function AskTheTrail({
             if (event.key === "Enter" && isComposing(event))
               event.preventDefault();
           }}
-          placeholder="Ask what Bots did, like “Gmail changes by a routine last week”"
+          placeholder="Ask what Agentes did, like “Gmail changes by a routine last week”"
           value={text}
         />
         <InputGroupAddon align="inline-end">

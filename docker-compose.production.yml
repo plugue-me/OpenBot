@@ -1,0 +1,79 @@
+name: plugueme
+services:
+  postgres:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_DB: plugueme
+      POSTGRES_USER: plugueme
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set a private production password}
+    volumes: ["plugueme-postgres:/var/lib/postgresql/data"]
+    networks: [data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U plugueme -d plugueme"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+  migrate:
+    image: plugueme-server:${PLUGUEME_VERSION:-local}
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    env_file: ${PLUGUEME_ENV_FILE:-.env.production}
+    environment:
+      DATABASE_URL: postgres://plugueme:${POSTGRES_PASSWORD:?Set password}@postgres:5432/plugueme
+    command: ["bun", "scripts/migrate.ts"]
+    depends_on:
+      postgres: { condition: service_healthy }
+    networks: [data]
+    restart: "no"
+  server:
+    image: plugueme-server:${PLUGUEME_VERSION:-local}
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    env_file: ${PLUGUEME_ENV_FILE:-.env.production}
+    environment:
+      DATABASE_URL: postgres://plugueme:${POSTGRES_PASSWORD:?Set password}@postgres:5432/plugueme
+      PLUGUEME_INTEGRATION_URL: http://integrations:8090
+      PLUGUEME_INTEGRATION_SECRET: ${PLUGUEME_INTEGRATION_SECRET:?Set a random internal secret}
+      OPENBOT_SINGLE_USER: "false"
+      TENANT_PACKAGE_DIR: /app/examples/fintech
+      PORT: "3001"
+    command: ["bun", "src/standalone-entry.ts"]
+    ports: ["127.0.0.1:${PLUGUEME_PORT:-3031}:3001"]
+    networks: [data, integrations]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      integrations: { condition: service_healthy }
+    restart: unless-stopped
+    mem_limit: 2g
+  integrations:
+    build: ./services/integration-executor
+    image: plugueme-integrations:${PLUGUEME_VERSION:-local}
+    environment:
+      PLUGUEME_INTEGRATION_SECRET: ${PLUGUEME_INTEGRATION_SECRET:?Set a random internal secret}
+      PLUGUEME_REST_BASE_URL: ${PLUGUEME_REST_BASE_URL:-}
+      PLUGUEME_REST_KEY_HEADER: ${PLUGUEME_REST_KEY_HEADER:-Authorization}
+    # No UI, published port, database, Vault master key, Redis or Docker socket.
+    networks: [integrations]
+    read_only: true
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=64m"]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 64
+    mem_limit: 768m
+    cpus: 1.0
+    init: true
+    healthcheck:
+      test: ["CMD", "bun", "-e", "if (!(await fetch('http://127.0.0.1:8090/health')).ok) process.exit(1)"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+networks:
+  data:
+    internal: true
+  integrations:
+volumes:
+  plugueme-postgres:

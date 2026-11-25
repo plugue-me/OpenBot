@@ -28,7 +28,6 @@ import {
 } from "@/components/layout/page-shell";
 import { LearnedSkillDialog } from "@/components/learning/learned-skill-dialog";
 import { ProposalDialog } from "@/components/learning/proposal-dialog";
-import { skillTitle } from "@/lib/learning/display";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -41,6 +40,7 @@ import {
 } from "@/components/ui/item";
 import { Separator } from "@/components/ui/separator";
 import { agentListQueryOptions } from "@/lib/agents/queries";
+import { skillTitle } from "@/lib/learning/display";
 import {
   reviewLearningProposalMutationOptions,
   startLearningRunMutationOptions,
@@ -245,7 +245,7 @@ export function LearningPage() {
   return (
     <PageShell
       title="Automatic learning"
-      description="Learn from finished conversations, review the skills OpenBot proposes, and give published skills to Bots."
+      description="Learn from finished conversations, review the skills OpenBot proposes, and give published skills to Agentes."
     >
       <PageSection
         title="Participation"
@@ -293,18 +293,18 @@ export function LearningPage() {
               <ContainerSetup automatic={automatic.data} />
             )}
             <p className="text-muted-foreground text-sm">
-              With no default, Bots without their own container are left out.
+              With no default, Agentes without their own container are left out.
               IDs are 1 to 64 lowercase letters, numbers and single hyphens.
               Leave revision empty to use the latest published skills.
             </p>
             <fieldset className="grid gap-4">
               <legend className="mb-3 font-medium">
-                Per-Bot participation
+                Per-Agente participation
               </legend>
               {(agents.error || hiddenAgents.error) && (
                 <p role="alert" className="text-destructive">
-                  Couldn't load the Bot list. Saved settings for each Bot are
-                  below.
+                  Couldn't load the Agente list. Saved settings for each Agente
+                  are below.
                 </p>
               )}
               {botIds.map((id) => {
@@ -383,7 +383,7 @@ export function LearningPage() {
       </PageSection>
       <PageSection
         title="Review and publish"
-        description="OpenBot studies finished conversations and proposes skills. Review and publish them below. Bots only use published skills."
+        description="OpenBot studies finished conversations and proposes skills. Review and publish them below. Agentes only use published skills."
       >
         <div className="grid gap-4">
           <label className="grid gap-2 text-sm">
@@ -415,7 +415,7 @@ export function LearningPage() {
                   : snapshot.configuration === "invalid"
                     ? "The selected container or its instrumentation isn't available."
                     : snapshot.configuration === "selection_required"
-                      ? "Choose a Bot, or set a default container."
+                      ? "Choose a Agente, or set a default container."
                       : "No Learning container is assigned."}
               </p>
               {snapshot.modelProblem && (
@@ -485,7 +485,7 @@ export function LearningPage() {
                   <>
                     <p>
                       {!delivery.data.configured
-                        ? "Delivery is off for this Bot."
+                        ? "Delivery is off for this Agente."
                         : !delivery.data.initialized
                           ? "Waiting for the first verified skill snapshot."
                           : delivery.data.stale
@@ -567,7 +567,7 @@ function ProposedSkills({ agentId }: { agentId?: string }) {
   return (
     <PageSection
       title="Proposed skills"
-      description="Approve a skill to publish it to the Bots that use this container. Each decision is recorded in the audit log."
+      description="Approve a skill to publish it to the Agentes that use this container. Each decision is recorded in the audit log."
       action={
         <Button
           type="button"
@@ -779,7 +779,7 @@ function PublishedSkills({ agentId }: { agentId?: string }) {
   return (
     <PageSection
       title="Published skills"
-      description="Bots on this container use these skills. Open one to read it."
+      description="Agentes on this container use these skills. Open one to read it."
     >
       {skills.isPending ? null : skills.error ? (
         <p role="alert" className="mt-4 text-destructive text-sm">
@@ -841,7 +841,7 @@ function PublishedSkills({ agentId }: { agentId?: string }) {
 function LearningPageInEveryEdition() {
   return (
     <TeamPage
-      description="Learn from finished conversations, review the skills OpenBot proposes, and give published skills to Bots."
+      description="Learn from finished conversations, review the skills OpenBot proposes, and give published skills to Agentes."
       more={<YourOwnLearning />}
       title="Automatic learning"
     >

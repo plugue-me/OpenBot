@@ -66,7 +66,7 @@ export function botSharedAppsQueryOptions(botId: string) {
     queryFn: async (): Promise<BotSharedApps> => {
       const response = await client(
         `/api/approvals/shared-use/bot/${encodeURIComponent(botId)}`,
-        { fallback: "Couldn't load this Bot's shared apps." },
+        { fallback: "Couldn't load this Agente's shared apps." },
       );
       return response.json();
     },

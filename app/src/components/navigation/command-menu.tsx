@@ -105,7 +105,7 @@ const SEARCH_DEBOUNCE_MS = 250;
 
 type Result = {
   id: string;
-  group: "Pages" | "Bots" | "Conversations";
+  group: "Pages" | "Agentes" | "Conversations";
   label: string;
   detail?: string;
   icon: ComponentType<{ className?: string }>;
@@ -195,7 +195,7 @@ function CommandMenuBody({ onClose }: { onClose: () => void }) {
     .filter((bot) => !trimmed || matches(bot.name, trimmed))
     .map((bot) => ({
       id: `bot-${bot.id}`,
-      group: "Bots" as const,
+      group: "Agentes" as const,
       label: bot.name,
       icon: ({ className }: { className?: string }) => (
         <span className={cn("contents", className)}>
@@ -288,7 +288,7 @@ function CommandMenuBody({ onClose }: { onClose: () => void }) {
         ? "Couldn't search conversations."
         : `${results.length} ${results.length === 1 ? "result" : "results"}`;
 
-  const groups = (["Pages", "Bots", "Conversations"] as const)
+  const groups = (["Pages", "Agentes", "Conversations"] as const)
     .map((group) => ({
       group,
       items: results.filter((result) => result.group === group),
@@ -303,7 +303,7 @@ function CommandMenuBody({ onClose }: { onClose: () => void }) {
     >
       <DialogTitle className="sr-only">Command palette</DialogTitle>
       <DialogDescription className="sr-only">
-        Open a page, a Bot or a conversation. Conversations are searched by
+        Open a page, a Agente or a conversation. Conversations are searched by
         their names and recent messages.
       </DialogDescription>
       <div className="flex items-center gap-2 border-border border-b px-3">
@@ -318,12 +318,12 @@ function CommandMenuBody({ onClose }: { onClose: () => void }) {
           aria-autocomplete="list"
           aria-controls={`${id}-list`}
           aria-expanded="true"
-          aria-label="Search pages, Bots and conversations"
+          aria-label="Search pages, Agentes and conversations"
           autoComplete="off"
           className="h-12 min-w-0 flex-1 bg-transparent text-base outline-none placeholder:text-muted-foreground md:text-sm"
           onChange={(event) => setQuery(event.target.value)}
           onKeyDown={onKeyDown}
-          placeholder="Search pages, Bots and conversations"
+          placeholder="Search pages, Agentes and conversations"
           role="combobox"
           spellCheck={false}
           type="text"

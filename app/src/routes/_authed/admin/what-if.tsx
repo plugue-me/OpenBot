@@ -109,7 +109,7 @@ function WhatIfPage() {
 
   const missing = vocabulary.data
     ? missingFrom(action, vocabulary.data)
-    : "Loading this OpenBot's Bots and apps.";
+    : "Loading this OpenBot's Agentes and apps.";
 
   const check = async () => {
     if (missing || checking) return;
@@ -126,7 +126,7 @@ function WhatIfPage() {
 
   return (
     <PageShell
-      description="Ask what OpenBot would do if a Bot took an action. Every control answers in the order OpenBot checks them, and you see which one decides."
+      description="Ask what OpenBot would do if a Agente took an action. Every control answers in the order OpenBot checks them, and you see which one decides."
       title="What would happen"
     >
       <form
@@ -150,7 +150,7 @@ function WhatIfPage() {
               if (event.key === "Enter" && isComposing(event))
                 event.preventDefault();
             }}
-            placeholder="Could the Sales Bot send email from Gmail when a routine runs it?"
+            placeholder="Could the Sales Agente send email from Gmail when a routine runs it?"
             value={text}
           />
           <InputGroupAddon align="inline-end">
@@ -204,7 +204,7 @@ function WhatIfPage() {
         >
           {vocabulary.isError ? (
             <p className="text-destructive text-sm" role="alert">
-              Couldn't load this OpenBot's Bots and apps. Reload the page.
+              Couldn't load this OpenBot's Agentes and apps. Reload the page.
             </p>
           ) : (
             <ActionChips

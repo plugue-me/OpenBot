@@ -191,7 +191,7 @@ export function SignInForm({
       <PageSection
         className={section}
         title="Sign in by hand"
-        description="Open the Bot's browser and sign in yourself. Then choose I've signed in and the Bot carries on."
+        description="Open the Agente's browser and sign in yourself. Then choose I've signed in and the Agente carries on."
       >
         <div className="mt-4 flex flex-wrap justify-end gap-2">
           <Button
@@ -209,7 +209,7 @@ export function SignInForm({
               <Link to="/bot" search={{ agent: data.botId, watch: true }} />
             }
           >
-            Open the Bot's browser
+            Open the Agente's browser
           </Button>
           <Button
             size="sm"
@@ -275,7 +275,7 @@ export function SignInForm({
       <PageSection
         className={section}
         title="Enter your login"
-        description="This goes straight into the Bot's browser. The Bot only learns whether it worked."
+        description="This goes straight into the Agente's browser. The Agente only learns whether it worked."
       >
         <form
           className="mt-4 flex flex-col gap-3"

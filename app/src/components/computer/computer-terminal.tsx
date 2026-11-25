@@ -66,8 +66,8 @@ export function ComputerTerminal({ computerId }: { computerId: string }) {
         {driving ? (
           <span className="text-sm">
             <strong className="font-medium">You have control</strong> of the
-            terminal and the screen. Click the terminal and type. The Bot waits
-            until you hand it back.
+            terminal and the screen. Click the terminal and type. The Agente
+            waits until you hand it back.
           </span>
         ) : (
           <span className="text-muted-foreground text-xs">
@@ -77,7 +77,7 @@ export function ComputerTerminal({ computerId }: { computerId: string }) {
                 ? "Finishing the current action…"
                 : someoneElse
                   ? "Someone else has control."
-                  : "The Bot has control."}
+                  : "The Agente has control."}
           </span>
         )}
         <ComputerControlButton

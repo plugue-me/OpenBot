@@ -52,18 +52,18 @@ export function CheckInsSection() {
               <IconRadar />
             </ItemMedia>
             <ItemContent>
-              <ItemTitle>Check-ins from all your Bots</ItemTitle>
+              <ItemTitle>Check-ins from all your Agentes</ItemTitle>
               <ItemDescription>
                 {byAdmin
                   ? "Turned off by your admin."
                   : on
-                    ? "On. Your Bots check what they can read and tell you when something needs you, at most once an hour."
-                    : "Off. None of your Bots check in for you."}
+                    ? "On. Your Agentes check what they can read and tell you when something needs you, at most once an hour."
+                    : "Off. None of your Agentes check in for you."}
               </ItemDescription>
             </ItemContent>
             <ItemActions>
               <Switch
-                aria-label="Check-ins for all your Bots"
+                aria-label="Check-ins for all your Agentes"
                 checked={on}
                 disabled={byAdmin || save.isPending}
                 onCheckedChange={(next) =>

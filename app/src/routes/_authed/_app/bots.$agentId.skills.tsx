@@ -12,7 +12,7 @@ function SkillsPage() {
   return (
     <BotSubpage
       agentId={agentId}
-      description="Choose which of your skills this Bot has. Type / and a skill's name to give it that instruction."
+      description="Choose which of your skills this Agente has. Type / and a skill's name to give it that instruction."
       title="Skills"
     >
       {(agent) => <SkillsSections agent={agent} />}
