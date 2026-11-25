@@ -238,7 +238,10 @@ export function startHttpServer(deps: {
   const isGatewaySocket = (data: SocketData): data is GatewaySocketData =>
     typeof (data as GatewaySocketData).gatewayUpstream === "string";
 
-  const intelligence = config.runtime?.intelligence;
+  const intelligence =
+    config.runtime?.mode === "intelligence"
+      ? config.runtime.intelligence
+      : undefined;
 
   // Hono owns the socket's data once it has upgraded it; this hands its own back to it.
   const asChannelSocket = (ws: { data: SocketData }) =>

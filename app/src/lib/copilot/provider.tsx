@@ -64,6 +64,16 @@ export function CopilotProvider({ children }: { children: ReactNode }) {
         ? { openGenerativeUI: { designSkill: GENERATIVE_UI_DESIGN_SKILL } }
         : {})}
     >
+      {capabilities?.standalone && (
+        <div
+          role="status"
+          className="border-b bg-muted px-4 py-2 text-sm text-muted-foreground"
+        >
+          Versão independente em desenvolvimento. Chat e histórico locais
+          disponíveis. Tarefas, rotinas, memória, aprendizado e ferramentas
+          ainda indisponíveis.
+        </div>
+      )}
       {/* Computer tools act on the Bot that made the call, which is usually the one on screen. */}
       <ActiveBotProvider>
         {/* Each run is offered its own Bot's tools, never the screen's; see bot-offer.ts. */}

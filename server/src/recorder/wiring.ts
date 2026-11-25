@@ -199,6 +199,10 @@ export function createRecorderExtension(deps: {
         }
       : async () => null;
 
+  if (config.runtime.mode !== "intelligence")
+    throw new Error(
+      "Recorder requires Intelligence and is unavailable in standalone mode.",
+    );
   const { apiUrl, apiKey } = config.runtime.intelligence;
   const recordings = createRecordings({
     pageForUser: trajectoryBindings.pageForUser,

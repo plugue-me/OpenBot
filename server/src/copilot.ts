@@ -418,6 +418,8 @@ function answersOwnRunsHere(
 }
 
 export type RuntimeModel = {
+  /** Optional server-owned output limit; never taken from browser input. */
+  maxOutputTokens?: number;
   provider: "openai" | "anthropic";
   defaultModel: string;
   plan?: PlanModelConfig;
@@ -857,6 +859,9 @@ export function builtInAgentConfiguration(
       ...promptSection("picked_skill", pickedSkill),
     ].join("\n\n"),
     ...(planModel ? {} : { apiKey: apiKey ?? undefined }),
+    ...(model.maxOutputTokens
+      ? { maxOutputTokens: model.maxOutputTokens }
+      : {}),
     // The run's thinking effort, when the person picked one the model takes. A plan's harness is
     // told through its own run instead (`planChoice`).
     ...(!planModel && effortProviderOptions(model)
@@ -3113,6 +3118,8 @@ export function mountCopilotRuntime(
     };
   } = {},
 ) {
+  if (config.runtime.mode !== "intelligence")
+    throw new Error("Use the local runtime mount for standalone execution.");
   const { intelligence } = config.runtime;
   const {
     basePath = "/api/copilotkit",

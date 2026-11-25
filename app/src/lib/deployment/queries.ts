@@ -13,6 +13,7 @@ import { client } from "@/lib/client";
  * deployment secret stay on the server. See server/src/app.ts.
  */
 export type DeploymentCapabilities = {
+  standalone?: boolean;
   /**
    * Whether a Bot may answer with an interface it wrote itself.
    *
@@ -74,6 +75,7 @@ export function deploymentCapabilitiesQueryOptions() {
           fallback: "Couldn't load what OpenBot can do.",
         })
       ).json()) as {
+        mode?: string;
         generativeUi?: boolean;
         selfHostBanner?: boolean;
         localEvaluation?: boolean;
@@ -83,6 +85,7 @@ export function deploymentCapabilitiesQueryOptions() {
       };
 
       return {
+        ...(body.mode === "standalone" ? { standalone: true } : {}),
         generativeUi: body.generativeUi === true,
         selfHostBanner: body.selfHostBanner === true,
         localEvaluation: body.localEvaluation === true,

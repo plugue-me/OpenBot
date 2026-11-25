@@ -101,6 +101,15 @@ const started = (stream: Observable<BaseEvent>) =>
     ),
   );
 
+test("opening a conversation before its first run returns an empty replay", async () => {
+  const runner = new LocalAgentRunner(store, 5);
+  expect(
+    await lastValueFrom(
+      runner.connect({ ownerId, threadId: randomUUID() }).pipe(toArray()),
+    ),
+  ).toEqual([]);
+});
+
 test("disconnecting does not stop work; a fresh runner replays the persisted answer without executing again", async () => {
   const r = request();
   r.input.threadId = r.threadId;

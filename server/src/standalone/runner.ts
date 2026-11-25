@@ -93,6 +93,10 @@ export class LocalAgentRunner extends AgentRunner {
           request.threadId,
           request.ownerId,
         );
+        if (!scope && !(await this.store.exists(request.threadId))) {
+          subscriber.complete();
+          return;
+        }
         if (!scope || (request.agentId && request.agentId !== scope.agentId))
           throw new LocalThreadDenied();
         const { runs } = await this.store.read(scope);

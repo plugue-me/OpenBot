@@ -1,7 +1,6 @@
 /**
- * What the runtime can do. There is exactly one answer because CopilotKit Intelligence is required
- * for durable threads and memory. Configuration the product cannot function without belongs at the
- * boot boundary.
+ * Runtime capabilities selected by the composition root. The original entry requires Intelligence;
+ * standalone-entry selects the local PostgreSQL/SSE implementation without remote credentials.
  */
 import { intelligenceApiKey } from "@openbot/shared/intelligence-key";
 import {
@@ -30,11 +29,18 @@ import type { BrokerProvider } from "./plugins/access";
 import { type VoiceConfig, voiceConfig } from "./voice/config";
 import { type WebBotAuth, webBotAuthFromEnv } from "./web-bot-auth";
 
-export type RuntimeCapabilities = {
+export type IntelligenceRuntimeCapabilities = {
   mode: "intelligence";
   durableHistory: true;
   intelligence: IntelligenceSettings;
 };
+export type StandaloneRuntimeCapabilities = {
+  mode: "standalone";
+  durableHistory: true;
+};
+export type RuntimeCapabilities =
+  | IntelligenceRuntimeCapabilities
+  | StandaloneRuntimeCapabilities;
 
 /**
  * The Intelligence contract. Three values are required; see runtimeCapabilities.
@@ -226,7 +232,9 @@ export type SingleUserAccess = {
   hosts: string[];
 };
 
-export type DeploymentConfig = {
+export type DeploymentConfig<
+  R extends RuntimeCapabilities = RuntimeCapabilities,
+> = {
   /**
    * Browser extension ids OpenBot trusts as the Recorder besides its own fixed id, for a fork or a
    * build signed with another key. From OPENBOT_RECORDER_EXTRA_EXTENSION_IDS, never from NODE_ENV.
@@ -368,7 +376,7 @@ export type DeploymentConfig = {
    */
   appUrl: string | undefined;
   tenantPackageDirectory: string;
-  runtime: RuntimeCapabilities;
+  runtime: R;
   /**
    * How long a Bot's stream may say nothing before this deployment ends the turn, in milliseconds.
    *
@@ -1176,7 +1184,9 @@ function oktaAuth(
  * for a token the platform had stopped handing out. It is still read and still forwarded when a
  * deployment sets one, which is what a self-hosted Intelligence with its own licence needs.
  */
-function runtimeCapabilities(environment: Environment): RuntimeCapabilities {
+function runtimeCapabilities(
+  environment: Environment,
+): IntelligenceRuntimeCapabilities {
   const settings = {
     apiUrl: url(environment, "INTELLIGENCE_API_URL"),
     gatewayWsUrl: url(environment, "INTELLIGENCE_GATEWAY_WS_URL"),
@@ -1617,7 +1627,15 @@ function serverPort(environment: Environment): number {
 }
 
 export function loadConfig(
+  environment?: Environment,
+): DeploymentConfig<IntelligenceRuntimeCapabilities>;
+export function loadConfig<R extends RuntimeCapabilities>(
+  environment: Environment,
+  runtime: R,
+): DeploymentConfig<R>;
+export function loadConfig(
   environment: Environment = process.env,
+  runtime?: RuntimeCapabilities,
 ): DeploymentConfig {
   const google = oauthClient(environment, "GOOGLE");
   const auth = authConfig(environment, google);
@@ -1678,7 +1696,7 @@ export function loadConfig(
     appUrl,
     tenantPackageDirectory:
       optional(environment, "TENANT_PACKAGE_DIR") ?? "../examples/fintech",
-    runtime: runtimeCapabilities(environment),
+    runtime: runtime ?? runtimeCapabilities(environment),
     recorder: { extraExtensionIds: recorderExtraExtensionIds(environment) },
     learning: learningDefault(environment),
     learningAutoAssign: learningAutoAssignEnabled(environment),

@@ -13,6 +13,7 @@
     "extension"
   ],
   "scripts": {
+    "start:standalone": "bun scripts/start-standalone.ts",
     "build": "bun run generate:app-config && bun run --filter '*' build",
     "dev": "bun run generate:app-config && bun run --filter app --filter server --parallel dev",
     "generate:app-config": "bun --env-file=.env scripts/generate-app-config.ts",
